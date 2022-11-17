@@ -1,0 +1,29 @@
+.wrapper {
+    display: flex;
+    background-color: var(--textHref);
+    width: 100vw;
+    height: 100px;
+}
+
+.nav {
+    display: flex;
+    background-color: #222222;
+    width: 100vw;
+    height: 90px;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav ul li {
+    display: inline-block;
+    color: #888888;
+    font-size: 11px;
+    padding-right: 1rem;
+    flex-wrap: wrap;
+}
+
+.square {
+    height: 5px;
+    width: 5px;
+    background-color: var(--textHref);
+}

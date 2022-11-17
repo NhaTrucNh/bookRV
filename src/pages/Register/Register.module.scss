@@ -1,0 +1,18 @@
+.wrapper {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://i.imgur.com/4CK7tUx.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    opacity: 0.8;
+}

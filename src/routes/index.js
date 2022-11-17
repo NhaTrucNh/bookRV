@@ -7,6 +7,8 @@ import Following from '~/pages/Following';
 import Profile from '~/pages/Profile';
 import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';
+import Login from '~/pages/Login';
+import Register from '~/pages/Register';
 
 //Pubic Routes
 const publicRoutes = [
@@ -14,6 +16,8 @@ const publicRoutes = [
     { path: '/following', component: Following },
     { path: '/profile', component: Profile },
     { path: '/upload', component: Upload, layout: HeaderOnly },
+    { path: '/login', component: Login, layout: HeaderOnly },
+    { path: '/register', component: Register, layout: HeaderOnly },
     { path: '/search', component: Search, layout: null },
 ];
 
