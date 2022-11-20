@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Login from '~/pages/Login';
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +45,9 @@ function Header() {
                     </div>
                 </div>
                 <div className={cx('actions')}>
-                    <button className={cx('button')}>Đăng nhập</button>
+                    <button className={cx('button')} onClick={Login}>
+                        Đăng nhập
+                    </button>
                 </div>
             </div>
         </header>
