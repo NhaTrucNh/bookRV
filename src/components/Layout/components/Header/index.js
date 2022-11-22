@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import Login from '~/pages/Login';
+import logo from '../../../../asset/images/Logo.png';
 
 const cx = classNames.bind(styles);
 
@@ -13,24 +13,24 @@ function Header() {
             <div className={cx('inner')}>
                 <div className={cx('asideLeft')}>
                     <div className={cx('logoBook')}>
-                        <img src="https://i.imgur.com/eCnefBB.png" alt="logo" />
+                        <img src={logo} alt="logo" />
                     </div>
                     <div id={cx('menu')}>
                         <ul>
                             <li>
-                                <a href="https://www.youtube.com/">Trang chủ</a>
+                                <a href="##">Trang chủ</a>
                             </li>
                             <li>
                                 <p>/</p>
                             </li>
                             <li>
-                                <a href="https://www.youtube.com/">Tủ sách của tôi</a>
+                                <a href="##">Tủ sách của tôi</a>
                             </li>
                             <li>
                                 <p>/</p>
                             </li>
                             <li>
-                                <a href="https://www.youtube.com/">Danh mục thể loại</a>
+                                <a href="##">Danh mục thể loại</a>
                             </li>
                         </ul>
                     </div>
@@ -45,9 +45,11 @@ function Header() {
                     </div>
                 </div>
                 <div className={cx('actions')}>
-                    <button className={cx('button')} onClick={Login}>
-                        Đăng nhập
-                    </button>
+                    <div className={cx('button')}>
+                        <a href="../../../../Login">
+                            <p>Đăng nhập</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>

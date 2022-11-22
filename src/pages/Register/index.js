@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import classNames from 'classnames/bind';
 import styles from './Register.module.scss';
+import logo from '../../asset/images/Logo.png';
 
 const cx = classNames.bind(styles);
 
@@ -9,7 +10,7 @@ function Register() {
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
-                    <img src="https://i.imgur.com/Hx0E4nF.png" />
+                    <img src={logo} />
                 </div>
                 <div className={cx('form')}>
                     <input type="email" placeholder="Nhập email" spellCheck={false} />

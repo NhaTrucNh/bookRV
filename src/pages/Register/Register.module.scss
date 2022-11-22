@@ -1,8 +1,8 @@
 .wrapper {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-image: linear-gradient(0, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.8)),
-        url('https://i.imgur.com/OhiNP9w.jpg');
+        url(../../asset/images/register_cover.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,8 +10,8 @@
 }
 
 .inner {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
