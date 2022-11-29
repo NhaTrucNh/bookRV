@@ -1,5 +1,6 @@
 //Layouts
 import { HeaderOnly } from '~/components/Layout';
+// import { HeaderAccount } from '~/components/Layout'
 
 //Pages
 import Home from '~/pages/Home';
@@ -19,6 +20,7 @@ const publicRoutes = [
     { path: '/login', component: Login, layout: HeaderOnly },
     { path: '/register', component: Register, layout: HeaderOnly },
     { path: '/search', component: Search, layout: null },
+    // { path: '/search', component: Search, layout: null },
 ];
 
 const privateRoutes = [];

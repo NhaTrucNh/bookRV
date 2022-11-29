@@ -1,0 +1,141 @@
+.wrapper {
+    --search-border-radius: 60px;
+    height: 60px;
+    width: 100vw;
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+}
+
+.inner {
+    height: 100%;
+    width: 100%;
+    background-color: #222222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 4rem;
+    padding-left: 2rem;
+}
+
+.asideLeft {
+    display: flex;
+    justify-content: flex-start;
+}
+.logoBook {
+    // padding-left: 2em;
+    padding-right: 2em;
+
+    img {
+        width: 80px;
+    }
+}
+
+#menu ul {
+    list-style-type: none;
+}
+
+#menu ul li {
+    display: inline-flex;
+    padding-right: 2.5rem;
+}
+
+#menu ul li a {
+    color: #888888;
+    text-transform: uppercase;
+    font-size: 12px;
+
+    &:hover {
+        color: #b9b9b9;
+    }
+
+    &:active {
+        color: #a0a0a0;
+    }
+}
+
+#menu ul li p {
+    color: var(--textHref);
+    font-size: 18px;
+}
+
+.search {
+    width: 358px;
+    height: 27px;
+    padding-left: 12px;
+    display: flex;
+    background-color: #3f3f3f;
+    border-radius: var(--search-border-radius);
+    border: 2px solid transparent;
+
+    input {
+        flex: 1;
+        height: 100%;
+        color: #888888;
+        font-size: 11px;
+        background-color: transparent;
+        font-family: Roboto;
+        text-transform: uppercase;
+        caret-color: var(--textHref);
+    }
+
+    input:not(:placeholder-shown) ~ .search-btn {
+        color: #888888;
+    }
+
+    &:focus-within {
+        border-color: rgb(70, 70, 70);
+    }
+}
+.clear {
+    position: relative;
+    // top: 50%;
+    transform: translateY(-50);
+    color: #888888;
+}
+
+.search-btn {
+    height: 100%;
+    padding-right: 12px;
+    background-color: transparent;
+    border-top-right-radius: var(--search-border-radius);
+    border-bottom-right-radius: var(--search-border-radius);
+    color: #666666;
+    padding-left: 10px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #444;
+    }
+
+    &:active {
+        background-color: #555;
+    }
+}
+
+.button {
+    background-color: var(--textHref);
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    // margin-right: 4em;
+    cursor: pointer;
+    font-size: 11px;
+    text-transform: uppercase;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+
+    p {
+        color: #fff;
+    }
+
+    &:hover {
+        background-color: #ff7a5c;
+    }
+    &:active {
+        background-color: #ff8267;
+    }
+}

@@ -1,5 +1,9 @@
 .wrapper {
-    width: 356px;
-    min-height: 1000px;
-    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 300px;
+    min-height: 100vh;
+    background-color: aquamarine;
+    padding: 3rem;
 }
