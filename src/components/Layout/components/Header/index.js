@@ -32,6 +32,12 @@ function Header() {
                             <li>
                                 <a href="##">Danh mục thể loại</a>
                             </li>
+                            <li>
+                                <p>/</p>
+                            </li>
+                            <li>
+                                <a href="##">Tin tức</a>
+                            </li>
                         </ul>
                     </div>
                     <div className={cx('search')}>
@@ -46,7 +52,7 @@ function Header() {
                 </div>
                 <div className={cx('actions')}>
                     <div className={cx('button')}>
-                        <a href="../../../../Login">
+                        <a href="../../../../login">
                             <p>Đăng nhập</p>
                         </a>
                     </div>

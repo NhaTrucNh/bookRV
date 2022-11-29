@@ -23,7 +23,7 @@ function Login() {
                     <button>Đăng nhập</button>
                 </div>
                 <p>
-                    Chưa có tài khoản ? <a href="../Register">Đăng ký</a>
+                    Chưa có tài khoản ? <a href="../register">Đăng ký</a>
                 </p>
             </div>
         </div>

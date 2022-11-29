@@ -23,7 +23,7 @@ function Register() {
                     <button>Đăng ký</button>
                 </div>
                 <p>
-                    Đã có tài khoản ? <a href="../Login">Đăng nhập</a>
+                    Đã có tài khoản ? <a href="../login">Đăng nhập</a>
                 </p>
             </div>
         </div>
