@@ -1,5 +1,6 @@
 //Layouts
 import { HeaderOnly } from '~/components/Layout';
+import { HeaderAndFooter } from '~/components/Layout';
 // import { HeaderAccount } from '~/components/Layout'
 
 //Pages
@@ -10,6 +11,7 @@ import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register';
+import BookShow from '~/pages/BookShow';
 
 //Pubic Routes
 const publicRoutes = [
@@ -19,6 +21,7 @@ const publicRoutes = [
     { path: '/upload', component: Upload, layout: HeaderOnly },
     { path: '/login', component: Login, layout: HeaderOnly },
     { path: '/register', component: Register, layout: HeaderOnly },
+    { path: '/bookshow', component: BookShow, layout: HeaderAndFooter },
     { path: '/search', component: Search, layout: null },
     // { path: '/search', component: Search, layout: null },
 ];
