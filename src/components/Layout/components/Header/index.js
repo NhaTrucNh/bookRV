@@ -41,7 +41,7 @@ function Header() {
                         </ul>
                     </div>
                     <div className={cx('search')}>
-                        <input placeholder="Bạn muốn tìm gì" spellCheck={false} />
+                        <input placeholder="BẠN MUỐN TÌM GÌ" spellCheck={false} />
                         <button className={cx('clear')}>
                             <FontAwesomeIcon icon={faXmark} />
                         </button>

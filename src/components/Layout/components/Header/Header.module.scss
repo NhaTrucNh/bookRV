@@ -73,7 +73,6 @@
         font-size: 11px;
         background-color: transparent;
         font-family: Roboto;
-        text-transform: uppercase;
         caret-color: var(--textHref);
     }
 
@@ -90,6 +89,7 @@
     // top: 50%;
     transform: translateY(-50);
     color: #888888;
+    display: none;
 }
 
 .search-btn {

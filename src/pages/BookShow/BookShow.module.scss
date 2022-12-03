@@ -4,17 +4,194 @@
     min-height: 100vh;
     flex-flow: row nowrap;
     padding: 6rem;
+    justify-content: center;
+    // font-family: 'Montserrat';
 }
 
 .BookPage-LeftColumn {
-    width: 20vw;
     height: auto;
-    background-color: yellowgreen;
+    // background-color: yellowgreen;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 24vw;
+    min-height: 100vh;
+    align-items: center;
+
+    img {
+        width: 22rem;
+        height: 30rem;
+        object-fit: cover;
+        border-bottom-right-radius: 1.3rem;
+        border-top-right-radius: 1.3rem;
+        box-shadow: 1px 2px 15px rgba(0, 0, 0, 0.2);
+        margin-bottom: 2rem;
+    }
 }
 
 .BookPage-RightColumn {
     width: 80vw;
     height: auto;
     margin-left: 3.5em;
-    background-color: navy;
+    // background-color: navy;
+}
+.AddBtn {
+    display: flex;
+    width: 24vw;
+    height: 5rem;
+    margin-bottom: 2rem;
+    // border-radius: 5rem;
+    .Add {
+        width: 20vw;
+        background-color: var(--textHref);
+        border-top-left-radius: 5rem;
+        border-bottom-left-radius: 5rem;
+        border-right: 1px solid #ce4a2e;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+
+        &:hover {
+            background-color: #ff7a5c;
+        }
+        &:active {
+            background-color: #ff8267;
+        }
+    }
+    .Change-btn {
+        margin: 0 auto;
+        background-color: var(--textHref);
+        width: 4vw;
+        border-top-right-radius: 5rem;
+        border-bottom-right-radius: 5rem;
+        color: white;
+
+        &:hover {
+            background-color: #ff7a5c;
+        }
+        &:active {
+            background-color: #ff8267;
+        }
+    }
+}
+
+.BuyBtn {
+    display: flex;
+    width: 24vw;
+    height: 5rem;
+    margin-bottom: 2rem;
+    .Add {
+        width: 20vw;
+        border: 2px solid var(--textHref);
+        border-right: none;
+        border-top-left-radius: 5rem;
+        border-bottom-left-radius: 5rem;
+        border-right: 1px solid #ce4a2e;
+        color: var(--textHref);
+        font-size: 1.5rem;
+        font-weight: 600;
+
+        &:hover {
+            background-color: #f6f6f6;
+        }
+        &:active {
+            background-color: #efefef;
+        }
+    }
+    .Change-btn {
+        margin: 0 auto;
+        width: 4vw;
+        border: 2px solid var(--textHref);
+        border-left: none;
+        border-top-right-radius: 5rem;
+        border-bottom-right-radius: 5rem;
+        color: var(--textHref);
+
+        &:hover {
+            background-color: #f6f6f6;
+        }
+        &:active {
+            background-color: #e7e7e7;
+        }
+    }
+}
+
+.BookPage-RightColumn {
+    .Title {
+        font-size: 4rem;
+    }
+    .Author {
+        font-size: 2rem;
+        color: #9d9d9d;
+        font-weight: 100;
+        border: 2px solid transparent;
+
+        &:hover {
+            text-decoration: underline;
+        }
+        &:focus {
+            border: 2px solid #000000;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+        }
+    }
+    .RatingStats {
+        // display: inline-;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: baseline;
+        margin-bottom: 1.5rem;
+        .Rating {
+            color: #fff200;
+            font-size: 3rem;
+            margin-right: 0.5rem;
+
+            .Star {
+                margin-right: 0.5rem;
+            }
+        }
+        h1 {
+            font-family: 'Crimson Text';
+        }
+    }
+    .Summary {
+        text-align: justify;
+        margin-bottom: 2rem;
+    }
+    .Genre {
+        font-size: 1.4rem;
+        display: inline-flex;
+        margin-bottom: 1.5rem;
+        .GenreTitle {
+            color: #5d5d5d;
+            margin-right: 1rem;
+        }
+        .GenreTag {
+            font-weight: 600;
+        }
+    }
+}
+
+.Info1 {
+    margin-bottom: 3rem;
+}
+
+.sameGenre {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+
+    .Product {
+        .imgProduct {
+            width: 17rem;
+            height: 24rem;
+            object-fit: cover;
+            margin-right: 2rem;
+        }
+    }
 }

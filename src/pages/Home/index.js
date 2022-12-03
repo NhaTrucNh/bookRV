@@ -12,7 +12,7 @@ function Home() {
                 <hr width="100%" color="#E8E8E8" />
             </div>
             <div className={cx('book-publish')}>
-                <a href="##">
+                <a href="../bookShow">
                     <img src={bluep4} alt="bluep4" />
                 </a>
                 <a href="##">
