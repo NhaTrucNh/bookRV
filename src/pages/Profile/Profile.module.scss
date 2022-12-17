@@ -1,0 +1,125 @@
+.wrapper {
+    width: 100%;
+    height: auto;
+    // background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+
+    .title {
+        text-transform: uppercase;
+    }
+
+    a {
+        &:hover {
+            color: var(--textHref);
+            transition-duration: 1s;
+        }
+    }
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 2rem;
+
+    .profile {
+        grid-column-start: 3;
+        grid-column-end: 7;
+        justify-content: center;
+        align-items: center;
+
+        hr {
+            margin-top: 3rem;
+        }
+    }
+}
+
+.top {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 3rem;
+}
+
+.left {
+    // display: grid;
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    img {
+        width: 170px;
+        height: 170px;
+        border-radius: 170px;
+        object-fit: cover;
+        -webkit-border-radius: 170px;
+        -moz-border-radius: 170px;
+        -ms-border-radius: 170px;
+        -o-border-radius: 170px;
+        margin-bottom: 1rem;
+    }
+
+    div {
+        display: flex;
+        justify-content: center;
+    }
+    span {
+        margin-left: 0.1rem;
+    }
+
+    a {
+        &:hover {
+            color: var(--textHref);
+        }
+    }
+}
+
+.right {
+    grid-column-start: 3;
+    grid-column-end: 7;
+
+    hr {
+        margin-top: 0;
+    }
+
+    .userName {
+        font-weight: 700;
+        font-size: larger;
+        text-transform: uppercase;
+    }
+
+    .dob {
+        font-weight: 700;
+    }
+
+    .aboutMe {
+        font-weight: 700;
+    }
+
+    span {
+        font-weight: 400;
+    }
+}
+
+.bot {
+    .Tit {
+        font-weight: 700;
+        font-size: large;
+        margin-bottom: 2rem;
+    }
+
+    .shelf {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

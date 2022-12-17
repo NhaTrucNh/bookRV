@@ -1,26 +1,53 @@
 .wrapper {
-    display: flex;
-    width: 100vw;
+    width: 100%;
+    height: 100%;
     min-height: 100vh;
-    flex-flow: row nowrap;
-    padding: 6rem;
+    margin-top: 6rem;
+    // padding: 6rem;
     justify-content: center;
     // font-family: 'Montserrat';
+    font-family: Roboto;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    place-items: center;
+}
+
+.column {
+    max-width: 1280px;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    // background-color: yellowgreen;
+    grid-column-start: 2;
+    grid-column-end: 12;
+    justify-content: center;
+    // padding: 6vh 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 7fr;
+    // row-gap: 4;
+    grid-gap: 4rem;
 }
 
 .BookPage-LeftColumn {
     height: auto;
-    // background-color: yellowgreen;
-    display: flex;
+    // background-color: yellow;
+    // display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 24vw;
-    min-height: 100vh;
+    // width: 24vw;
+    min-height: 100%;
     align-items: center;
 
     img {
-        width: 22rem;
-        height: 30rem;
+        display: flex;
+        width: 80%;
+        height: 26rem;
         object-fit: cover;
         border-bottom-right-radius: 1.3rem;
         border-top-right-radius: 1.3rem;
@@ -30,19 +57,19 @@
 }
 
 .BookPage-RightColumn {
-    width: 80vw;
+    width: 100%;
     height: auto;
-    margin-left: 3.5em;
+    // margin-left: 3.5em;
     // background-color: navy;
 }
 .AddBtn {
     display: flex;
-    width: 24vw;
-    height: 5rem;
+    width: 100%;
+    height: 4rem;
     margin-bottom: 2rem;
     // border-radius: 5rem;
     .Add {
-        width: 20vw;
+        width: 100%;
         background-color: var(--textHref);
         border-top-left-radius: 5rem;
         border-bottom-left-radius: 5rem;
@@ -73,19 +100,81 @@
             background-color: #ff8267;
         }
     }
+
+    select {
+        /*ResetSelect*/
+        appearance: none;
+        outline: 0;
+        border: 0;
+        box-shadow: none;
+        /*Personalize*/
+        flex: 1;
+        padding: 0 3em;
+        margin: 0 auto;
+        color: black;
+        background-color: var(--textHref);
+        background-image: none;
+        cursor: pointer;
+        border-radius: 4rem;
+        -webkit-border-radius: 4rem;
+        -moz-border-radius: 4rem;
+        -ms-border-radius: 4rem;
+        -o-border-radius: 4rem;
+    }
+    /* Remove IE arrow */
+    select::-ms-expand {
+        display: none;
+    }
+    /* Custom Select wrapper */
+    .select {
+        position: relative;
+        display: flex;
+        width: 20em;
+        height: 3em;
+        border-radius: 0.25em;
+        overflow: hidden;
+    }
+    /* Arrow */
+    .select::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 1em;
+        background-color: #34495e;
+        transition: 0.25s all ease;
+        pointer-events: none;
+    }
+    .select:hover::after {
+        color: #f39c12;
+    }
+
+    body {
+        color: black;
+        background: red;
+    }
+    h1 {
+        margin: 0 0 0.25em;
+    }
+    a {
+        font-weight: bold;
+        color: var(--gray);
+        text-decoration: none;
+        padding: 0.25em;
+        border-radius: 0.25em;
+        background: orange;
+    }
 }
 
 .BuyBtn {
     display: flex;
-    width: 24vw;
-    height: 5rem;
+    width: 100%;
+    height: 4rem;
     margin-bottom: 2rem;
     .Add {
-        width: 20vw;
+        width: 100%;
         border: 2px solid var(--textHref);
-        border-right: none;
-        border-top-left-radius: 5rem;
-        border-bottom-left-radius: 5rem;
+        border-radius: 5rem;
         border-right: 1px solid #ce4a2e;
         color: var(--textHref);
         font-size: 1.5rem;
@@ -116,6 +205,18 @@
     }
 }
 
+.Rate {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    p {
+        margin-top: 1rem;
+        color: #5d5d5d;
+    }
+}
+
 .BookPage-RightColumn {
     .Title {
         font-size: 4rem;
@@ -138,60 +239,414 @@
             -o-border-radius: 5px;
         }
     }
+
+    .textStats {
+        color: #000000;
+    }
+
     .RatingStats {
-        // display: inline-;
+        //display: inline-;
         display: flex;
+        width: fit-content;
         flex-flow: row wrap;
         justify-content: flex-start;
         align-items: baseline;
         margin-bottom: 1.5rem;
-        .Rating {
-            color: #fff200;
-            font-size: 3rem;
-            margin-right: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 2rem;
 
-            .Star {
-                margin-right: 0.5rem;
-            }
+        &:hover {
+            background-color: #fcfcfc;
         }
+
+        .Rating {
+            margin-right: 2rem;
+        }
+
         h1 {
             font-family: 'Crimson Text';
+        }
+
+        .Statistic {
+            display: inline-flex;
+            margin-left: 2rem;
+        }
+
+        .space {
+            margin-left: 0.3rem;
         }
     }
     .Summary {
         text-align: justify;
         margin-bottom: 2rem;
     }
-    .Genre {
+    .Info {
         font-size: 1.4rem;
         display: inline-flex;
-        margin-bottom: 1.5rem;
-        .GenreTitle {
+        margin-bottom: 0.3rem;
+        .InfoTitle {
             color: #5d5d5d;
-            margin-right: 1rem;
+            margin-right: 0.5rem;
         }
-        .GenreTag {
+        .InfoTag {
             font-weight: 600;
         }
     }
 }
 
-.Info1 {
-    margin-bottom: 3rem;
+.TieuDe {
+    margin-top: 3rem;
 }
 
 .sameGenre {
-    display: flex;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     margin-top: 3rem;
-    justify-content: flex-start;
-    flex-flow: row wrap;
+    margin-bottom: 3rem;
+    gap: 1rem;
+    // justify-content: flex-start;
+    // flex-flow: row wrap;
 
-    .Product {
-        .imgProduct {
-            width: 17rem;
-            height: 24rem;
-            object-fit: cover;
+    .imgProduct {
+        width: 100%;
+        height: 21rem;
+        object-fit: cover;
+        margin-right: 2rem;
+
+        &:hover {
+            background-color: #000000;
+            opacity: 0.9;
+            border-bottom-right-radius: 1.3rem;
+            border-top-right-radius: 1.3rem;
+        }
+
+        &:active {
+            background-color: black;
+            opacity: 1;
+            border-bottom-right-radius: 1.3rem;
+            border-top-right-radius: 1.3rem;
+        }
+    }
+}
+
+.Mine {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.ratingTitle {
+    text-transform: uppercase;
+    margin-top: 2rem;
+    font-family: Montserrat;
+}
+
+.MyReviewCard {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.ReviewProfile {
+    display: grid;
+    // place-items: center;
+    // background-color: #ce4a2e;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    min-height: auto;
+    grid-column-gap: 50px;
+    // text-align: center;
+
+    .avatar {
+        background-color: white;
+        width: 6rem;
+        height: 6rem;
+        border-radius: 100%;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -ms-border-radius: 100%;
+        -o-border-radius: 100%;
+    }
+
+    .ReviewInfo {
+        display: flex;
+        flex-direction: row;
+
+        p {
+            margin-left: 0.3rem;
+            color: #000000;
+        }
+    }
+
+    .Name {
+        margin-top: 4rem;
+        color: #000000;
+        text-decoration: none;
+
+        &:hover {
+            color: #ce4a2e;
+        }
+    }
+}
+
+.WriteReview {
+    display: grid;
+    // background-color: yellowgreen;
+    grid-column-start: 4;
+    grid-column-end: 10;
+    place-items: center;
+
+    p {
+        font-size: small;
+    }
+
+    .write {
+        color: white;
+        margin-top: 1rem;
+        background-color: black;
+        width: auto;
+        min-width: 20rem;
+        height: auto;
+        border-radius: 3rem;
+        padding: 1.3rem;
+        -webkit-border-radius: 3rem;
+        -moz-border-radius: 3rem;
+        -ms-border-radius: 3rem;
+        -o-border-radius: 3rem;
+
+        &:hover {
+            background-color: #2a2a2a;
+        }
+        &:active {
+            background-color: black;
+        }
+    }
+}
+
+.Communicate {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+
+    .HistogramBar {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: start;
+
+        &:hover {
+            .ProgressBar {
+                background-color: #fcfcfc;
+            }
+
+            .RatingHistogram {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        .TitleStar {
+            min-width: 4rem;
             margin-right: 2rem;
+            font-size: medium;
+        }
+
+        .ProgressBar {
+            min-width: 40rem;
+            margin-right: 2rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 2rem;
+            -webkit-border-radius: 2rem;
+            -moz-border-radius: 2rem;
+            -ms-border-radius: 2rem;
+            -o-border-radius: 2rem;
+        }
+
+        .RatingHistogram {
+            min-width: 4rem;
+        }
+    }
+}
+
+.ReviewList {
+    display: grid;
+    height: 30rem;
+    // background-color: yellowgreen;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 2.5rem;
+
+    .ReviewerProfile {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        width: 100%;
+        min-height: 5rem;
+        // background-color: #ce4a2e;
+
+        button {
+            margin-top: 0.5rem;
+            padding: 2rem;
+            padding-top: 1.2rem;
+            padding-bottom: 1.2rem;
+            background-color: #000000;
+            color: white;
+            border-radius: 4rem;
+
+            &:hover {
+                background-color: #232323;
+            }
+        }
+    }
+
+    .ReviewCardContent {
+        grid-column-start: 3;
+        grid-column-end: 9;
+        // background-color: burlywood;
+        min-height: 5rem;
+
+        .ReviewCard_Row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+
+            .TextDate {
+                font-size: 1.5rem;
+                color: #a3a3a3;
+            }
+        }
+
+        .CommentText {
+            text-align: justify;
+        }
+
+        .SocialFooter_statsContainer {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1.5rem;
+            cursor: pointer;
+
+            .LabelItemDT {
+                color: #919191;
+                font-weight: 700;
+                margin-right: 2rem;
+
+                span {
+                    margin-left: 0.5rem;
+                }
+            }
+
+            .LabelItemKDT {
+                color: #919191;
+                font-weight: 700;
+
+                span {
+                    margin-left: 0.5rem;
+                }
+            }
+        }
+
+        .SocialFooter_actionsContainer {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1.5rem;
+            cursor: pointer;
+
+            .ActionItemDT {
+                color: black;
+                font-weight: 700;
+                margin-right: 2rem;
+
+                span {
+                    margin-left: 0.5rem;
+                }
+
+                &:hover {
+                    color: #ce4a2e;
+                }
+            }
+
+            .ActionItemKDT {
+                color: black;
+                font-weight: 700;
+
+                span {
+                    margin-left: 0.5rem;
+                }
+                &:hover {
+                    color: #ce4a2e;
+                }
+            }
+        }
+    }
+}
+
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    h3 {
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
+    }
+
+    .StepShelving {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // background: red;
+        justify-content: center;
+
+        .ButtonShelving {
+            padding: 1.3rem;
+            width: 100%;
+            height: auto;
+            //background-color: #f39c12;
+            margin-bottom: 2rem;
+            border-radius: 5rem;
+            -webkit-border-radius: 5rem;
+            -moz-border-radius: 5rem;
+            -ms-border-radius: 5rem;
+            -o-border-radius: 5rem;
+            border-width: 3px;
+            border-style: solid;
+            border-color: #333;
+            color: #333;
+            font-weight: 700;
+
+            &:hover {
+                background-color: #f0f0f0;
+            }
+        }
+    }
+
+    .DeleteBtn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        color: #000000;
+        cursor: pointer;
+
+        div {
+            margin-left: 0.5rem;
+        }
+
+        &:hover {
+            color: var(--textHref);
         }
     }
 }

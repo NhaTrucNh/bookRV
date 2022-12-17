@@ -21,7 +21,7 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
-    // font-family: 'Montserrat', sans-serif;
+    //
     // font-family: 'Crimson Text', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
@@ -38,6 +38,15 @@ input,
 }
 
 a[href] {
-    color: var(--textHref);
+    color: #000;
     text-decoration: none;
+
+    &:hover {
+        color: var(--textHref);
+        transition-duration: 0.6s;
+    }
+}
+
+ul {
+    list-style: none;
 }

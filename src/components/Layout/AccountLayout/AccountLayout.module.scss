@@ -11,12 +11,11 @@
 .container {
     width: 100%;
     max-width: 1280px;
-    min-height: max-content;
+    min-height: 100vh;
     display: flex;
     padding: 8rem 6rem 5rem;
 }
 .content {
     flex: 1;
     // background-color: antiquewhite;
-    margin-left: 3.5em;
 }
