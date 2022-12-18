@@ -13,7 +13,7 @@ const items = [
     {
         key: '1',
         label: (
-            <a target="_blank" rel="profile" href="##">
+            <a target="_blank" rel="profile" href="profile">
                 Hồ sơ
             </a>
         ),
@@ -86,7 +86,7 @@ class HeaderAccount extends React.Component {
                                             <p>/</p>
                                         </li>
                                         <li>
-                                            <a href="##">Tin tức</a>
+                                            <a href="news">Tin tức</a>
                                         </li>
                                     </ul>
                                 </div>

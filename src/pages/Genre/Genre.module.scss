@@ -1,0 +1,94 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    font-family: 'Montserrat', sans-serif;
+    // background-color: antiquewhite;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    margin-bottom: 5rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 3rem;
+    width: 1280px;
+    height: auto;
+}
+
+.GenreBar {
+    height: auto;
+    grid-column-start: 10;
+    grid-column-end: 13;
+    background-color: rgb(255, 255, 255);
+    padding: 2rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+
+    .title {
+        text-transform: uppercase;
+        font-size: 2rem;
+    }
+
+    hr {
+        margin-top: 0.5rem;
+    }
+
+    .list {
+        list-style-type: square;
+        margin-left: 2rem;
+    }
+
+    a {
+        &:hover {
+            margin-left: 1rem;
+            transition-duration: 1s;
+        }
+    }
+}
+
+.GenreBook {
+    grid-column-start: 1;
+    grid-column-end: 10;
+    background-color: rgb(255, 255, 255);
+    padding: 2rem;
+    justify-content: start;
+    align-items: start;
+    border-radius: 1rem;
+
+    .title {
+        text-transform: uppercase;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.lBook {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+
+    img {
+        width: 100%;
+        height: 24rem;
+        object-fit: cover;
+
+        &:hover {
+            opacity: 0.9;
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+    }
+}
+
+.more {
+    margin-top: 1rem;
+    text-align: right;
+}
