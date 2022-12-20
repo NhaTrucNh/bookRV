@@ -45,16 +45,16 @@ export default class Profile extends React.Component {
                             <div className={cx('bot')}>
                                 <div className={cx('Tit')}>Tủ sách của tôi</div>
                                 <div className={cx('shelf')}>
-                                    <a href="##">
+                                    <a href="mybook">
                                         Muốn đọc <span>(16)</span>
                                     </a>
-                                    <a href="##">
+                                    <a href="mybook">
                                         Đang đọc <span>(5)</span>
                                     </a>
-                                    <a href="##">
+                                    <a href="mybook">
                                         Đã đọc <span>(10)</span>
                                     </a>
-                                    <a href="##">
+                                    <a href="mybook">
                                         Ngưng đọc <span>(2)</span>
                                     </a>
                                 </div>

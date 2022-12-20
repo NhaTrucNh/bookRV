@@ -1,8 +1,8 @@
 //Layouts
 import { HeaderOnly } from '~/components/Layout';
 import { HeaderAndFooter } from '~/components/Layout';
-// import { HeaderAccount } from '~/components/Layout'
 import { AccountLayout } from '~/components/Layout';
+import { DashboardFrame } from '~/components/Layout';
 
 //Pages
 import Home from '~/pages/Home';
@@ -19,6 +19,9 @@ import News from '~/pages/News';
 import ShowNews from '~/pages/ShowNews';
 import Genres from '~/pages/Genres';
 import Genre from '~/pages/Genre';
+import UserManagement from '~/pages/UserManagement';
+import ModManagement from '~/pages/ModManagement';
+import BooksManagement from '~/pages/BooksManagement';
 
 //Pubic Routes
 const publicRoutes = [
@@ -36,7 +39,10 @@ const publicRoutes = [
     { path: '/genres', component: Genres, layout: HeaderAndFooter },
     { path: '/genre', component: Genre, layout: HeaderAndFooter },
     { path: '/bookshow', component: BookShow, layout: HeaderAndFooter },
-    // { path: '/search', component: Search, layout: null },
+    { path: '/dashboardframe', component: DashboardFrame, layout: null },
+    { path: '/user', component: UserManagement, layout: DashboardFrame },
+    { path: '/mod', component: ModManagement, layout: DashboardFrame },
+    { path: '/books', component: BooksManagement, layout: DashboardFrame },
 ];
 
 const privateRoutes = [];

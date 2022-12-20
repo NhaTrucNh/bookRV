@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     column-gap: 2rem;
-    background-color: #e3f1d5;
+    // background-color: #e3f1d5;
 }
 
 .Left {
@@ -10,6 +10,9 @@
     grid-column-end: 3;
 
     .Shelf {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
         p {
             font-size: small;
         }
@@ -33,6 +36,9 @@
     grid-column-end: 11;
     // background-color: bisque;
     min-height: 80vh;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
 
     table {
         border-spacing: 1;
