@@ -17,14 +17,14 @@
     grid-column-start: 1;
     grid-column-end: 4;
     background-color: #222222;
-    // width: 100vh;
-    max-height: 100vh;
+    // width: 100%;
+    // max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 3rem 0;
+    padding: 3rem 0rem;
     border-left: 10px solid var(--textHref);
-    position: fixed;
-    height: 100vh;
+    // position: fixed;
+    height: 100%;
 
     .info {
         display: flex;
@@ -56,7 +56,7 @@
         flex-direction: column;
 
         .item {
-            padding: 1.2rem 2.7rem;
+            padding: 1.2rem 2rem;
             // background-color: cyan;
             font-size: 1.3rem;
 

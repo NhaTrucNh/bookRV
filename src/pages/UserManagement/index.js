@@ -96,7 +96,7 @@ export default function UserManagement() {
             ),
         },
         {
-            title: 'Action',
+            title: '',
             key: 'action',
             render: () => (
                 <Space size="middle">
@@ -155,7 +155,7 @@ export default function UserManagement() {
                             </div>
                         </div>
                     </Modal>
-                    <Button onClick={showDeleteConfirm} type="dashed">
+                    <Button onClick={showDeleteConfirm} type="link">
                         <DeleteOutlined />
                     </Button>
                 </Space>

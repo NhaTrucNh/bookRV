@@ -1,0 +1,86 @@
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    max-width: 1280px;
+    padding: 3rem;
+    margin-bottom: 5rem;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+}
+
+.bookinfo {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    column-gap: 3rem;
+    margin-bottom: 3rem;
+
+    .cover {
+        display: grid;
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .info {
+        display: grid;
+        grid-column-start: 3;
+        grid-column-end: 11;
+
+        .title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .author {
+            span {
+                font-style: italic;
+                color: rgb(99, 99, 99);
+            }
+        }
+    }
+}
+
+.rate {
+    display: flex;
+    flex-direction: row;
+    // justify-content: center;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+
+.shelf {
+    display: flex;
+    flex-direction: row;
+    // justify-content: center;
+    align-items: baseline;
+}
+.shelf {
+    display: flex;
+    flex-direction: row;
+    // justify-content: center;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+
+.name {
+    margin-right: 1rem;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+}
+
+.post {
+    display: flex;
+    justify-content: center;
+}

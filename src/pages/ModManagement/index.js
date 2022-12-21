@@ -10,9 +10,9 @@ export default function ModManagement() {
     const { confirm } = Modal;
     const showDeleteConfirm = () => {
         confirm({
-            title: 'Bạn có chắc chắn muốn xoá điều phối viên này không?',
+            title: 'Bạn có chắc chắn muốn xoá vai trò điều phối viên không?',
             icon: <ExclamationCircleFilled />,
-            content: 'Một khi đã nhấn "Yes", điều phối viên sẽ bị xoá khỏi hệ thống',
+            content: 'Một khi đã nhấn "Yes", xoá vai trò điều phối viên của người dùng này',
             okText: 'Yes',
             okType: 'danger',
             cancelText: 'No',
@@ -74,7 +74,7 @@ export default function ModManagement() {
             key: 'dob',
         },
         {
-            title: 'Action',
+            title: '',
             key: 'action',
             render: () => (
                 <Space size="middle">
@@ -82,7 +82,7 @@ export default function ModManagement() {
                         <EditOutlined />
                     </button>
                     <Modal
-                        title="Chỉnh sửa người dùng"
+                        title="Chỉnh sửa điều phối viên"
                         open={isModalOpen}
                         onOk={handleOk}
                         onCancel={handleCancel}
@@ -99,7 +99,7 @@ export default function ModManagement() {
                                     autoComplete="off"
                                     layout="vertical"
                                 >
-                                    <Form.Item label="Tên điều phối viên" name="username">
+                                    <Form.Item label="Tên điều phối viên" name="modname">
                                         <Input />
                                     </Form.Item>
 
@@ -135,70 +135,8 @@ export default function ModManagement() {
                             </div>
                         </div>
                     </Modal>
-                    {/* <Popup trigger={showPopup} setTrigger={setShowPopup}>
-                        <div className={cx('popup-content')}>
-                            <p>Chỉnh sửa người dùng</p>
-                            <div className={cx('FormUpdate')}>
-                                <Form
-                                    initialValues={{
-                                        remember: true,
-                                    }}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                                    autoComplete="off"
-                                    layout="vertical"
-                                >
-                                    <Form.Item label="Tên điều phối viên" name="username">
-                                        <Input />
-                                    </Form.Item>
 
-                                    <Form.Item label="Email" name="email">
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item label="Số điện thoại" name="phonenumber">
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item name="Giới tính" label="Gender">
-                                        <Select placeholder="Chọn giới tính">
-                                            <Option value="male">Nam</Option>
-                                            <Option value="female">Nữ</Option>
-                                            <Option value="other">Khác</Option>
-                                        </Select>
-                                    </Form.Item>
-
-                                    <Form.Item
-                                        label="Mật khẩu"
-                                        name="password"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Vui lòng nhập mật khẩu',
-                                            },
-                                        ]}
-                                    >
-                                        <Input.Password />
-                                    </Form.Item>
-
-                                    <Form.Item
-                                        wrapperCol={{
-                                            offset: 9,
-                                            span: 16,
-                                        }}
-                                    >
-                                        <Space wrap>
-                                            <Button type="primary" htmlType="submit">
-                                                Lưu lại
-                                            </Button>
-                                        </Space>
-                                    </Form.Item>
-                                </Form>
-                            </div>
-                        </div>
-                    </Popup> */}
-
-                    <Button onClick={showDeleteConfirm} type="dashed">
+                    <Button onClick={showDeleteConfirm} type="link">
                         <DeleteOutlined />
                     </Button>
                 </Space>
@@ -213,7 +151,6 @@ export default function ModManagement() {
             phonenumber: '0276453453',
             sex: 'Nữ',
             dob: '11/10/2998',
-            tags: ['Hoạt động'],
         },
         {
             key: '2',
@@ -222,7 +159,6 @@ export default function ModManagement() {
             phonenumber: '0276453453',
             sex: 'Nữ',
             dob: '11/10/2998',
-            tags: ['Khoá'],
         },
         {
             key: '3',
@@ -231,7 +167,6 @@ export default function ModManagement() {
             phonenumber: '0276453453',
             sex: 'Nữ',
             dob: '11/10/2998',
-            tags: ['Hoạt động'],
         },
         {
             key: '4',
@@ -240,7 +175,6 @@ export default function ModManagement() {
             phonenumber: '0276453453',
             sex: 'Nữ',
             dob: '11/10/2998',
-            tags: ['Hoạt động'],
         },
     ];
     return (
@@ -274,7 +208,7 @@ export default function ModManagement() {
                                                     >
                                                         <Form.Item
                                                             label="Mã điều phối viên"
-                                                            name="usercode"
+                                                            name="modcode"
                                                             disabled={true}
                                                         >
                                                             <Input disabled={true} />
@@ -282,11 +216,11 @@ export default function ModManagement() {
 
                                                         <Form.Item
                                                             label="Tên điều phối viên"
-                                                            name="username"
+                                                            name="modname"
                                                             rules={[
                                                                 {
                                                                     required: true,
-                                                                    message: 'Vui lòng nhập tên người dùng',
+                                                                    message: 'Vui lòng nhập tên điều phối viên',
                                                                 },
                                                             ]}
                                                         >
@@ -299,7 +233,7 @@ export default function ModManagement() {
                                                             rules={[
                                                                 {
                                                                     required: true,
-                                                                    message: 'Vui lòng nhập tên người dùng',
+                                                                    message: 'Vui lòng nhập email',
                                                                 },
                                                             ]}
                                                         >

@@ -163,9 +163,9 @@ function BookShow() {
                                             <Rate style={{ fontSize: 30 }} />
                                             <p>Xếp hạng quyển sách này</p>
                                         </div>
-                                        <ah href="##">
+                                        <a href="review">
                                             <button className={cx('write')}>Viết cảm nhận</button>
-                                        </ah>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

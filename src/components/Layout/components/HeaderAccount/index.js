@@ -21,21 +21,13 @@ const items = [
     {
         key: '2',
         label: (
-            <a target="_blank" rel="review" href="historycomment">
-                Lịch sử bình luận
-            </a>
-        ),
-    },
-    {
-        key: '3',
-        label: (
             <a target="_blank" rel="account setting" href="accountsetting">
                 Cài đặt tài khoản
             </a>
         ),
     },
     {
-        key: '4',
+        key: '3',
         label: (
             <a target="_blank" rel="change password" href="changepassword">
                 Đổi mật khẩu
@@ -43,7 +35,7 @@ const items = [
         ),
     },
     {
-        key: '5',
+        key: '4',
         label: (
             <a target="_blank" rel="logout" href="login">
                 Đăng xuất
@@ -80,7 +72,7 @@ class HeaderAccount extends React.Component {
                                             <p>/</p>
                                         </li>
                                         <li>
-                                            <a href="##">Danh mục thể loại</a>
+                                            <a href="genres">Danh mục thể loại</a>
                                         </li>
                                         <li>
                                             <p>/</p>

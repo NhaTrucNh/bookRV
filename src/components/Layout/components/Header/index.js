@@ -31,7 +31,7 @@ class Header extends React.Component {
                                             <p>/</p>
                                         </li>
                                         <li>
-                                            <a href="##">Danh mục thể loại</a>
+                                            <a href="genres">Danh mục thể loại</a>
                                         </li>
                                         <li>
                                             <p>/</p>
