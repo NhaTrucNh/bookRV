@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
-import classNames from 'classnames/bind';
-import styles from './Header.module.scss';
+import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import classNames from 'classnames/bind';
+import React from 'react';
 import logo from '../../../../asset/images/Logo.png';
+import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
 

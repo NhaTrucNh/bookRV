@@ -1,8 +1,8 @@
-import React from 'react';
-import classNames from 'classnames/bind';
-import styles from './AccountSetting.module.scss';
-import { Button, Form, Input, DatePicker, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Form, Input, Upload } from 'antd';
+import classNames from 'classnames/bind';
+import React from 'react';
+import styles from './AccountSetting.module.scss';
 
 const cx = classNames.bind(styles);
 

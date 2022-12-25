@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
+import Footer from '~/components/Layout/components/Footer';
 import HeaderAccount from '~/components/Layout/components/HeaderAccount';
 import styles from './AccountLayout.module.scss';
-import Footer from '~/components/Layout/components/Footer';
 
 const cx = classNames.bind(styles);
 

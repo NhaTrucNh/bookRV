@@ -13,7 +13,7 @@ export const authApi = {
     register: (data) => api.post("/auth/register", data),
     login: (data) => api.post("/auth/login", data),
     logout: (email) => api.post("/auth/logout", email),
-    verify: (email, token) => api.get("/auth/verify", { email }, { headers: { Authorization: `Bearer ${token}` } }),
+    verify: (email, token) => api.post("/auth/verify", { email }, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const userApi = {
