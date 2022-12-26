@@ -1,19 +1,12 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './ChangePassword.module.scss';
-import { Button, Form, Input } from 'antd';
+import { Button } from 'antd';
 
 const cx = classNames.bind(styles);
 
 export default class ChangePassword extends React.Component {
     render() {
-        const onFinish = (values) => {
-            console.log('Success:', values);
-        };
-        const onFinishFailed = (errorInfo) => {
-            console.log('Failed:', errorInfo);
-        };
-
         return (
             <div>
                 <div className={cx('wrapper')}>
@@ -23,67 +16,26 @@ export default class ChangePassword extends React.Component {
                     </div>
                     <div className={cx('content')}>
                         <div className={cx('Form')}>
-                            <Form
-                                layout="vertical"
-                                onFinish={onFinish}
-                                name="basic"
-                                initialValues={{
-                                    remember: true,
-                                }}
-                                onFinishFailed={onFinishFailed}
-                                autoComplete="off"
-                            >
-                                <Form.Item
-                                    label="Mật khẩu hiện tại"
-                                    name="currentpassword"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                'Vì lý do an ninh, bạn phải xác minh mật khẩu hiện tại trước khi đặt mật khẩu mới.',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password />
-                                </Form.Item>
+                            <form>
+                                <label for="oldpassword">
+                                    <span>*</span>Nhập mật khẩu cũ
+                                </label>
+                                <input type="password" id="oldpassword" name="oldpassword" />
 
-                                <Form.Item
-                                    label="Mật khẩu mới"
-                                    name="newpassword"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Bạn chưa nhập mật khẩu',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password />
-                                </Form.Item>
+                                <label for="newpassword">
+                                    <span>*</span>Nhập mật khẩu mới
+                                </label>
+                                <input type="password" id="newpassword" name="newpassword" />
 
-                                <Form.Item
-                                    label="Xác nhận mật khẩu mới"
-                                    name="enterpassword"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Mật khẩu của bạn chưa đúng',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password />
-                                </Form.Item>
+                                <label for="enternewpassword">
+                                    <span>*</span>Nhập lại mật khẩu mới
+                                </label>
+                                <input type="password" id="enternewpassword" name="enternewpassword" />
 
-                                <Form.Item
-                                    wrapperCol={{
-                                        offset: 10,
-                                        span: 16,
-                                    }}
-                                >
-                                    <Button style={{ backgroundColor: '#ee684b', color: '#fff' }} htmlType="submit">
-                                        Lưu thay đổi
-                                    </Button>
-                                </Form.Item>
-                            </Form>
+                                <div className={cx('submit')}>
+                                    <Button type="primary">Lưu lại</Button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

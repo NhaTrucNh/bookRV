@@ -1,5 +1,5 @@
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Form, Input, Upload } from 'antd';
+import { Button, DatePicker, Upload } from 'antd';
 import classNames from 'classnames/bind';
 import React from 'react';
 import styles from './AccountSetting.module.scss';
@@ -8,18 +8,9 @@ const cx = classNames.bind(styles);
 
 export default class AccountSetting extends React.Component {
     render() {
-        const onFinish = (values) => {
-            console.log('Success:', values);
-        };
-        const onFinishFailed = (errorInfo) => {
-            console.log('Failed:', errorInfo);
-        };
-
         const onChange = (date, dateString) => {
             console.log(date, dateString);
         };
-
-        const { TextArea } = Input;
 
         return (
             <div>
@@ -30,67 +21,43 @@ export default class AccountSetting extends React.Component {
                     </div>
                     <div className={cx('content')}>
                         <div className={cx('Form')}>
-                            <Form
-                                layout="vertical"
-                                onFinish={onFinish}
-                                name="basic"
-                                initialValues={{
-                                    remember: true,
-                                }}
-                                onFinishFailed={onFinishFailed}
-                                autoComplete="off"
-                            >
-                                <Form.Item
-                                    disabled={true}
-                                    defaultValue="nguyennhatruc@gmail.com"
-                                    label="Email"
+                            <form>
+                                <label for="email">Email</label>
+                                <input
+                                    type="text"
+                                    id="email"
                                     name="email"
-                                >
-                                    <Input disabled={true} defaultValue="nguyennhatruc@gmail.com" />
-                                </Form.Item>
+                                    disabled="disabled"
+                                    value="heisia1412@gmail.com"
+                                />
 
-                                <Form.Item
-                                    label="Tên tài khoản"
-                                    name="username"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Tên này sẽ được hiển thị trên BookRV',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
+                                <label for="username">Tên hiển thị</label>
+                                <input type="text" id="username" name="username" />
 
-                                <Form.Item label="Ảnh đại diện" name="avatar">
+                                <label for="avatar">Ảnh đại diện</label>
+
+                                <div className={cx('cover')}>
                                     <Upload
                                         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                         listType="picture"
                                         maxCount={1}
                                     >
-                                        <Button icon={<UploadOutlined />}>Tải ảnh lên</Button>
+                                        <Button icon={<UploadOutlined />}>Tải lên ảnh đại diện</Button>
                                     </Upload>
-                                </Form.Item>
+                                </div>
 
-                                <Form.Item label="Ngày sinh" name="date">
+                                <label for="dob">Ngày sinh</label>
+                                <div className={cx('space')}>
                                     <DatePicker onChange={onChange} />
-                                </Form.Item>
+                                </div>
 
-                                <Form.Item label="Đôi điều về tôi" name="aboutme">
-                                    <TextArea rows={6} maxLength={300} />
-                                </Form.Item>
+                                <label for="aboutme">Về tôi</label>
+                                <textarea id="aboutme" name="aboutme"></textarea>
 
-                                <Form.Item
-                                    wrapperCol={{
-                                        offset: 10,
-                                        span: 16,
-                                    }}
-                                >
-                                    <Button style={{ backgroundColor: '#ee684b', color: '#fff' }} htmlType="submit">
-                                        Lưu lại
-                                    </Button>
-                                </Form.Item>
-                            </Form>
+                                <div className={cx('submit')}>
+                                    <Button type="primary">Lưu lại</Button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

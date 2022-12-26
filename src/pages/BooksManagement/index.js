@@ -1,218 +1,42 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './BooksManagement.module.scss';
-import { Tabs, Button, Upload, Form, Input, Table, Space, Checkbox, Modal } from 'antd';
-import { UploadOutlined, EditOutlined, DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { Tabs, Button, Upload, Modal } from 'antd';
+import {
+    UploadOutlined,
+    DeleteOutlined,
+    ExclamationCircleFilled,
+    SearchOutlined,
+    EditOutlined,
+} from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
 export default function BooksManagement() {
+    const [open, setOpen] = useState(false);
     const { confirm } = Modal;
+
     const showDeleteConfirm = () => {
         confirm({
-            title: 'Bạn chắc chắn muốn xoá cuốn sách này?',
+            title: 'Bạn có muốn xoá quyển sách này không?',
             icon: <ExclamationCircleFilled />,
-            content: 'Nếu bấm "Yes", bạn sẽ xoá sách khỏi hệ thống',
-            okText: 'Yes',
-            okType: 'danger',
-            cancelText: 'No',
+            content: 'Một khi đã "Ok", quyển sách sẽ bị xoá khỏi hệ thống',
             onOk() {
-                console.log('OK');
+                return new Promise((resolve, reject) => {
+                    setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {
-                console.log('Cancel');
-            },
+            onCancel() {},
         });
     };
-    const [open, setOpen] = useState(false);
 
-    const { TextArea } = Input;
     const onChange = (key) => {
         console.log(key);
     };
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-
-    const columns = [
-        {
-            title: 'Bìa sách',
-            dataIndex: 'coverbook',
-            key: 'coverbook',
-            render: (theImageURL) => <img src={theImageURL} alt={theImageURL} />,
-        },
-        {
-            title: 'Tên sách',
-            dataIndex: 'titlebook',
-            key: 'titlebook',
-        },
-        {
-            title: 'Tác giả',
-            dataIndex: 'author',
-            key: 'author',
-        },
-        {
-            title: 'Thể loại',
-            dataIndex: 'genre',
-            key: 'genre',
-        },
-        {
-            title: 'Nhà xuất bản',
-            dataIndex: 'publisher',
-            key: 'publisher',
-        },
-        {
-            title: 'Ngày phát hành',
-            dataIndex: 'date',
-            key: 'date',
-        },
-        {
-            title: 'Số trang',
-            dataIndex: 'pages',
-            key: 'pages',
-        },
-
-        {
-            title: '',
-            key: 'action',
-            render: () => (
-                <Space size="middle">
-                    <button type="primary" onClick={() => setOpen(true)}>
-                        <EditOutlined />
-                    </button>
-                    <Modal
-                        title="Chỉnh sửa thông tin sách"
-                        centered
-                        open={open}
-                        onOk={() => setOpen(false)}
-                        onCancel={() => setOpen(false)}
-                        width={1000}
-                    >
-                        <div className={cx('column')}>
-                            <div className={cx('Left')}>
-                                <Form
-                                    initialValues={{
-                                        remember: true,
-                                    }}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                                    autoComplete="off"
-                                    layout="vertical"
-                                >
-                                    <Form.Item label="Mã sách" name="bookcode" disabled={true}>
-                                        <Input disabled={true} />
-                                    </Form.Item>
-
-                                    <Form.Item
-                                        label="Tên sách"
-                                        name="bookname"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Vui lòng nhập tên sách',
-                                            },
-                                        ]}
-                                    >
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item
-                                        label="Tác giả"
-                                        name="author"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Vui lòng nhập tên tác giả',
-                                            },
-                                        ]}
-                                    >
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item label="Thể loại" name="genre">
-                                        <Checkbox.Group style={{ width: '100%' }} onChange={onChange}>
-                                            <Space className={cx('GenreList')}>
-                                                <Checkbox value="KHVT">Khoa học viễn tưởng</Checkbox>
-                                                <Checkbox value="KHVT">Thơ</Checkbox>
-                                                <Checkbox value="KHVT">Khoa học viễn tưởng</Checkbox>
-                                                <Checkbox value="KHVT">Khoa học viễn tưởng</Checkbox>
-                                                <Checkbox value="KHVT">Khoa học viễn tưởng</Checkbox>
-                                                <Checkbox value="KHVT">Khoa học viễn tưởng</Checkbox>
-                                                <Checkbox value="KHVT">Âm nhạc</Checkbox>
-                                            </Space>
-                                        </Checkbox.Group>
-                                    </Form.Item>
-                                </Form>
-                            </div>
-                            <div className={cx('Right')}>
-                                <Form
-                                    initialValues={{
-                                        remember: true,
-                                    }}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                                    autoComplete="off"
-                                    layout="vertical"
-                                >
-                                    <Form.Item name="summary" label="Tóm tắt">
-                                        <TextArea autoSize={{ minRows: 5, maxRows: 8 }} />
-                                    </Form.Item>
-
-                                    <Form.Item label="Ảnh bìa" name="avatar">
-                                        <Upload
-                                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                            listType="picture"
-                                            maxCount={1}
-                                        >
-                                            <Button icon={<UploadOutlined />}>Tải lên ảnh bìa</Button>
-                                        </Upload>
-                                    </Form.Item>
-
-                                    <Form.Item label="Nhà xuất bản" name="publisher">
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item label="Ngày xuất bản" name="date">
-                                        <Input />
-                                    </Form.Item>
-                                    <Form.Item label="Số trang" name="pages">
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item label="Nơi bán" name="link">
-                                        <Input />
-                                    </Form.Item>
-                                </Form>
-                            </div>
-                        </div>
-                    </Modal>
-                    <Button onClick={showDeleteConfirm} type="link">
-                        <DeleteOutlined />
-                    </Button>
-                </Space>
-            ),
-        },
-    ];
-    const data = [
-        {
-            key: '1',
-            coverbook:
-                'https://mangaycomics.com/wp-content/webpc-passthru.php?src=https://mangaycomics.com/wp-content/uploads/2022/09/chainsaw-man-home-160x250.jpg&nocache=1',
-            titlebook: 'Chainsaw Man',
-            author: 'Tatsuki Fujimoto',
-            genre: 'Manga',
-            publisher: '11/10/2998',
-            date: '1/10/2019',
-            pages: '295 trang',
-        },
-    ];
     return (
         <>
-            <div className={cx('usermanagement')}>
+            <div className={cx('bookmanagement')}>
                 <div className={cx('title')}>Sách</div>
                 <div className={cx('tab')}>
                     <Tabs
@@ -230,77 +54,61 @@ export default function BooksManagement() {
                                             </div>
                                             <div className={cx('content')}>
                                                 <div className={cx('info')}>
-                                                    <Form
-                                                        initialValues={{
-                                                            remember: true,
-                                                        }}
-                                                        onFinish={onFinish}
-                                                        onFinishFailed={onFinishFailed}
-                                                        autoComplete="off"
-                                                        layout="vertical"
-                                                    >
-                                                        <Form.Item label="Mã sách" name="bookcode" disabled={true}>
-                                                            <Input disabled={true} />
-                                                        </Form.Item>
+                                                    <form>
+                                                        <label for="bookname">
+                                                            <span>*</span>Tên sách
+                                                        </label>
+                                                        <input type="text" id="bookname" name="bookname" />
 
-                                                        <Form.Item
-                                                            label="Tên sách"
-                                                            name="bookname"
-                                                            rules={[
-                                                                {
-                                                                    required: true,
-                                                                    message: 'Vui lòng nhập tên sách',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Input />
-                                                        </Form.Item>
+                                                        <label for="author">
+                                                            <span>*</span>Tác giả
+                                                        </label>
+                                                        <input type="text" id="author" name="author" />
 
-                                                        <Form.Item
-                                                            label="Tác giả"
-                                                            name="Author"
-                                                            rules={[
-                                                                {
-                                                                    required: true,
-                                                                    message: 'Vui lòng nhập tên tác giả',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Input />
-                                                        </Form.Item>
+                                                        <label for="genre">
+                                                            <span>*</span>Thể loại
+                                                        </label>
+                                                        <div className={cx('GenreList')}>
+                                                            <label className={cx('form-control')}>
+                                                                <input type="checkbox" name="checkbox" />
+                                                                Văn
+                                                            </label>
+                                                            <label className={cx('form-control')}>
+                                                                <input type="checkbox" name="checkbox" />
+                                                                Thơ
+                                                            </label>
+                                                            <label className={cx('form-control')}>
+                                                                <input type="checkbox" name="checkbox" />
+                                                                Thiếu nhi
+                                                            </label>
+                                                            <label className={cx('form-control')}>
+                                                                <input type="checkbox" name="checkbox" />
+                                                                Checkbox
+                                                            </label>
+                                                            <label className={cx('form-control')}>
+                                                                <input type="checkbox" name="checkbox" />
+                                                                Checkbox
+                                                            </label>
+                                                            <label className={cx('form-control')}>
+                                                                <input type="checkbox" name="checkbox" />
+                                                                Checkbox
+                                                            </label>
+                                                            <label className={cx('form-control')}>
+                                                                <input type="checkbox" name="checkbox" />
+                                                                Checkbox
+                                                            </label>
+                                                        </div>
 
-                                                        <Form.Item label="Thể loại" name="genre">
-                                                            <Checkbox.Group
-                                                                style={{ width: '100%' }}
-                                                                onChange={onChange}
-                                                            >
-                                                                <Space className={cx('GenreList')}>
-                                                                    <Checkbox value="KHVT">
-                                                                        Khoa học viễn tưởng
-                                                                    </Checkbox>
-                                                                    <Checkbox value="KHVT">Thơ</Checkbox>
-                                                                    <Checkbox value="KHVT">
-                                                                        Khoa học viễn tưởng
-                                                                    </Checkbox>
-                                                                    <Checkbox value="KHVT">
-                                                                        Khoa học viễn tưởng
-                                                                    </Checkbox>
-                                                                    <Checkbox value="KHVT">
-                                                                        Khoa học viễn tưởng
-                                                                    </Checkbox>
-                                                                    <Checkbox value="KHVT">
-                                                                        Khoa học viễn tưởng
-                                                                    </Checkbox>
-                                                                    <Checkbox value="KHVT">Âm nhạc</Checkbox>
-                                                                </Space>
-                                                            </Checkbox.Group>
-                                                        </Form.Item>
+                                                        <label for="summary">
+                                                            <span>*</span>Tóm tắt
+                                                        </label>
 
-                                                        <Form.Item name="summary" label="Tóm tắt">
-                                                            <TextArea autoSize={{ minRows: 5, maxRows: 8 }} />
-                                                        </Form.Item>
+                                                        <textarea id="story" name="story"></textarea>
 
-                                                        <Form.Item label="Ảnh bìa" name="avatar">
+                                                        <label for="coverbook">
+                                                            <span>*</span>Ảnh bìa
+                                                        </label>
+                                                        <div className={cx('cover')}>
                                                             <Upload
                                                                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                                                 listType="picture"
@@ -310,37 +118,24 @@ export default function BooksManagement() {
                                                                     Tải lên ảnh bìa
                                                                 </Button>
                                                             </Upload>
-                                                        </Form.Item>
+                                                        </div>
 
-                                                        <Form.Item label="Nhà xuất bản" name="publisher">
-                                                            <Input />
-                                                        </Form.Item>
+                                                        <label for="publisher">Nhà xuất bản</label>
+                                                        <input type="text" id="publisher" name="publisher" />
 
-                                                        <Form.Item label="Ngày xuất bản" name="date">
-                                                            <Input />
-                                                        </Form.Item>
-                                                        <Form.Item label="Số trang" name="pages">
-                                                            <Input />
-                                                        </Form.Item>
+                                                        <label for="date">Ngày xuất bản</label>
+                                                        <input type="text" id="date" name="date" />
 
-                                                        <Form.Item label="Nơi bán" name="link">
-                                                            <Input />
-                                                        </Form.Item>
+                                                        <label for="pages">Số trang</label>
+                                                        <input type="text" id="pages" name="pages" />
 
-                                                        <Form.Item
-                                                            wrapperCol={{
-                                                                offset: 9,
-                                                                span: 16,
-                                                            }}
-                                                        >
-                                                            <Space wrap>
-                                                                <Button type="primary" htmlType="submit">
-                                                                    Tạo mới
-                                                                </Button>
-                                                                <Button htmlType="submit">Huỷ bỏ</Button>
-                                                            </Space>
-                                                        </Form.Item>
-                                                    </Form>
+                                                        <label for="buylink">Nơi bán</label>
+                                                        <input type="text" id="buylink" name="buylink" />
+
+                                                        <div className={cx('submit')}>
+                                                            <Button type="primary">Tạo mới</Button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -357,8 +152,244 @@ export default function BooksManagement() {
                                                 <p>Quản lý sách</p>
                                             </div>
                                             <div className={cx('content')}>
-                                                <Table columns={columns} dataSource={data} />
+                                                <div className={cx('search')}>
+                                                    <form onsubmit="event.preventDefault();" role="search">
+                                                        <label for="search">Tìm kiếm</label>
+                                                        <input
+                                                            id="search"
+                                                            type="search"
+                                                            placeholder="Nhập vào đây..."
+                                                            autofocus
+                                                            required
+                                                        />
+                                                        <button type="submit">
+                                                            <SearchOutlined
+                                                                style={{ fontSize: '16px', color: '#fff' }}
+                                                            />
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
+                                            <table className={cx('bookList')}>
+                                                <tr>
+                                                    <th>Ảnh bìa</th>
+                                                    <th>Tên sách</th>
+                                                    <th>Tác giả</th>
+                                                    <th>Nhà xuất bản</th>
+                                                    <th>Ngày xuất bản</th>
+                                                    <th>Số trang</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img
+                                                            src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1564589320i/46226780.jpg"
+                                                            alt=""
+                                                        />
+                                                    </td>
+                                                    <td>Chainsaw man 3</td>
+                                                    <td>Tatsuki Fujimoto</td>
+                                                    <td>NXB Trẻ</td>
+                                                    <td>27/9/2022</td>
+                                                    <td>254</td>
+                                                    <td>
+                                                        <span>
+                                                            <Button
+                                                                onClick={() => setOpen(true)}
+                                                                type="link"
+                                                                icon={<EditOutlined />}
+                                                            />
+                                                            <Modal
+                                                                title="Chỉnh sửa thông tin sách"
+                                                                centered
+                                                                open={open}
+                                                                onOk={() => setOpen(false)}
+                                                                onCancel={() => setOpen(false)}
+                                                                width={1280}
+                                                            >
+                                                                <div className={cx('column')}>
+                                                                    <div className={cx('Left')}>
+                                                                        <div className={cx('content')}>
+                                                                            <div className={cx('info')}>
+                                                                                <form>
+                                                                                    <label for="bookname">
+                                                                                        Tên sách
+                                                                                    </label>
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        id="bookname"
+                                                                                        name="bookname"
+                                                                                    />
+
+                                                                                    <label for="author">Tác giả</label>
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        id="author"
+                                                                                        name="author"
+                                                                                    />
+
+                                                                                    <label for="genre">Thể loại</label>
+                                                                                    <div className={cx('GenreList')}>
+                                                                                        <label
+                                                                                            className={cx(
+                                                                                                'form-control',
+                                                                                            )}
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                name="checkbox"
+                                                                                            />
+                                                                                            Văn
+                                                                                        </label>
+                                                                                        <label
+                                                                                            className={cx(
+                                                                                                'form-control',
+                                                                                            )}
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                name="checkbox"
+                                                                                            />
+                                                                                            Thơ
+                                                                                        </label>
+                                                                                        <label
+                                                                                            className={cx(
+                                                                                                'form-control',
+                                                                                            )}
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                name="checkbox"
+                                                                                            />
+                                                                                            Thiếu nhi
+                                                                                        </label>
+                                                                                        <label
+                                                                                            className={cx(
+                                                                                                'form-control',
+                                                                                            )}
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                name="checkbox"
+                                                                                            />
+                                                                                            Checkbox
+                                                                                        </label>
+                                                                                        <label
+                                                                                            className={cx(
+                                                                                                'form-control',
+                                                                                            )}
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                name="checkbox"
+                                                                                            />
+                                                                                            Checkbox
+                                                                                        </label>
+                                                                                        <label
+                                                                                            className={cx(
+                                                                                                'form-control',
+                                                                                            )}
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                name="checkbox"
+                                                                                            />
+                                                                                            Checkbox
+                                                                                        </label>
+                                                                                        <label
+                                                                                            className={cx(
+                                                                                                'form-control',
+                                                                                            )}
+                                                                                        >
+                                                                                            <input
+                                                                                                type="checkbox"
+                                                                                                name="checkbox"
+                                                                                            />
+                                                                                            Checkbox
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <label for="summary">Tóm tắt</label>
+
+                                                                                    <textarea
+                                                                                        id="story"
+                                                                                        name="story"
+                                                                                    ></textarea>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className={cx('Right')}>
+                                                                        <div className={cx('content')}>
+                                                                            <div className={cx('info')}>
+                                                                                <form>
+                                                                                    <label for="coverbook">
+                                                                                        Ảnh bìa
+                                                                                    </label>
+                                                                                    <div className={cx('cover')}>
+                                                                                        <Upload
+                                                                                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                                                            listType="picture"
+                                                                                            maxCount={1}
+                                                                                        >
+                                                                                            <Button
+                                                                                                icon={
+                                                                                                    <UploadOutlined />
+                                                                                                }
+                                                                                            >
+                                                                                                Tải lên ảnh bìa
+                                                                                            </Button>
+                                                                                        </Upload>
+                                                                                    </div>
+
+                                                                                    <label for="publisher">
+                                                                                        Nhà xuất bản
+                                                                                    </label>
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        id="publisher"
+                                                                                        name="publisher"
+                                                                                    />
+
+                                                                                    <label for="date">
+                                                                                        Ngày xuất bản
+                                                                                    </label>
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        id="date"
+                                                                                        name="date"
+                                                                                    />
+
+                                                                                    <label for="pages">Số trang</label>
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        id="pages"
+                                                                                        name="pages"
+                                                                                    />
+
+                                                                                    <label for="buylink">Nơi bán</label>
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        id="buylink"
+                                                                                        name="buylink"
+                                                                                    />
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </Modal>
+                                                        </span>
+                                                        <span>
+                                                            <Button
+                                                                onClick={showDeleteConfirm}
+                                                                danger
+                                                                type="link"
+                                                                icon={<DeleteOutlined />}
+                                                            />
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </>
                                 ),

@@ -50,10 +50,6 @@ function BookShow() {
                                 <div className={cx('BuyBtn')}>
                                     <button className={cx('Add')}>Nơi bán</button>
                                 </div>
-                                <div className={cx('Rate')}>
-                                    <Rate style={{ fontSize: 36 }} />
-                                    <p>Xếp hạng quyển sách này</p>
-                                </div>
                             </div>
                         </aside>
                         <section className={cx('BookPage-RightColumn')}>
@@ -309,7 +305,7 @@ function BookShow() {
                                         </div>
                                         <div className={cx('ActionItemKDT')}>
                                             <DislikeOutlined />
-                                            <span>Đồng tình</span>
+                                            <span>Không đồng tình</span>
                                         </div>
                                     </div>
                                     <hr />

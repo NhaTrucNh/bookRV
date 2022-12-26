@@ -1,94 +1,64 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './CommentManagement.module.scss';
-import { Button, Table, Space, Modal } from 'antd';
-import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { Button, Modal } from 'antd';
+import { ExclamationCircleFilled, SearchOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
-export default function BooksManagement() {
+export default function CommentManagement() {
     const { confirm } = Modal;
     const showDeleteConfirm = () => {
         confirm({
-            title: 'Bạn chắc chắn muốn xoá cuốn sách này?',
+            title: 'Bạn có muốn xoá bình luận này không?',
             icon: <ExclamationCircleFilled />,
-            content: 'Nếu bấm "Yes", bạn sẽ xoá sách khỏi hệ thống',
-            okText: 'Yes',
-            okType: 'danger',
-            cancelText: 'No',
+            content: 'Một khi đã "Ok", bình luận sẽ bị xoá',
             onOk() {
-                console.log('OK');
+                return new Promise((resolve, reject) => {
+                    setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {
-                console.log('Cancel');
-            },
+            onCancel() {},
         });
     };
 
-    const columns = [
-        {
-            title: 'Tên sách',
-            dataIndex: 'titlebook',
-            key: 'titlebook',
-        },
-        {
-            title: 'Tên người dùng',
-            dataIndex: 'username',
-            key: 'username',
-        },
-        {
-            title: 'Bình luận người dùng',
-            dataIndex: 'comment',
-            key: 'comment',
-        },
-        {
-            title: 'Ngày bình luận',
-            dataIndex: 'date',
-            key: 'date',
-        },
-
-        {
-            title: '',
-            key: 'action',
-            render: () => (
-                <Space size="middle">
-                    <Button onClick={showDeleteConfirm} type="link">
-                        <DeleteOutlined />
-                    </Button>
-                </Space>
-            ),
-        },
-    ];
-    const data = [
-        {
-            key: '1',
-            titlebook: 'Chainsaw Man',
-            username: 'Nhã Trúc',
-            comment:
-                'It is the same old story. Boy finds a devil dog with a chainsaw for a nose, devil dog is assimilated into the boys body, boy now has a chainsaw ripcord coming out of his chest, boy now can turn into chainsaw man by pulling the ripcord, boy then has a chainsaw coming out of his face and a chainsaw coming out of each arm, boy meets girl from the secret service, secret service girl forces boy to use his chainsaw powers to fight the many devils and demons that run amok in the world, boy is obsessed with boobs, boy is even more obsessed with secret service girl. We all heard it a million times before.',
-            date: '11/10/2019',
-        },
-
-        {
-            key: '2',
-            titlebook: 'Chainsaw Man',
-            username: 'ELLIAS (elliasreads)',
-            comment:
-                'Sometimes you just want to read something so insane itll make you laugh. This is Chainsaw Man. So at the start we have Denji who is trying to survive. Hell do pretty much anything for some money. He also has his trusty dog Pochita, who has a actual chainsaw coming out of his freaking head. So together they kill devils and make money. But one day something horrible happens to Denji and Pochita must do something to save him. Tus Chainsaw Man is born!',
-            date: '11/10/2019',
-        },
-    ];
     return (
         <>
             <div className={cx('usermanagement')}>
                 <div className={cx('title')}>Bình luận người dùng</div>
-                <div className={cx('update')}>
+                <div className={cx('tab')}>
                     <div className={cx('titles')}>
                         <p>Quản lý bình luận</p>
                     </div>
-                    <div className={cx('content')}>
-                        <Table columns={columns} dataSource={data} />
+                    <div className={cx('search')}>
+                        <form onsubmit="event.preventDefault();" role="search">
+                            <label for="search">Tìm kiếm</label>
+                            <input id="search" type="search" placeholder="Nhập vào đây..." autofocus required />
+                            <button type="submit">
+                                <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />
+                            </button>
+                        </form>
                     </div>
+                    <table className={cx('userList')}>
+                        <tr>
+                            <th>Tên sách</th>
+                            <th>Tên người dùng</th>
+                            <th>Bình luận</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Sakura - Thủ lĩnh thẻ bài</td>
+                            <td>Nhã Trúc</td>
+                            <td>
+                                Ex sit pariatur duis non esse in dolore sint ea consequat sit nisi. Cupidatat aute
+                                aliquip occaecat cupidatat minim esse enim id excepteur incididunt dolor velit veniam
+                                proident.showDeleteConfirm
+                            </td>
+                            <td>
+                                <Button onClick={showDeleteConfirm} danger type="link" icon={<DeleteOutlined />} />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </>

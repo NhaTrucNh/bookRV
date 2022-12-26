@@ -1,127 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './CategoryManagement.module.scss';
-import { Tabs, Button, Form, Input, Table, Space, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { Tabs, Button, Modal } from 'antd';
+import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
 export default function CategoryManagement() {
-    const { confirm } = Modal;
-    const showDeleteConfirm = () => {
-        confirm({
-            title: 'Bạn có chắc chắn muốn xoá danh mục này không?',
-            icon: <ExclamationCircleFilled />,
-            content: 'Một khi đã nhấn "Yes", danh mục sẽ bị xoá khỏi hệ thống',
-            okText: 'Yes',
-            okType: 'danger',
-            cancelText: 'No',
-            onOk() {
-                console.log('OK');
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
-        });
-    };
     const onChange = (key) => {
         console.log(key);
     };
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const { confirm } = Modal;
+
+    const showDeleteConfirm = () => {
+        confirm({
+            title: 'Bạn có muốn xoá danh mục này không?',
+            icon: <ExclamationCircleFilled />,
+            content: 'Một khi đã "Ok", danh mục sẽ bị xoá khỏi hệ thống',
+            onOk() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
+        });
     };
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
-    const columns = [
-        {
-            title: 'Mã danh mục',
-            dataIndex: 'catecode',
-            key: 'catecode',
-        },
-        {
-            title: 'Tên danh mục',
-            dataIndex: 'catename',
-            key: 'catename',
-        },
-
-        {
-            title: '',
-            key: 'action',
-            render: () => (
-                <Space size="middle">
-                    <button type="primary" onClick={showModal}>
-                        <EditOutlined />
-                    </button>
-                    <Modal
-                        title="Chỉnh sửa danh mục"
-                        open={isModalOpen}
-                        onOk={handleOk}
-                        onCancel={handleCancel}
-                        type="dashed"
-                    >
-                        <div className={cx('popup-content')}>
-                            <div className={cx('FormUpdate')}>
-                                <Form
-                                    initialValues={{
-                                        remember: true,
-                                    }}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                                    autoComplete="off"
-                                    layout="vertical"
-                                >
-                                    <Form.Item label="Mã danh mục" name="catecode">
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item label="Tên danh mục" name="catename">
-                                        <Input />
-                                    </Form.Item>
-                                </Form>
-                            </div>
-                        </div>
-                    </Modal>
-
-                    <Button onClick={showDeleteConfirm} type="link">
-                        <DeleteOutlined />
-                    </Button>
-                </Space>
-            ),
-        },
-    ];
-    const data = [
-        {
-            key: '1',
-            catecode: 'TN',
-            catename: 'Thiếu nhi',
-        },
-
-        {
-            key: '2',
-            catecode: 'KHVT',
-            catename: 'Khoa học viễn tưởng',
-        },
-
-        {
-            key: '3',
-            catecode: 'KD',
-            catename: 'Kinh dị',
-        },
-    ];
     return (
         <>
             <div className={cx('usermanagement')}>
@@ -142,36 +46,21 @@ export default function CategoryManagement() {
                                             </div>
                                             <div className={cx('content')}>
                                                 <div className={cx('info')}>
-                                                    <Form
-                                                        initialValues={{
-                                                            remember: true,
-                                                        }}
-                                                        onFinish={onFinish}
-                                                        onFinishFailed={onFinishFailed}
-                                                        autoComplete="off"
-                                                        layout="vertical"
-                                                    >
-                                                        <Form.Item label="Mã danh mục" name="catecode">
-                                                            <Input />
-                                                        </Form.Item>
+                                                    <form>
+                                                        <label for="genrecode">
+                                                            <span>*</span>Mã Danh mục
+                                                        </label>
+                                                        <input type="text" id="genrecode" name="genrecode" />
 
-                                                        <Form.Item label="Tên danh mục" name="catename">
-                                                            <Input />
-                                                        </Form.Item>
+                                                        <label for="genrename">
+                                                            <span>*</span>Tên danh mục
+                                                        </label>
+                                                        <input type="text" id="genrename" name="genrename" />
 
-                                                        <Form.Item
-                                                            wrapperCol={{
-                                                                offset: 10,
-                                                                span: 16,
-                                                            }}
-                                                        >
-                                                            <Space wrap>
-                                                                <Button type="primary" htmlType="submit">
-                                                                    Tạo mới
-                                                                </Button>
-                                                            </Space>
-                                                        </Form.Item>
-                                                    </Form>
+                                                        <div className={cx('submit')}>
+                                                            <Button type="primary">Tạo mới</Button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,7 +77,37 @@ export default function CategoryManagement() {
                                                 <p>Danh sách danh mục</p>
                                             </div>
                                             <div className={cx('content')}>
-                                                <Table columns={columns} dataSource={data} />
+                                                <table className={cx('bookList')}>
+                                                    <tr>
+                                                        <th>Mã danh mục</th>
+                                                        <th>Tên danh mục</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>khvt</td>
+                                                        <td>Khoa Học Viễn Tưởng</td>
+                                                        <td>
+                                                            <Button
+                                                                onClick={showDeleteConfirm}
+                                                                danger
+                                                                type="link"
+                                                                icon={<DeleteOutlined />}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>khvt</td>
+                                                        <td>Khoa Học Viễn Tưởng</td>
+                                                        <td>
+                                                            <Button
+                                                                onClick={showDeleteConfirm}
+                                                                danger
+                                                                type="link"
+                                                                icon={<DeleteOutlined />}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </div>
                                     </>
