@@ -9,6 +9,11 @@ export const adminApi = {
     getUser: (id, token) => api.get(`/admin/get-user/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
+export const homeApi = {
+    getBooks: () => api.get("/book/home/"),
+    getCategories: () => api.get("/category/home/"),
+};
+
 export const authApi = {
     register: (data) => api.post("/auth/register", data),
     login: (data) => api.post("/auth/login", data),
@@ -18,6 +23,15 @@ export const authApi = {
 
 export const userApi = {
     getSelf: (token) => api.get("/user/me", { headers: { Authorization: `Bearer ${token}` } }),
+};
+
+export const categoryApi = {
+    getBooksByCategory: (id) => api.get(`/category/${id}`),
+    getAll: () => api.get(`/category/home/all`),
+};
+
+export const bookApi = {
+    getBook: (id) => api.get(`/book/${id}`),
 };
 
 export default api;
