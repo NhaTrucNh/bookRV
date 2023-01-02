@@ -45,15 +45,11 @@ function Home() {
                 <hr width="100%" color="#E8E8E8" />
             </div>
             <div className={cx('genre')}>
-                <div className={cx('listlink')}>
-                    <ul>
-                        {tags?.map((tag, index) => (
-                            <li key={index}>
-                                <a href={`/category/${tag.code}`}>{tag.name}</a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                {tags?.map((tag, index) => (
+                    <div key={index}>
+                        <a href={`/category/${tag.code}`}>{tag.name}</a>
+                    </div>
+                ))}
             </div>
         </section>
     );

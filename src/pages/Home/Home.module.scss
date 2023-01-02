@@ -67,26 +67,9 @@
     }
 }
 .genre {
-    display: flex;
-    flex-flow: row wrap;
-
-    .listlink {
-        padding-right: 6rem;
-    }
-
-    li {
-        list-style-type: none;
-
-        a {
-            color: #000000;
-
-            &:hover {
-                color: #ff7a5c;
-            }
-
-            &:active {
-                color: #ff8267;
-            }
-        }
-    }
+    // padding-right: 6rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: small;
+    // grid-template-rows: 200px 200px 200px;
 }
