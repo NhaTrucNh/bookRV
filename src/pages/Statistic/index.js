@@ -7,46 +7,46 @@ import styles from './Statistic.module.scss';
 const cx = classNames.bind(styles);
 
 export default function Statistic() {
-    const [statistics, setStatistics] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [statistics, setStatistics] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const token = Cookies.get('token');
-        adminApi.getStatistics(token).then((res) => {
-            setStatistics(res.data.result);
-            setLoading(false);
-        });
-    }, []);
+  useEffect(() => {
+    const token = Cookies.get('token');
+    adminApi.getStatistics(token).then((res) => {
+      setStatistics(res.data.result);
+      setLoading(false);
+    });
+  }, []);
 
-    if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
 
-    return (
-        <>
-            <div className={cx('usermanagement')}>
-                <div className={cx('title')}>Thống kê</div>
-                <div className={cx('statistic')}>
-                    <div className={cx('content')}>
-                        <div className={cx('frame')}>
-                            <h4>Số lượng đầu sách</h4>
-                            <p>
-                                {statistics.books}<span> cuốn</span>
-                            </p>
-                        </div>
-                        <div className={cx('frame')}>
-                            <h4>Số lượng thành viên</h4>
-                            <p>
-                                {statistics.users}<span> thành viên</span>
-                            </p>
-                        </div>
-                        <div className={cx('frame')}>
-                            <h4>Số lượng danh mục</h4>
-                            <p>
-                                {statistics.categories}<span> danh mục</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <>
+      <div className={cx('usermanagement')}>
+        <div className={cx('title')}>Thống kê</div>
+        <div className={cx('statistic')}>
+          <div className={cx('content')}>
+            <div className={cx('frame')}>
+              <h4>Số lượng đầu sách</h4>
+              <p>
+                {statistics.books}<span> cuốn</span>
+              </p>
             </div>
-        </>
-    );
+            <div className={cx('frame')}>
+              <h4>Số lượng thành viên</h4>
+              <p>
+                {statistics.users}<span> thành viên</span>
+              </p>
+            </div>
+            <div className={cx('frame')}>
+              <h4>Số lượng danh mục</h4>
+              <p>
+                {statistics.categories}<span> danh mục</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

@@ -14,37 +14,37 @@ import Sidebar from './Sidebar';
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
-    const navigate = useNavigate()
-    const [isLogged, setIsLogged] = useState(false);
-    const [user, setUser] = useState({});
+  const navigate = useNavigate()
+  const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState({});
 
-    useEffect(() => {
-        if (Cookies.get('token') && localStorage.getItem('user')) {
-            authApi.verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token')).then((response) => {
-                if (response?.data.code === 200) {
-                    setIsLogged(true);
-                    setUser(JSON.parse(localStorage.getItem('user')));
-                }
-            }).catch((error) => {
-                const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-                toast.error(msg);
-                Cookies.remove('token');
-                localStorage.removeItem('user');
-                navigate("/login");
-            })
+  useEffect(() => {
+    if (Cookies.get('token') && localStorage.getItem('user')) {
+      authApi.verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token')).then((response) => {
+        if (response?.data.code === 200) {
+          setIsLogged(true);
+          setUser(JSON.parse(localStorage.getItem('user')));
         }
-    }, [navigate])
-    return (
-        <div className={cx('wrapper')}>
-            {isLogged ? <HeaderAccount user={user} /> : <Header />}
-            <CoverHeader />
-            <div className={cx('container')}>
-                <Sidebar />
-                <div className={cx('content')}>{children}</div>
-            </div>
-            <Footer />
-        </div>
-    );
+      }).catch((error) => {
+        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+        toast.error(msg);
+        Cookies.remove('token');
+        localStorage.removeItem('user');
+        navigate("/login");
+      })
+    }
+  }, [navigate])
+  return (
+    <div className={cx('wrapper')}>
+      {isLogged ? <HeaderAccount user={user} /> : <Header />}
+      <CoverHeader />
+      <div className={cx('container')}>
+        <Sidebar />
+        <div className={cx('content')}>{children}</div>
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
 export default DefaultLayout;

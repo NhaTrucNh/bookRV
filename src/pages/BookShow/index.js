@@ -5,6 +5,7 @@ import { Avatar, Progress, Rate } from 'antd';
 import classNames from 'classnames/bind';
 import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { bookApi } from '~/api/api';
 import CSPACAT3 from '../../asset/images/CSPACAT3.png';
@@ -17,12 +18,25 @@ function BookShow() {
   const { id } = useParams();
   const [showPopup, setShowPopup] = useState(false);
   const [book, setBook] = useState({});
+  const [isBookExist, setIsBookExist] = useState(0);
 
   useEffect(() => {
     bookApi.getBook(id).then((res) => {
       setBook(res.data.result);
+      setIsBookExist(1);
+    }).catch((err) => {
+      toast.error(err.response.data.message);
+      setIsBookExist(2);
     });
   }, [id]);
+
+  if (isBookExist === 0) {
+    return <div>Loading...</div>;
+  }
+
+  if (isBookExist === 2) {
+    return <div>Book not found</div>;
+  }
 
   return (
     <div className={cx('wrapper')}>
@@ -107,7 +121,7 @@ function BookShow() {
               <br />
               <div className={cx('Info')}>
                 <p className={cx('InfoTitle')}>Ngày xuất bản:</p>
-                <>{new Date(book?.publishDate).toLocaleDateString('en-GB')}</>
+                <>{book?.publishDate}</>
               </div>
               <br />
               <div className={cx('Info')}>
