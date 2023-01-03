@@ -54,7 +54,7 @@ export default function Login() {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('inner')}>
+            <form className={cx('inner')} onSubmit={handleSubmit}>
                 <div className={cx('logo')}>
                     <img src={logo} />
                 </div>
@@ -64,14 +64,13 @@ export default function Login() {
                 <div className={cx('form')}>
                     <input type="password" placeholder="Nhập mật khẩu" spellCheck={false} value={pwd} onChange={(e) => setPwd(e.target.value)} />
                 </div>
-
-                <div className={cx('submit')}>
-                    <button onClick={handleSubmit} disabled={!validEmail || pwd.length < 8} >Đăng nhập</button>
+                <div className={cx('submit')} type="submit">
+                    <button type="submit" disabled={!validEmail || pwd.length < 8} >Đăng nhập</button>
                 </div>
                 <p>
                     Chưa có tài khoản ? <a href="./register">Đăng ký</a>
                 </p>
-            </div>
+            </form>
         </div>
     );
 }
