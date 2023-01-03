@@ -1,20 +1,52 @@
-import React from 'react';
-import classNames from 'classnames/bind';
-import styles from './DashboardFrame.module.scss';
-import Logo from '../../../asset/images/Logo.png';
-import { Button, Dropdown } from 'antd';
 import {
-    UserOutlined,
-    TeamOutlined,
-    BookOutlined,
-    FolderOutlined,
-    CommentOutlined,
-    ProjectOutlined,
+    BookOutlined, CommentOutlined, FolderOutlined, ProjectOutlined, TeamOutlined, UserOutlined
 } from '@ant-design/icons';
+import { Button, Dropdown } from 'antd';
+import classNames from 'classnames/bind';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { authApi } from '~/api/api';
+import Logo from '../../../asset/images/Logo.png';
+import styles from './DashboardFrame.module.scss';
 
 const cx = classNames.bind(styles);
 
 function DashboardFrame({ children }) {
+    const navigate = useNavigate()
+    const [user, setUser] = useState({});
+
+    const handleLogout = async () => {
+        const email = JSON.parse(localStorage.getItem('user')).email;
+        await authApi.logout(email);
+        Cookies.remove('token');
+        localStorage.removeItem('user');
+        toast.success('Đăng xuất thành công');
+        navigate('/login');
+    };
+
+    useEffect(() => {
+        if (Cookies.get('token') && localStorage.getItem('user')) {
+            authApi.verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token')).then((response) => {
+                if (response.data.code === 200 && response.data.result.role === 'admin') {
+                    setUser(JSON.parse(localStorage.getItem('user')));
+                } else {
+                    toast.error('Verify Failed');
+                    Cookies.remove('token');
+                    localStorage.removeItem('user');
+                    navigate("/login");
+                }
+            }).catch((error) => {
+                const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+                toast.error(msg);
+                Cookies.remove('token');
+                localStorage.removeItem('user');
+                navigate("/login");
+            })
+        }
+    }, [navigate])
+
     const items = [
         {
             key: '1',
@@ -51,9 +83,9 @@ function DashboardFrame({ children }) {
         {
             key: '5',
             label: (
-                <a target="_blank" rel="logout" href="login">
+                <p onClick={handleLogout} style={{ cursor: 'pointer' }}>
                     Đăng xuất
-                </a>
+                </p>
             ),
         },
     ];
@@ -136,7 +168,7 @@ function DashboardFrame({ children }) {
                                 pointAtCenter: true,
                             }}
                         >
-                            <Button>Nhã Trúc</Button>
+                            <Button>{user.name}</Button>
                         </Dropdown>
                     </div>
                     <div className={cx('frame')}>{children}</div>

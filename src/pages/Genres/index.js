@@ -33,27 +33,29 @@ export default function Genres() {
                     </ul>
                 </div>
 
-                {categories.map((category, index) => (
-                    <div className={cx('GenreBook')} key={index}>
-                        <p className={cx('title')}>
-                            <a href={`/genre/${category.tag?.code}`}>{category.tag?.name}</a>
-                        </p>
-                        <div className={cx('lBook')}>
-                            {category.books?.map((book, index) => (
-                                <a href={`/book/${book.id}`} key={index}>
-                                    <img
-                                        src={book.cover}
-                                        alt="cover"
-                                    />
-                                </a>
-                            ))}
+                <div className={cx('GenreBook')} >
+                    {categories.map((category, index) => (
+                        <div key={index}>
+                            <p className={cx('title')}>
+                                <a href={`/genre/${category.tag?.code}`}>{category.tag?.name}</a>
+                            </p>
+                            <div className={cx('lBook')}>
+                                {category.books?.map((book, index) => (
+                                    <a href={`/book/${book.id}`} key={index}>
+                                        <img
+                                            src={book.cover}
+                                            alt="cover"
+                                        />
+                                    </a>
+                                ))}
+                            </div>
+                            <div className={cx('more')}>
+                                <a href={`/genre/${category.tag?.code}`}>Xem thêm</a>
+                            </div>
+                            <hr />
                         </div>
-                        <div className={cx('more')}>
-                            <a href={`/genre/${category.tag?.code}`}>Xem thêm</a>
-                        </div>
-                        <hr />
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );

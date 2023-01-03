@@ -7,6 +7,7 @@ const api = axios.create({
 export const adminApi = {
     getAllUsers: (token) => api.get("/admin/get-user/all", { headers: { Authorization: `Bearer ${token}` } }),
     getUser: (id, token) => api.get(`/admin/get-user/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    getStatistics: (token) => api.get("/admin/statistics", { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const homeApi = {
@@ -17,7 +18,7 @@ export const homeApi = {
 export const authApi = {
     register: (data) => api.post("/auth/register", data),
     login: (data) => api.post("/auth/login", data),
-    logout: (email) => api.post("/auth/logout", email),
+    logout: (email) => api.post("/auth/logout", { email }),
     verify: (email, token) => api.post("/auth/verify", { email }, { headers: { Authorization: `Bearer ${token}` } }),
 };
 

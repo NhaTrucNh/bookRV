@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { authApi } from '~/api/api';
 import logo from '../../../../asset/images/Logo.png';
 import styles from './HeaderAccount.module.scss';
 
@@ -14,7 +15,9 @@ const cx = classNames.bind(styles);
 function HeaderAccount({ user }) {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        const email = JSON.parse(localStorage.getItem('user')).email;
+        await authApi.logout(email);
         Cookies.remove('token');
         localStorage.removeItem('user');
         toast.success('Đăng xuất thành công');
@@ -41,13 +44,21 @@ function HeaderAccount({ user }) {
         {
             key: '3',
             label: (
+                <a rel="mod" href="mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
+                    Quản lý
+                </a>
+            ),
+        },
+        {
+            key: '4',
+            label: (
                 <a rel="change password" href="changepassword">
                     Đổi mật khẩu
                 </a>
             ),
         },
         {
-            key: '4',
+            key: '5',
             label: (
                 <p onClick={handleLogout}>
                     Đăng xuất

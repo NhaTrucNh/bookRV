@@ -1,10 +1,25 @@
-import React from 'react';
 import classNames from 'classnames/bind';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { adminApi } from '~/api/api';
 import styles from './Statistic.module.scss';
 
 const cx = classNames.bind(styles);
 
 export default function Statistic() {
+    const [statistics, setStatistics] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const token = Cookies.get('token');
+        adminApi.getStatistics(token).then((res) => {
+            setStatistics(res.data.result);
+            setLoading(false);
+        });
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+
     return (
         <>
             <div className={cx('usermanagement')}>
@@ -14,19 +29,19 @@ export default function Statistic() {
                         <div className={cx('frame')}>
                             <h4>Số lượng đầu sách</h4>
                             <p>
-                                10000<span> cuốn</span>
+                                {statistics.books}<span> cuốn</span>
                             </p>
                         </div>
                         <div className={cx('frame')}>
                             <h4>Số lượng thành viên</h4>
                             <p>
-                                10000<span> thành viên</span>
+                                {statistics.users}<span> thành viên</span>
                             </p>
                         </div>
                         <div className={cx('frame')}>
                             <h4>Số lượng danh mục</h4>
                             <p>
-                                10000<span> danh mục</span>
+                                {statistics.categories}<span> danh mục</span>
                             </p>
                         </div>
                     </div>
