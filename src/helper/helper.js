@@ -11,5 +11,7 @@ export const DateConverter = (date) => {
     dateOnly: `${day}/${month}/${year}`,
     timeOnly: `${hour}:${minute}:${second}`,
     fullDatetime: `${day}/${month}/${year} ${hour}:${minute}:${second}`,
+    USDate: `${year}-${month}-${day}`,
+    rawDate: d,
   }
 }

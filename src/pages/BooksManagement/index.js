@@ -18,10 +18,14 @@ export default function BooksManagement() {
       title: 'Bạn có muốn xoá quyển sách này không?',
       icon: <ExclamationCircleFilled />,
       content: 'Một khi đã "Ok", quyển sách sẽ bị xoá khỏi hệ thống',
-      onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'));
+      async onOk() {
+        try {
+          return await new Promise((resolve, reject) => {
+            setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+          });
+        } catch {
+          return console.log('Oops errors!');
+        }
       },
       onCancel() { },
     });
