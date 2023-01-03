@@ -23,6 +23,7 @@ export const authApi = {
 
 export const userApi = {
     getSelf: (token) => api.get("/user/me", { headers: { Authorization: `Bearer ${token}` } }),
+    changePassword: (data, token) => api.put("/user/change-password", data, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const categoryApi = {

@@ -41,7 +41,7 @@ export default function Profile() {
                         <div className={cx('top')}>
                             <div className={cx('left')}>
                                 <div>
-                                    <img src="https://i.imgur.com/eIeV9Bw.jpg" alt="" />
+                                    <img src={user.avatar} alt="" />
                                 </div>
                                 <div>
                                     <a href="##">
@@ -53,7 +53,7 @@ export default function Profile() {
                                 <div className={cx('userName')}>{user?.name}</div>
                                 <hr />
                                 <div className={cx('dob')}>
-                                    Ngày sinh: <span>{user?.dateOfBirth ? user?.dateOfBirth : 'Chưa cập nhật'}</span>
+                                    Ngày sinh: <span>{user.dateOfBirth ? user.dateOfBirth : 'Chưa cập nhật'}</span>
                                 </div>
                                 <div className={cx('aboutMe')}>
                                     Về tôi: {'  '}

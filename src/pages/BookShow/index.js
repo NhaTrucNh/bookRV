@@ -93,7 +93,7 @@ function BookShow() {
                 <p className={cx('InfoTitle')}>Thể loại:</p>
                 <p className={cx('InfoTag')}>
                   {book.tags?.map((tag) => (
-                    <a href={`/category/${tag.code}`} className={cx('Tag')} key={tag.id} style={{ padding: '0 5px' }}>
+                    <a href={`/genre/${tag.code}`} className={cx('Tag')} key={tag.id} style={{ padding: '0 5px' }}>
                       {tag.name}
                     </a>
                   ))}

@@ -47,7 +47,7 @@ function Home() {
             <div className={cx('genre')}>
                 {tags?.map((tag, index) => (
                     <div key={index}>
-                        <a href={`/category/${tag.code}`}>{tag.name}</a>
+                        <a href={`/genre/${tag.code}`}>{tag.name}</a>
                     </div>
                 ))}
             </div>

@@ -1,8 +1,7 @@
-import React from 'react';
+import { ExclamationCircleFilled, SearchOutlined, StopOutlined } from '@ant-design/icons';
+import { Button, Modal } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './ModManagement.module.scss';
-import { Button, Modal } from 'antd';
-import { ExclamationCircleFilled, SearchOutlined, StopOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +17,7 @@ export default function ModManagement() {
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                 }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {},
+            onCancel() { },
         });
     };
 
@@ -32,7 +31,7 @@ export default function ModManagement() {
                     </div>
                     <div className={cx('search')}>
                         <form onsubmit="event.preventDefault();" role="search">
-                            <label for="search">Tìm kiếm</label>
+                            <label htmlFor="search">Tìm kiếm</label>
                             <input id="search" type="search" placeholder="Nhập vào đây..." autofocus required />
                             <button type="submit">
                                 <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />

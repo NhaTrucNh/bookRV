@@ -1,15 +1,11 @@
-import React from 'react';
+import {
+    CheckCircleOutlined, DeleteOutlined, EditOutlined, ExclamationCircleFilled,
+    SearchOutlined,
+    StopOutlined
+} from '@ant-design/icons';
+import { Button, Modal, Tag } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './UserManagement.module.scss';
-import { Button, Tag, Modal } from 'antd';
-import {
-    DeleteOutlined,
-    ExclamationCircleFilled,
-    SearchOutlined,
-    StopOutlined,
-    CheckCircleOutlined,
-    EditOutlined,
-} from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 export default function UserManagement() {
@@ -25,7 +21,7 @@ export default function UserManagement() {
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                 }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {},
+            onCancel() { },
         });
     };
 
@@ -39,7 +35,7 @@ export default function UserManagement() {
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                 }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {},
+            onCancel() { },
         });
     };
 
@@ -53,7 +49,7 @@ export default function UserManagement() {
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                 }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {},
+            onCancel() { },
         });
     };
 
@@ -67,7 +63,7 @@ export default function UserManagement() {
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                 }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {},
+            onCancel() { },
         });
     };
     return (
@@ -80,7 +76,7 @@ export default function UserManagement() {
                     </div>
                     <div className={cx('search')}>
                         <form onsubmit="event.preventDefault();" role="search">
-                            <label for="search">Tìm kiếm</label>
+                            <label htmlFor="search">Tìm kiếm</label>
                             <input id="search" type="search" placeholder="Nhập vào đây..." autofocus required />
                             <button type="submit">
                                 <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />

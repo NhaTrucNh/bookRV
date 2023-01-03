@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import classNames from 'classnames/bind';
-import styles from './BooksManagement.module.scss';
-import { Tabs, Button, Upload, Modal } from 'antd';
 import {
-    UploadOutlined,
-    DeleteOutlined,
-    ExclamationCircleFilled,
-    SearchOutlined,
-    EditOutlined,
+    DeleteOutlined, EditOutlined, ExclamationCircleFilled,
+    SearchOutlined, UploadOutlined
 } from '@ant-design/icons';
+import { Button, Modal, Tabs, Upload } from 'antd';
+import classNames from 'classnames/bind';
+import { useState } from 'react';
+import styles from './BooksManagement.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -26,7 +23,7 @@ export default function BooksManagement() {
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                 }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {},
+            onCancel() { },
         });
     };
 
@@ -55,17 +52,17 @@ export default function BooksManagement() {
                                             <div className={cx('content')}>
                                                 <div className={cx('info')}>
                                                     <form>
-                                                        <label for="bookname">
+                                                        <label htmlFor="bookname">
                                                             <span>*</span>Tên sách
                                                         </label>
                                                         <input type="text" id="bookname" name="bookname" />
 
-                                                        <label for="author">
+                                                        <label htmlFor="author">
                                                             <span>*</span>Tác giả
                                                         </label>
                                                         <input type="text" id="author" name="author" />
 
-                                                        <label for="genre">
+                                                        <label htmlFor="genre">
                                                             <span>*</span>Thể loại
                                                         </label>
                                                         <div className={cx('GenreList')}>
@@ -99,13 +96,13 @@ export default function BooksManagement() {
                                                             </label>
                                                         </div>
 
-                                                        <label for="summary">
+                                                        <label htmlFor="summary">
                                                             <span>*</span>Tóm tắt
                                                         </label>
 
                                                         <textarea id="story" name="story"></textarea>
 
-                                                        <label for="coverbook">
+                                                        <label htmlFor="coverbook">
                                                             <span>*</span>Ảnh bìa
                                                         </label>
                                                         <div className={cx('cover')}>
@@ -120,16 +117,16 @@ export default function BooksManagement() {
                                                             </Upload>
                                                         </div>
 
-                                                        <label for="publisher">Nhà xuất bản</label>
+                                                        <label htmlFor="publisher">Nhà xuất bản</label>
                                                         <input type="text" id="publisher" name="publisher" />
 
-                                                        <label for="date">Ngày xuất bản</label>
+                                                        <label htmlFor="date">Ngày xuất bản</label>
                                                         <input type="text" id="date" name="date" />
 
-                                                        <label for="pages">Số trang</label>
+                                                        <label htmlFor="pages">Số trang</label>
                                                         <input type="text" id="pages" name="pages" />
 
-                                                        <label for="buylink">Nơi bán</label>
+                                                        <label htmlFor="buylink">Nơi bán</label>
                                                         <input type="text" id="buylink" name="buylink" />
 
                                                         <div className={cx('submit')}>
@@ -154,7 +151,7 @@ export default function BooksManagement() {
                                             <div className={cx('content')}>
                                                 <div className={cx('search')}>
                                                     <form onsubmit="event.preventDefault();" role="search">
-                                                        <label for="search">Tìm kiếm</label>
+                                                        <label htmlFor="search">Tìm kiếm</label>
                                                         <input
                                                             id="search"
                                                             type="search"
@@ -212,7 +209,7 @@ export default function BooksManagement() {
                                                                         <div className={cx('content')}>
                                                                             <div className={cx('info')}>
                                                                                 <form>
-                                                                                    <label for="bookname">
+                                                                                    <label htmlFor="bookname">
                                                                                         Tên sách
                                                                                     </label>
                                                                                     <input
@@ -221,14 +218,14 @@ export default function BooksManagement() {
                                                                                         name="bookname"
                                                                                     />
 
-                                                                                    <label for="author">Tác giả</label>
+                                                                                    <label htmlFor="author">Tác giả</label>
                                                                                     <input
                                                                                         type="text"
                                                                                         id="author"
                                                                                         name="author"
                                                                                     />
 
-                                                                                    <label for="genre">Thể loại</label>
+                                                                                    <label htmlFor="genre">Thể loại</label>
                                                                                     <div className={cx('GenreList')}>
                                                                                         <label
                                                                                             className={cx(
@@ -308,7 +305,7 @@ export default function BooksManagement() {
                                                                                             Checkbox
                                                                                         </label>
                                                                                     </div>
-                                                                                    <label for="summary">Tóm tắt</label>
+                                                                                    <label htmlFor="summary">Tóm tắt</label>
 
                                                                                     <textarea
                                                                                         id="story"
@@ -322,7 +319,7 @@ export default function BooksManagement() {
                                                                         <div className={cx('content')}>
                                                                             <div className={cx('info')}>
                                                                                 <form>
-                                                                                    <label for="coverbook">
+                                                                                    <label htmlFor="coverbook">
                                                                                         Ảnh bìa
                                                                                     </label>
                                                                                     <div className={cx('cover')}>
@@ -341,7 +338,7 @@ export default function BooksManagement() {
                                                                                         </Upload>
                                                                                     </div>
 
-                                                                                    <label for="publisher">
+                                                                                    <label htmlFor="publisher">
                                                                                         Nhà xuất bản
                                                                                     </label>
                                                                                     <input
@@ -350,7 +347,7 @@ export default function BooksManagement() {
                                                                                         name="publisher"
                                                                                     />
 
-                                                                                    <label for="date">
+                                                                                    <label htmlFor="date">
                                                                                         Ngày xuất bản
                                                                                     </label>
                                                                                     <input
@@ -359,14 +356,14 @@ export default function BooksManagement() {
                                                                                         name="date"
                                                                                     />
 
-                                                                                    <label for="pages">Số trang</label>
+                                                                                    <label htmlFor="pages">Số trang</label>
                                                                                     <input
                                                                                         type="text"
                                                                                         id="pages"
                                                                                         name="pages"
                                                                                     />
 
-                                                                                    <label for="buylink">Nơi bán</label>
+                                                                                    <label htmlFor="buylink">Nơi bán</label>
                                                                                     <input
                                                                                         type="text"
                                                                                         id="buylink"

@@ -22,7 +22,7 @@ export default class AccountSetting extends React.Component {
                     <div className={cx('content')}>
                         <div className={cx('Form')}>
                             <form>
-                                <label for="email">Email</label>
+                                <label htmlFor="email">Email</label>
                                 <input
                                     type="text"
                                     id="email"
@@ -31,10 +31,10 @@ export default class AccountSetting extends React.Component {
                                     value="heisia1412@gmail.com"
                                 />
 
-                                <label for="username">Tên hiển thị</label>
+                                <label htmlFor="username">Tên hiển thị</label>
                                 <input type="text" id="username" name="username" />
 
-                                <label for="avatar">Ảnh đại diện</label>
+                                <label htmlFor="avatar">Ảnh đại diện</label>
 
                                 <div className={cx('cover')}>
                                     <Upload
@@ -46,12 +46,12 @@ export default class AccountSetting extends React.Component {
                                     </Upload>
                                 </div>
 
-                                <label for="dob">Ngày sinh</label>
+                                <label htmlFor="dob">Ngày sinh</label>
                                 <div className={cx('space')}>
                                     <DatePicker onChange={onChange} />
                                 </div>
 
-                                <label for="aboutme">Về tôi</label>
+                                <label htmlFor="aboutme">Về tôi</label>
                                 <textarea id="aboutme" name="aboutme"></textarea>
 
                                 <div className={cx('submit')}>

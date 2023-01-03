@@ -3,47 +3,59 @@ import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Dropdown } from 'antd';
 import classNames from 'classnames/bind';
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../../../asset/images/Logo.png';
 import styles from './HeaderAccount.module.scss';
 
 const cx = classNames.bind(styles);
 
-const items = [
-    {
-        key: '1',
-        label: (
-            <a target="_blank" rel="profile" href="profile">
-                Hồ sơ
-            </a>
-        ),
-    },
-    {
-        key: '2',
-        label: (
-            <a target="_blank" rel="account setting" href="accountsetting">
-                Cài đặt tài khoản
-            </a>
-        ),
-    },
-    {
-        key: '3',
-        label: (
-            <a target="_blank" rel="change password" href="changepassword">
-                Đổi mật khẩu
-            </a>
-        ),
-    },
-    {
-        key: '4',
-        label: (
-            <a target="_blank" rel="logout" href="login">
-                Đăng xuất
-            </a>
-        ),
-    },
-];
-
 function HeaderAccount({ user }) {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        Cookies.remove('token');
+        localStorage.removeItem('user');
+        toast.success('Đăng xuất thành công');
+        navigate('/login');
+    };
+
+    const items = [
+        {
+            key: '1',
+            label: (
+                <a rel="profile" href="profile">
+                    Hồ sơ
+                </a>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <a rel="account setting" href="accountsetting">
+                    Cài đặt tài khoản
+                </a>
+            ),
+        },
+        {
+            key: '3',
+            label: (
+                <a rel="change password" href="changepassword">
+                    Đổi mật khẩu
+                </a>
+            ),
+        },
+        {
+            key: '4',
+            label: (
+                <p onClick={handleLogout}>
+                    Đăng xuất
+                </p>
+            ),
+        },
+    ];
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>

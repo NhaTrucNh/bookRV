@@ -1,8 +1,7 @@
-import React from 'react';
+import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { Button, Modal, Tabs } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './CategoryManagement.module.scss';
-import { Tabs, Button, Modal } from 'antd';
-import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -23,7 +22,7 @@ export default function CategoryManagement() {
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
                 }).catch(() => console.log('Oops errors!'));
             },
-            onCancel() {},
+            onCancel() { },
         });
     };
     return (
@@ -47,12 +46,12 @@ export default function CategoryManagement() {
                                             <div className={cx('content')}>
                                                 <div className={cx('info')}>
                                                     <form>
-                                                        <label for="genrecode">
+                                                        <label htmlFor="genrecode">
                                                             <span>*</span>Mã Danh mục
                                                         </label>
                                                         <input type="text" id="genrecode" name="genrecode" />
 
-                                                        <label for="genrename">
+                                                        <label htmlFor="genrename">
                                                             <span>*</span>Tên danh mục
                                                         </label>
                                                         <input type="text" id="genrename" name="genrename" />
