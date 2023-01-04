@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { bookApi } from '~/api/api';
-import CSPACAT3 from '../../asset/images/CSPACAT3.png';
 import Popup from '../../components/Popup';
 import styles from './BookShow.module.scss';
 
@@ -85,17 +84,17 @@ function BookShow() {
               <a href="#Rtg" className={cx('textStats')}>
                 <div id="RS" className={cx('RatingStats')}>
                   <div className={cx('Rating')}>
-                    <Rate allowHalf disabled defaultValue={4.5} style={{ fontSize: 36 }} />
+                    <Rate allowHalf disabled defaultValue={book.rating?.averageRating} style={{ fontSize: 36 }} />
                   </div>
                   <div>
-                    <h1>4.55</h1>
+                    <h1>{book.rating?.averageRating}</h1>
                   </div>
                   <div className={cx('Statistic')}>
-                    <div>21,301</div>
+                    <div>{book.rating?.ratingCount}</div>
                     <div className={cx('space')}>Đánh giá</div>
                   </div>
                   <div className={cx('Statistic')}>
-                    <div>21,301</div>
+                    <div>{book.rating?.reviewCount}</div>
                     <div className={cx('space')}>Cảm nhận</div>
                   </div>
                 </div>
@@ -132,21 +131,11 @@ function BookShow() {
               <p className={cx('TieuDe')}>TỰA SÁCH CÙNG DANH MỤC</p>
               <hr></hr>
               <div className={cx('sameGenre')}>
-                <a href="##">
-                  <img className={cx('imgProduct')} src={CSPACAT3} alt="P1" />
-                </a>
-                <a href="##">
-                  <img className={cx('imgProduct')} src={CSPACAT3} alt="P1" />
-                </a>
-                <a href="##">
-                  <img className={cx('imgProduct')} src={CSPACAT3} alt="P1" />
-                </a>
-                <a href="##">
-                  <img className={cx('imgProduct')} src={CSPACAT3} alt="P1" />
-                </a>
-                <a href="##">
-                  <img className={cx('imgProduct')} src={CSPACAT3} alt="P1" />
-                </a>
+                {book?.alikeBooks?.map((book, index) => (
+                  <a href={`/book/${book.id}`} key={index}>
+                    <img className={cx('imgProduct')} src={book.cover} alt="BP4" />
+                  </a>
+                ))}
               </div>
 
               <hr />
@@ -174,7 +163,7 @@ function BookShow() {
                       <Rate style={{ fontSize: 30 }} />
                       <p>Xếp hạng quyển sách này</p>
                     </div>
-                    <a href="review">
+                    <a href="/review">
                       <button className={cx('write')}>Viết cảm nhận</button>
                     </a>
                   </div>
@@ -186,17 +175,17 @@ function BookShow() {
                 <div id="Rtg" className={cx('ReviewsSectionStatistic')}>
                   <div className={cx('RatingStats')}>
                     <div className={cx('Rating')}>
-                      <Rate allowHalf disabled defaultValue={4.5} style={{ fontSize: 36 }} />
+                      <Rate allowHalf disabled defaultValue={book.rating?.averageRating} style={{ fontSize: 36 }} />
                     </div>
                     <div>
-                      <h1>4.55</h1>
+                      <h1>{book.rating?.averageRating}</h1>
                     </div>
                     <div className={cx('Statistic')}>
-                      <div>21,301</div>
+                      <div>{book.rating?.ratingCount}</div>
                       <div className={cx('space')}>Đánh giá</div>
                     </div>
                     <div className={cx('Statistic')}>
-                      <div>21,301</div>
+                      <div>{book.rating?.reviewCount}</div>
                       <div className={cx('space')}>Cảm nhận</div>
                     </div>
                   </div>
@@ -205,7 +194,7 @@ function BookShow() {
                   <div className={cx('TitleStar')}>5 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={63}
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.fiveStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -213,13 +202,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>13,478 (63%)</div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.fiveStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.fiveStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>4 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={30}
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.fourStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -227,13 +216,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>6,474 (30%)</div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.fourStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.fourStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>3 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={5}
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.threeStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -241,13 +230,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>1,237 (63%)</div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.threeStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.threeStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>2 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={1}
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.twoStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -255,13 +244,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>79 (1%)</div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.twoStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.twoStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>1 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={1}
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.oneStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -269,7 +258,7 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>33 (1%)</div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.oneStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.oneStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
               </div>
               <div className={cx('ReviewList')}>
