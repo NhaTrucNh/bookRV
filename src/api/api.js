@@ -38,4 +38,12 @@ export const bookApi = {
   getBook: (id) => api.get(`/book/${id}`),
 };
 
+export const reviewApi = {
+  getReviews: (id) => api.get(`/review/${id}`),
+  getReview: (userId, bookId, token) => api.get(`/review/${userId}/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  createReview: (data, token) => api.post("/review/create", data, { headers: { Authorization: `Bearer ${token}` } }),
+  updateReview: (data, token) => api.put("/review/update", data, { headers: { Authorization: `Bearer ${token}` } }),
+  deleteReview: (id, token) => api.delete(`/review/delete/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+};
+
 export default api;

@@ -36,7 +36,7 @@ const publicRoutes = [
   { path: '/genres', component: Genres, layout: HeaderAndFooter },
   { path: '/genre/:code', component: Genre, layout: HeaderAndFooter },
   { path: '/book/:id', component: BookShow, layout: HeaderAndFooter },
-  { path: '/review', component: Review, layout: HeaderAndFooter },
+  { path: '/review/:id', component: Review, layout: HeaderAndFooter },
   { path: '/dashboardframe', component: DashboardFrame, layout: null },
   { path: '/user', component: UserManagement, layout: DashboardFrame },
   { path: '/mod', component: ModManagement, layout: DashboardFrame },
