@@ -1,36 +1,32 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL:
-    process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD,
+  baseURL: process.env.NODE_ENV === "development" ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD,
 });
 
 export const adminApi = {
-  getAllUsers: (token) => api.get('/admin/get-user/all', { headers: { Authorization: `Bearer ${token}` } }),
+  getAllUsers: (token) => api.get("/admin/get-user/all", { headers: { Authorization: `Bearer ${token}` } }),
   getUser: (id, token) => api.get(`/admin/get-user/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
-  getStatistics: (token) => api.get('/admin/statistics', { headers: { Authorization: `Bearer ${token}` } }),
+  getStatistics: (token) => api.get("/admin/statistics", { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const homeApi = {
-  getBooks: () => api.get('/book/home/'),
-  getCategories: () => api.get('/category/home/'),
+  getBooks: () => api.get("/book/home/"),
+  getCategories: () => api.get("/category/home/"),
 };
 
 export const authApi = {
-  register: (data) => api.post('/auth/register', data),
-  login: (data) => api.post('/auth/login', data),
-  logout: (email) => api.post('/auth/logout', { email }),
-  verify: (email, token) => api.post('/auth/verify', { email }, { headers: { Authorization: `Bearer ${token}` } }),
+  register: (data) => api.post("/auth/register", data),
+  login: (data) => api.post("/auth/login", data),
+  logout: (email) => api.post("/auth/logout", { email }),
+  verify: (email, token) => api.post("/auth/verify", { email }, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const userApi = {
-  getSelf: (token) => api.get('/user/me', { headers: { Authorization: `Bearer ${token}` } }),
-  changePassword: (data, token) =>
-    api.put('/user/change-password', data, { headers: { Authorization: `Bearer ${token}` } }),
-  uploadAvatar: (data, token) =>
-    api.post('/user/upload-avatar', data, { headers: { Authorization: `Bearer ${token}` } }),
-  updateProfile: (data, token) =>
-    api.put('/user/update-profile', data, { headers: { Authorization: `Bearer ${token}` } }),
+  getSelf: (token) => api.get("/user/me", { headers: { Authorization: `Bearer ${token}` } }),
+  changePassword: (data, token) => api.put("/user/change-password", data, { headers: { Authorization: `Bearer ${token}` } }),
+  uploadAvatar: (data, token) => api.post("/user/upload-avatar", data, { headers: { Authorization: `Bearer ${token}` } }),
+  updateProfile: (data, token) => api.put("/user/update-profile", data, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const categoryApi = {
@@ -39,14 +35,14 @@ export const categoryApi = {
 };
 
 export const bookApi = {
-  getBook: (id, token) => api.get(`/book/${id}`, token && { headers: { Authorization: `Bearer ${token}` } }),
+  getBook: (id) => api.get(`/book/${id}`),
 };
 
 export const reviewApi = {
-  getReviews: (bookId) => api.get(`/review/${bookId}`),
-  getReview: (bookId, token) => api.get(`/review/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
-  createReview: (data, token) => api.post('/review/create', data, { headers: { Authorization: `Bearer ${token}` } }),
-  updateReview: (data, token) => api.put('/review/update', data, { headers: { Authorization: `Bearer ${token}` } }),
+  getReviews: (id) => api.get(`/review/${id}`),
+  getReview: (userId, bookId, token) => api.get(`/review/${userId}/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  createReview: (data, token) => api.post("/review/create", data, { headers: { Authorization: `Bearer ${token}` } }),
+  updateReview: (data, token) => api.put("/review/update", data, { headers: { Authorization: `Bearer ${token}` } }),
   deleteReview: (id, token) => api.delete(`/review/delete/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 };
 

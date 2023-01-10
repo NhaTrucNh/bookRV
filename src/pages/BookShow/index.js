@@ -4,11 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, Progress, Rate } from 'antd';
 import classNames from 'classnames/bind';
 import parse from 'html-react-parser';
-import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
-import { bookApi, userApi } from '~/api/api';
+import { bookApi } from '~/api/api';
 import Popup from '../../components/Popup';
 import styles from './BookShow.module.scss';
 
@@ -19,32 +18,16 @@ function BookShow() {
   const [showPopup, setShowPopup] = useState(false);
   const [book, setBook] = useState({});
   const [isBookExist, setIsBookExist] = useState(0);
-  const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState({});
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    bookApi
-      .getBook(id, token)
-      .then((res) => {
-        setBook(res.data.result);
-        setIsBookExist(1);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-        setIsBookExist(2);
-      });
+    bookApi.getBook(id).then((res) => {
+      setBook(res.data.result);
+      setIsBookExist(1);
+    }).catch((err) => {
+      toast.error(err.response.data.message);
+      setIsBookExist(2);
+    });
   }, [id]);
-
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      userApi.getSelf(token).then((res) => {
-        setUser(res.data.result);
-        setIsLogged(true);
-      });
-    }
-  }, []);
 
   if (isBookExist === 0) {
     return <div>Loading...</div>;
@@ -61,7 +44,10 @@ function BookShow() {
           <div className={cx('container')}>
             <aside className={cx('BookPage-LeftColumn')}>
               <div className={cx('BookCover')}>
-                <img src={book.cover} alt="BP4" />
+                <img
+                  src={book.cover}
+                  alt="BP4"
+                />
               </div>
               <div className={cx('ActionButton')}>
                 <div className={cx('AddBtn')}>
@@ -113,7 +99,9 @@ function BookShow() {
                   </div>
                 </div>
               </a>
-              <div className={cx('Summary')}>{book.description ? parse(book.description) : 'Không có mô tả'}</div>
+              <div className={cx('Summary')}>
+                {book.description ? parse(book.description) : 'Không có mô tả'}
+              </div>
               <div className={cx('Info')}>
                 <p className={cx('InfoTitle')}>Thể loại:</p>
                 <p className={cx('InfoTag')}>
@@ -153,48 +141,34 @@ function BookShow() {
               <hr />
 
               <h2 className={cx('ratingTitle')}>Đánh giá và cảm nhận</h2>
-              {isLogged && (
-                <div className={cx('Mine')}>
-                  <h3>Của tôi</h3>
-                  <div className={cx('MyReviewCard')}>
-                    <div className={cx('ReviewProfile')}>
-                      <Avatar size={60} icon={<UserOutlined />} />
-                      <div>
-                        <a className={cx('Name')} href="##">
-                          {book.userReview.userName}
-                        </a>
-                      </div>
-                      {/* <div className={cx('ReviewInfo')}>
-                        <div>2</div>
-                        <div>
-                          <p>cảm nhận</p>
-                        </div>
-                      </div> */}
+              <div className={cx('Mine')}>
+                <h3>Của tôi</h3>
+                <div className={cx('MyReviewCard')}>
+                  <div className={cx('ReviewProfile')}>
+                    <Avatar size={60} icon={<UserOutlined />} />
+                    <div>
+                      <a className={cx('Name')} href="##">
+                        Nhã Trúc
+                      </a>
                     </div>
-                    {book.userReview ? (
-                      <div className={cx('WriteReview')}>
-                        <div className={cx('Rate')}>
-                          <Rate style={{ fontSize: 30 }} defaultValue={book.userReview.rating} />
-                          <p>Xếp hạng quyển sách này</p>
-                        </div>
-                        <a href={`/review/${book.id}/`} className={cx('WriteBtn')}>
-                          <button className={cx('write')}>Chỉnh sửa đánh giá</button>
-                        </a>
+                    <div className={cx('ReviewInfo')}>
+                      <div>2</div>
+                      <div>
+                        <p>cảm nhận</p>
                       </div>
-                    ) : (
-                      <div className={cx('WriteReview')}>
-                        <div className={cx('Rate')}>
-                          <Rate style={{ fontSize: 30 }} />
-                          <p>Xếp hạng quyển sách này</p>
-                        </div>
-                        <a href={`/review/${book.id}/`} className={cx('WriteBtn')}>
-                          <button className={cx('write')}>Viết đánh giá</button>
-                        </a>
-                      </div>
-                    )}
+                    </div>
+                  </div>
+                  <div className={cx('WriteReview')}>
+                    <div className={cx('Rate')}>
+                      <Rate style={{ fontSize: 30 }} />
+                      <p>Xếp hạng quyển sách này</p>
+                    </div>
+                    <a href={`/review/${book.id}/`} className={cx('WriteBtn')}>
+                      <button className={cx('write')}>Viết cảm nhận</button>
+                    </a>
                   </div>
                 </div>
-              )}
+              </div>
               <hr />
               <div className={cx('Communicate')}>
                 <h3>Đánh giá của cộng đồng</h3>
@@ -220,9 +194,7 @@ function BookShow() {
                   <div className={cx('TitleStar')}>5 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={
-                        book.rating?.ratingCount > 0 ? (book.rating?.fiveStar / book.rating?.ratingCount) * 100 : 0
-                      }
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.fiveStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -230,18 +202,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>
-                    {book.rating?.fiveStar} (
-                    {`${book.rating?.ratingCount > 0 ? (book.rating?.fiveStar / book.rating?.ratingCount) * 100 : 0}%`})
-                  </div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.fiveStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.fiveStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>4 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={
-                        book.rating?.ratingCount > 0 ? (book.rating?.fourStar / book.rating?.ratingCount) * 100 : 0
-                      }
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.fourStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -249,18 +216,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>
-                    {book.rating?.fourStar} (
-                    {`${book.rating?.ratingCount > 0 ? (book.rating?.fourStar / book.rating?.ratingCount) * 100 : 0}%`})
-                  </div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.fourStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.fourStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>3 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={
-                        book.rating?.ratingCount > 0 ? (book.rating?.threeStar / book.rating?.ratingCount) * 100 : 0
-                      }
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.threeStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -268,19 +230,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>
-                    {book.rating?.threeStar} (
-                    {`${book.rating?.ratingCount > 0 ? (book.rating?.threeStar / book.rating?.ratingCount) * 100 : 0}%`}
-                    )
-                  </div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.threeStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.threeStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>2 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={
-                        book.rating?.ratingCount > 0 ? (book.rating?.twoStar / book.rating?.ratingCount) * 100 : 0
-                      }
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.twoStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -288,18 +244,13 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>
-                    {book.rating?.twoStar} (
-                    {`${book.rating?.ratingCount > 0 ? (book.rating?.twoStar / book.rating?.ratingCount) * 100 : 0}%`})
-                  </div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.twoStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.twoStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
                 <div className={cx('HistogramBar')}>
                   <div className={cx('TitleStar')}>1 sao</div>
                   <div className={cx('ProgressBar')}>
                     <Progress
-                      percent={
-                        book.rating?.ratingCount > 0 ? (book.rating?.oneStar / book.rating?.ratingCount) * 100 : 0
-                      }
+                      percent={book.rating?.ratingCount > 0 ? book.rating?.oneStar / book.rating?.ratingCount * 100 : 0}
                       size="big"
                       status="active"
                       showInfo={false}
@@ -307,10 +258,7 @@ function BookShow() {
                       strokeWidth={12}
                     />
                   </div>
-                  <div className={cx('RatingHistogram')}>
-                    {book.rating?.oneStar} (
-                    {`${book.rating?.ratingCount > 0 ? (book.rating?.oneStar / book.rating?.ratingCount) * 100 : 0}%`})
-                  </div>
+                  <div className={cx('RatingHistogram')}>{book.rating?.oneStar} ({`${book.rating?.ratingCount > 0 ? book.rating?.oneStar / book.rating?.ratingCount * 100 : 0}%`})</div>
                 </div>
               </div>
               <div className={cx('ReviewList')}>
@@ -339,9 +287,10 @@ function BookShow() {
                   </div>
                   <div className={cx('TruncatedContent')}>
                     <div className={cx('CommentText')}>
-                      In Volume 4 of Spy x Family, Anya steals the scene once more as she is promised a dog as a reward
-                      for achieving her first Stella Star at school. A day of shopping for a new addition is thrown into
-                      chaos when Twilight is called away as he was informed about an assassination plot against Minister
+                      In Volume 4 of Spy x Family, Anya steals the scene once more as she is
+                      promised a dog as a reward for achieving her first Stella Star at school. A
+                      day of shopping for a new addition is thrown into chaos when Twilight is
+                      called away as he was informed about an assassination plot against Minister
                       Barintz.
                     </div>
                   </div>

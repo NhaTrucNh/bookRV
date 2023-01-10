@@ -23,96 +23,82 @@ export default function Review() {
 
   useEffect(() => {
     if (Cookies.get('token') && localStorage.getItem('user')) {
-      userApi
-        .getSelf(Cookies.get('token'))
-        .then((response) => {
-          if (response?.data.code === 200) {
-            setUser(response.data.result);
-          }
-        })
-        .catch((error) => {
-          const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-          toast.error(msg);
-          Cookies.remove('token');
-          localStorage.removeItem('user');
-          navigate('/login');
-        });
+      userApi.getSelf(Cookies.get('token')).then((response) => {
+        if (response?.data.code === 200) {
+          setUser(response.data.result);
+        }
+      }).catch((error) => {
+        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+        toast.error(msg);
+        Cookies.remove('token');
+        localStorage.removeItem('user');
+        navigate("/login");
+      })
     } else {
       toast.error('Bạn chưa đăng nhập');
       Cookies.get('token') && Cookies.remove('token');
       localStorage.getItem('user') && localStorage.removeItem('user');
-      navigate('/login');
+      navigate("/login");
     }
-  }, [navigate]);
+  }, [navigate])
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (user && id) {
-      reviewApi
-        .getReview(id, token)
-        .then((response) => {
-          if (response.data.code === 200) {
-            const review = response.data.result;
-            setRating(review.rating);
-            // setShelf(review.shelf);
-            setContent(review.content);
-          }
-        })
-        .catch((error) => {
-          const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-          toast.error(msg);
-        });
+    if (user.id && id) {
+      reviewApi.getReview(user.id, id, Cookies.get('token')).then((response) => {
+        if (response?.data.code === 200) {
+          setRating(response.data.result.rating);
+          setShelf(response.data.result.shelf);
+          setContent(response.data.result.content);
+        }
+      }).catch((error) => {
+        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+        toast.error(msg);
+      })
     }
-  }, [id, user]);
+  }, [user, id])
 
   useEffect(() => {
     if (id) {
-      bookApi
-        .getBook(id)
-        .then((response) => {
-          if (response?.data.code === 200) {
-            setBook(response.data.result);
-          }
-        })
-        .catch((error) => {
-          const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-          toast.error(msg);
-        });
+      bookApi.getBook(id).then((response) => {
+        if (response?.data.code === 200) {
+          setBook(response.data.result);
+        }
+      }).catch((error) => {
+        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+        toast.error(msg);
+      })
     }
-  }, [id]);
+  }, [id])
 
   const handleSubmit = () => {
     if (user.id && id) {
-      reviewApi
-        .postReview(user.id, id, rating, shelf, content, Cookies.get('token'))
-        .then((response) => {
-          if (response?.data.code === 200) {
-            toast.success('Đánh giá thành công');
-            navigate(`/book/${id}`);
-          }
-        })
-        .catch((error) => {
-          const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-          toast.error(msg);
-        });
+      reviewApi.postReview(user.id, id, rating, shelf, content, Cookies.get('token')).then((response) => {
+        if (response?.data.code === 200) {
+          toast.success('Đánh giá thành công');
+          navigate(`/book/${id}`);
+        }
+      }).catch((error) => {
+        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+        toast.error(msg);
+      })
     }
-  };
-
-  if (!book || !user) return <div>Loading...</div>;
+  }
 
   return (
     <>
       <div className={cx('wrapper')}>
         <div className={cx('bookinfo')}>
           <div className={cx('cover')}>
-            <img src={book.cover} alt="" />
+            <img
+              src={book.cover}
+              alt=""
+            />
           </div>
           <div className={cx('info')}>
             <div>
               <div className={cx('title')}>{book.title}</div>
               <div className={cx('author')}>
-                <span>bởi </span>
-                {book.author}
+                <span>bởi </span>{book.author}
               </div>
             </div>
           </div>
@@ -121,20 +107,11 @@ export default function Review() {
         <div className={cx('rating')}>
           <div className={cx('rate')}>
             <div className={cx('name')}>Đánh giá: </div>
-            {rating !== 0 ? (
-              <Rate allowHalf defaultValue={rating} onChange={(value) => setRating(value)} />
-            ) : (
-              <Rate allowHalf onChange={(value) => setRating(value)} />
-            )}
+            <Rate allowHalf defaultValue={rating} onChange={(value) => setRating(value)} />
           </div>
           <div className={cx('shelf')}>
             <div className={cx('name')}>Tủ sách: </div>
-            <Select
-              placeholder="Chọn tủ sách"
-              style={{ width: 200 }}
-              value={shelf}
-              onChange={(value) => setShelf(value)}
-            >
+            <Select placeholder="Chọn tủ sách" style={{ width: 200 }} value={shelf} onChange={(value) => setShelf(value)} >
               <Option value="wantread">Muốn đọc</Option>
               <Option value="reading">Đang đọc</Option>
               <Option value="read">Đã đọc</Option>
@@ -154,12 +131,11 @@ export default function Review() {
             />
           </div>
           <div className={cx('post')}>
-            <Button type="primary" onClick={handleSubmit}>
-              Đăng
-            </Button>
+            <Button type="primary" onClick={handleSubmit}>Đăng</Button>
           </div>
         </div>
       </div>
     </>
   );
+
 }
