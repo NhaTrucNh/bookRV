@@ -77,7 +77,7 @@ export default function Profile() {
                 {!isObjectEmpty(user) &&
                   Object.keys(user?.collectionCount).map((key, index) => (
                     // <a href={`${user.id}/collection/${key}`} key={index}>
-                    <a href={`${user.id}/collection/${key}`} key={index}>
+                    <a href={`/mybook/${key}`} key={index}>
                       {collectionMap[key]}
                       <span>({user.collectionCount[key]})</span>
                     </a>

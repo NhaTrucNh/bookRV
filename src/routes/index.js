@@ -31,7 +31,7 @@ const publicRoutes = [
   { path: '/profile', component: Profile, layout: HeaderAndFooter },
   { path: '/login', component: Login, layout: HeaderOnly },
   { path: '/register', component: Register, layout: HeaderOnly },
-  { path: '/mybook', component: MyBook, layout: HeaderAndFooter },
+  { path: '/mybook/:list', component: MyBook, layout: HeaderAndFooter },
   { path: '/accountsetting', component: AccountSetting, layout: HeaderAndFooter },
   { path: '/genres', component: Genres, layout: HeaderAndFooter },
   { path: '/genre/:code', component: Genre, layout: HeaderAndFooter },
@@ -49,4 +49,3 @@ const publicRoutes = [
 const privateRoutes = [];
 
 export { publicRoutes, privateRoutes };
-
