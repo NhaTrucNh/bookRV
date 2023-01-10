@@ -62,7 +62,7 @@ function BookShow() {
       if (res.data.code === 200) {
         setShowPopup(false);
         setBook({ ...book, userCollection: collection });
-        toast.success('Cập nhật thành công');
+        toast.success('Cập nhật tủ sách thành công');
       }
     });
   };
@@ -71,7 +71,7 @@ function BookShow() {
     const token = Cookies.get('token');
     userApi.removeFromCollection(id, token).then((res) => {
       if (res.data.code === 200) {
-        toast.success('Xóa thành công');
+        toast.success('Xóa khỏi tủ sách thành công');
         setBook({ ...book, userCollection: null });
         setShowPopup(false);
       }

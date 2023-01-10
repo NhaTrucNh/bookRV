@@ -12,7 +12,8 @@ import styles from './AccountSetting.module.scss';
 const cx = classNames.bind(styles);
 
 const dateFormat = 'DD/MM/YYYY';
-const uploadApi = process.env.NODE_ENV === "development" ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD;
+const uploadApi =
+  process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD;
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -38,21 +39,21 @@ export default function AccountSetting() {
   const [dob, setDob] = useState();
   const [aboutMe, setAboutMe] = useState('');
   const [email, setEmail] = useState();
+  const [loading, setLoading] = useState(true);
 
-  const [loading, setLoading] = useState(false);
+  const [avatarLoading, setAvatarLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const [avatar, setAvatar] = useState();
 
   const handleChange = (info) => {
     if (info.file.status === 'uploading') {
-      setLoading(true);
+      setAvatarLoading(true);
       return;
     }
     if (info.file.status === 'done') {
-      // Get this url from response in real world.
       setAvatar(info.file.response.url);
       getBase64(info.file.originFileObj, (url) => {
-        setLoading(false);
+        setAvatarLoading(false);
         setImageUrl(url);
       });
     }
@@ -60,7 +61,7 @@ export default function AccountSetting() {
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      {avatarLoading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
         style={{
           marginTop: 8,
@@ -73,25 +74,28 @@ export default function AccountSetting() {
 
   useEffect(() => {
     if (Cookies.get('token') && localStorage.getItem('user')) {
-      userApi.getSelf(Cookies.get('token')).then((response) => {
-        if (response?.data.code === 200) {
-          const user = response.data.result;
-          setName(user.name);
-          setEmail(user.email);
-          setDob(dayjs(user.dateOfBirth, dateFormat).toDate());
-          setAboutMe(user.bio);
-          setImageUrl(response.data.result.avatar);
-          setAvatar(response.data.result.avatar);
-        }
-      }).catch((error) => {
-        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-        toast.error(msg);
-        Cookies.remove('token');
-        localStorage.removeItem('user');
-        navigate("/login");
-      })
+      userApi
+        .getSelf(Cookies.get('token'))
+        .then((response) => {
+          if (response?.data.code === 200) {
+            const user = response.data.result;
+            setName(user.name);
+            setEmail(user.email);
+            setDob(user.dateOfBirth);
+            setAboutMe(user.bio ? user.bio : '');
+            setImageUrl(response.data.result.avatar);
+            setAvatar(response.data.result.avatar);
+          }
+        })
+        .catch((error) => {
+          const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+          toast.error(msg);
+          Cookies.remove('token');
+          localStorage.removeItem('user');
+          navigate('/login');
+        });
     }
-  }, [navigate])
+  }, [navigate]);
 
   useEffect(() => {
     return () => {
@@ -100,6 +104,12 @@ export default function AccountSetting() {
       }
     };
   }, [imageUrl]);
+
+  useEffect(() => {
+    if (name && email) {
+      setLoading(false);
+    }
+  }, [name, email]);
 
   const onChange = (date, dateString) => {
     setDob(date.toDate());
@@ -114,15 +124,22 @@ export default function AccountSetting() {
       avatar,
     };
 
-    userApi.updateProfile(data, Cookies.get('token')).then((response) => {
-      if (response?.data.code === 201) {
-        toast.success('Cập nhật thành công');
-      }
-    }).catch((error) => {
-      const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-      toast.error(msg);
-    })
+    userApi
+      .updateProfile(data, Cookies.get('token'))
+      .then((response) => {
+        if (response?.data.code === 201) {
+          toast.success('Cập nhật thành công');
+        }
+      })
+      .catch((error) => {
+        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+        toast.error(msg);
+      });
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -135,13 +152,7 @@ export default function AccountSetting() {
           <div className={cx('Form')}>
             <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                disabled="disabled"
-                value={email}
-              />
+              <input type="text" id="email" name="email" disabled="disabled" value={email} />
 
               <label htmlFor="username">Tên hiển thị</label>
               <input type="text" id="username" name="username" value={name} />
@@ -174,11 +185,19 @@ export default function AccountSetting() {
               </div>
 
               <label htmlFor="dob">Ngày sinh</label>
-              {dob && (
-                <div className={cx('space')}>
-                  <DatePicker onChange={onChange} defaultValue={dayjs(dob, dateFormat)} format={dateFormat} />
-                </div>
-              )}
+              {/* {dob ? ( */}
+              <div className={cx('space')}>
+                <DatePicker
+                  onChange={onChange}
+                  defaultValue={dob ? dayjs(dob, dateFormat) : null}
+                  format={dateFormat}
+                />
+              </div>
+              {/*  ) : (
+                 <div className={cx('space')}>
+                   <DatePicker onChange={onChange} format={dateFormat} />
+                 </div>
+               )} */}
 
               <label htmlFor="aboutme">Về tôi</label>
               <textarea id="aboutme" name="aboutme" onChange={(e) => setAboutMe(e.target.value)} value={aboutMe}>
@@ -186,7 +205,10 @@ export default function AccountSetting() {
               </textarea>
 
               <div className={cx('submit')}>
-                <Button type="primary" htmlType="submit"> Lưu </Button>
+                <Button type="primary" htmlType="submit">
+                  {' '}
+                  Lưu{' '}
+                </Button>
               </div>
             </form>
           </div>
@@ -195,4 +217,3 @@ export default function AccountSetting() {
     </div>
   );
 }
-

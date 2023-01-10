@@ -31,6 +31,7 @@ export const userApi = {
     api.post('/user/upload-avatar', data, { headers: { Authorization: `Bearer ${token}` } }),
   updateProfile: (data, token) =>
     api.put('/user/update-profile', data, { headers: { Authorization: `Bearer ${token}` } }),
+  getCollection: (token) => api.get('/user/get-collection', { headers: { Authorization: `Bearer ${token}` } }),
   updateCollection: (bookId, collection, token) => {
     return api.put(
       `/user/update-collection/${bookId}`,
