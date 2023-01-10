@@ -89,6 +89,7 @@
 .right {
     grid-column-start: 3;
     grid-column-end: 7;
+    line-height: 3rem;
 
     hr {
         margin-top: 0;
@@ -98,6 +99,7 @@
         font-weight: 700;
         font-size: larger;
         text-transform: uppercase;
+        margin-bottom: 1rem;
     }
 
     .dob {

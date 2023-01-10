@@ -13,5 +13,9 @@ export const DateConverter = (date) => {
     fullDatetime: `${day}/${month}/${year} ${hour}:${minute}:${second}`,
     USDate: `${year}-${month}-${day}`,
     rawDate: d,
-  }
+  };
+};
+
+export function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0;
 }
