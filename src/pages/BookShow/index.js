@@ -383,37 +383,41 @@ function BookShow() {
                 </div>
               </div>
               {book.reviews?.length > 0 &&
-                book.reviews.map((review, index) => (
-                  <div className={cx('ReviewList')} key={index}>
-                    <div className={cx('ReviewerProfile')}>
-                      <div className={cx('ReviewProfile')}>
-                        <Avatar size={60} src={review.userObj?.avatar} />
-                        <div>
-                          <a className={cx('Name')} href="##">
-                            {review.userObj?.name}
-                          </a>
-                        </div>
-                        <div className={cx('ReviewInfo')}>
-                          <div>{review.userObj?.reviewCount}</div>
-                          <div>
-                            <p>đánh giá</p>
+                book.reviews.map((review, index) => {
+                  if (review.content)
+                    return (
+                      <div className={cx('ReviewList')} key={index}>
+                        <div className={cx('ReviewerProfile')}>
+                          <div className={cx('ReviewProfile')}>
+                            <a href={`/user/${review.userObj?.id}`}>
+                              <Avatar size={60} src={review.userObj?.avatar} />
+                            </a>
+                            <div>
+                              <a className={cx('Name')} href={`/user/${review.userObj?.id}`}>
+                                {review.userObj?.name}
+                              </a>
+                            </div>
+                            <div className={cx('ReviewInfo')}>
+                              <div>{review.userObj?.reviewCount}</div>
+                              <div>
+                                <p>đánh giá</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div className={cx('ReviewCardContent')}>
-                      <div className={cx('ReviewCard_Row')}>
-                        <div className={cx('ShelfStatus')}>
-                          <Rate disabled defaultValue={review.rating} />
-                        </div>
-                        <div className={cx('TextDate')}>{dayjs(review.createdAt).format('DD/MM/YYYY')}</div>
-                      </div>
-                      <div className={cx('TruncatedContent')}>
-                        <div className={cx('CommentText')}>
-                          <p>{review.content}</p>
-                        </div>
-                      </div>
-                      {/* <div className={cx('SocialFooter_statsContainer')}>
+                        <div className={cx('ReviewCardContent')}>
+                          <div className={cx('ReviewCard_Row')}>
+                            <div className={cx('ShelfStatus')}>
+                              <Rate disabled defaultValue={review.rating} />
+                            </div>
+                            <div className={cx('TextDate')}>{dayjs(review.createdAt).format('DD/MM/YYYY')}</div>
+                          </div>
+                          <div className={cx('TruncatedContent')}>
+                            <div className={cx('CommentText')}>
+                              <p>{review.content}</p>
+                            </div>
+                          </div>
+                          {/* <div className={cx('SocialFooter_statsContainer')}>
                         <div className={cx('LabelItemDT')}>
                           114<span>Đồng tình</span>
                         </div>
@@ -431,10 +435,12 @@ function BookShow() {
                           <span>Không đồng tình</span>
                         </div>
                       </div> */}
-                      <hr />
-                    </div>
-                  </div>
-                ))}
+                          <hr />
+                        </div>
+                      </div>
+                    );
+                  else return null;
+                })}
             </section>
           </div>
         </div>

@@ -193,12 +193,6 @@ export default function AccountSetting() {
                   format={dateFormat}
                 />
               </div>
-              {/*  ) : (
-                 <div className={cx('space')}>
-                   <DatePicker onChange={onChange} format={dateFormat} />
-                 </div>
-               )} */}
-
               <label htmlFor="aboutme">Về tôi</label>
               <textarea id="aboutme" name="aboutme" onChange={(e) => setAboutMe(e.target.value)} value={aboutMe}>
                 {aboutMe}

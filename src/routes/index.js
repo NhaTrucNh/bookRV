@@ -20,6 +20,7 @@ import Register from '~/pages/Register';
 import Review from '~/pages/Review';
 import ShowNews from '~/pages/ShowNews';
 import StatisticManagement from '~/pages/Statistic';
+import UserInfo from '~/pages/UserInfo';
 import UserManagement from '~/pages/UserManagement';
 
 //Pubic Routes
@@ -29,6 +30,7 @@ const publicRoutes = [
   { path: '/shownews', component: ShowNews, layout: HeaderAndFooter },
   { path: '/changepassword', component: ChangePassword, layout: HeaderAndFooter },
   { path: '/profile', component: Profile, layout: HeaderAndFooter },
+  { path: '/user/:id', component: UserInfo, layout: HeaderAndFooter },
   { path: '/login', component: Login, layout: HeaderOnly },
   { path: '/register', component: Register, layout: HeaderOnly },
   { path: '/mybook/:list', component: MyBook, layout: HeaderAndFooter },

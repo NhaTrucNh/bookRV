@@ -24,6 +24,7 @@ export const authApi = {
 };
 
 export const userApi = {
+  getUser: (id) => api.get(`/user/${id}`),
   getSelf: (token) => api.get('/user/me', { headers: { Authorization: `Bearer ${token}` } }),
   changePassword: (data, token) =>
     api.put('/user/change-password', data, { headers: { Authorization: `Bearer ${token}` } }),
