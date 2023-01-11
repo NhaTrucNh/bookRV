@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import { CaretDownFilled, CaretUpFilled, DeleteOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, Progress, Rate } from 'antd';
@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import parse from 'html-react-parser';
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { authApi, bookApi, reviewApi, userApi } from '~/api/api';
@@ -25,9 +25,12 @@ function BookShow() {
   const { id } = useParams();
   const [showPopup, setShowPopup] = useState(false);
   const [book, setBook] = useState({});
+  const [reviews, setReviews] = useState([]);
   const [user, setUser] = useState({});
   const [isBookExist, setIsBookExist] = useState(0);
   const [isLogged, setIsLogged] = useState(false);
+
+  const [seed, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -35,13 +38,14 @@ function BookShow() {
       .getBook(id, token)
       .then((res) => {
         setBook(res.data.result);
+        setReviews(res.data.result.reviews);
         setIsBookExist(1);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
         setIsBookExist(2);
       });
-  }, [id]);
+  }, [id, seed]);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -55,6 +59,10 @@ function BookShow() {
       });
     }
   }, []);
+
+  // useEffect(() => {
+  //   console.log(reviews);
+  // }, [reviews]);
 
   const handleUpdateCollection = (collection) => {
     const token = Cookies.get('token');
@@ -87,9 +95,37 @@ function BookShow() {
     reviewApi.rateBook(data, token).then((res) => {
       if (res.data.code === 200 || res.data.code === 201) {
         toast.success('Đánh giá thành công');
-        setBook({ ...book, userReview: res.data.result });
+        setBook({ ...book, userReview: res.data.result.userReview, rating: res.data.result.rating });
       }
     });
+  };
+
+  const handleVote = (reviewId, action) => {
+    const token = Cookies.get('token');
+    const data = {
+      action,
+    };
+    reviewApi
+      .voteReview(reviewId, data, token)
+      .then((res) => {
+        if (res.data.code === 200) {
+          toast.success(res.data.message);
+          const updatedReview = res.data.result;
+          const newReviews = { ...reviews };
+          const reviewIndex = book.reviews.findIndex((review) => review._id.valueOf() === updatedReview._id.valueOf());
+          console.log(newReviews);
+          newReviews[reviewIndex].upvotes = updatedReview.upvotes;
+          newReviews[reviewIndex].downvotes = updatedReview.downvotes;
+          console.log(newReviews);
+          setReviews(newReviews);
+        } else {
+          toast.error('Đã có lỗi xảy ra');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('Đã có lỗi xảy ra');
+      });
   };
 
   if (isBookExist === 0) {
@@ -382,8 +418,8 @@ function BookShow() {
                   </div>
                 </div>
               </div>
-              {book.reviews?.length > 0 &&
-                book.reviews.map((review, index) => {
+              {reviews?.length > 0 &&
+                reviews.map((review, index) => {
                   if (review.content)
                     return (
                       <div className={cx('ReviewList')} key={index}>
@@ -417,24 +453,30 @@ function BookShow() {
                               <p>{review.content}</p>
                             </div>
                           </div>
-                          {/* <div className={cx('SocialFooter_statsContainer')}>
-                        <div className={cx('LabelItemDT')}>
-                          114<span>Đồng tình</span>
-                        </div>
-                        <div className={cx('LabelItemKDT')}>
-                          10<span>Không đồng tình</span>
-                        </div>
-                      </div>
-                      <div className={cx('SocialFooter_actionsContainer')}>
-                        <div className={cx('ActionItemDT')}>
-                          <LikeOutlined />
-                          <span>Đồng tình</span>
-                        </div>
-                        <div className={cx('ActionItemKDT')}>
-                          <DislikeOutlined />
-                          <span>Không đồng tình</span>
-                        </div>
-                      </div> */}
+                          <div className={cx('SocialFooter_statsContainer')}>
+                            <div className={cx('LabelItemDT')}>
+                              {review.upvotes?.length}
+                              <span>Đồng tình</span>
+                            </div>
+                            <div className={cx('LabelItemKDT')}>
+                              {review.downvotes?.length}
+                              <span>Không đồng tình</span>
+                            </div>
+                          </div>
+                          <div className={cx('SocialFooter_actionsContainer')}>
+                            <div className={cx('ActionItemDT')} onClick={() => handleVote(review.id, 'upvote')}>
+                              {review.voteStatus && review.voteStatus === 'upvote' ? <CaretUpFilled /> : <UpOutlined />}
+                              <span>Đồng tình</span>
+                            </div>
+                            <div className={cx('ActionItemKDT')} onClick={() => handleVote(review.id, 'downvote')}>
+                              {review.voteStatus && review.voteStatus === 'downvote' ? (
+                                <CaretDownFilled />
+                              ) : (
+                                <DownOutlined />
+                              )}
+                              <span>Không đồng tình</span>
+                            </div>
+                          </div>
                           <hr />
                         </div>
                       </div>

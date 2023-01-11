@@ -65,6 +65,8 @@ export const reviewApi = {
   createReview: (data, token) => api.post('/review/create', data, { headers: { Authorization: `Bearer ${token}` } }),
   updateReview: (data, token) => api.put('/review/update', data, { headers: { Authorization: `Bearer ${token}` } }),
   deleteReview: (id, token) => api.delete(`/review/delete/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+  voteReview: (reviewId, data, token) =>
+    api.put(`/review/vote/${reviewId}`, data, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export default api;
