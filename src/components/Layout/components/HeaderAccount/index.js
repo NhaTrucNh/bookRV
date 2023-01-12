@@ -44,7 +44,7 @@ function HeaderAccount({ user }) {
     {
       key: '3',
       label: (
-        <a rel="mod" href="mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
+        <a rel="mod" href="/mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
           Quản lý
         </a>
       ),
@@ -59,11 +59,7 @@ function HeaderAccount({ user }) {
     },
     {
       key: '5',
-      label: (
-        <p onClick={handleLogout}>
-          Đăng xuất
-        </p>
-      ),
+      label: <p onClick={handleLogout}>Đăng xuất</p>,
     },
   ];
 
@@ -93,13 +89,13 @@ function HeaderAccount({ user }) {
                     <p>/</p>
                   </li>
                   <li>
-                    <a href="genres">Danh mục thể loại</a>
+                    <a href="/genres">Danh mục thể loại</a>
                   </li>
                   <li>
                     <p>/</p>
                   </li>
                   <li>
-                    <a href="news">Tin tức</a>
+                    <a href="/news">Tin tức</a>
                   </li>
                 </ul>
               </div>

@@ -33,6 +33,7 @@ const publicRoutes = [
   { path: '/user/:id', component: UserInfo, layout: HeaderAndFooter },
   { path: '/login', component: Login, layout: HeaderOnly },
   { path: '/register', component: Register, layout: HeaderOnly },
+  { path: '/mybook', component: MyBook, layout: HeaderAndFooter },
   { path: '/mybook/:list', component: MyBook, layout: HeaderAndFooter },
   { path: '/accountsetting', component: AccountSetting, layout: HeaderAndFooter },
   { path: '/genres', component: Genres, layout: HeaderAndFooter },

@@ -9,6 +9,29 @@ export const adminApi = {
   getAllUsers: (token) => api.get('/admin/get-user/all', { headers: { Authorization: `Bearer ${token}` } }),
   getUser: (id, token) => api.get(`/admin/get-user/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
   getStatistics: (token) => api.get('/admin/statistics', { headers: { Authorization: `Bearer ${token}` } }),
+  addBook: (data, token) => api.post('/admin/add-book', data, { headers: { Authorization: `Bearer ${token}` } }),
+  updateBookInfo: (bookId, data, token) =>
+    api.put(`/admin/update-book/${bookId}`, data, { headers: { Authorization: `Bearer ${token}` } }),
+  disableBook: (bookId, token) =>
+    api.post(`/admin/delete-book/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  enableBook: (bookId, token) =>
+    api.post(`/admin/enable-book/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  disableReview: (reviewId, token) =>
+    api.post(`/admin/disable-review/${reviewId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  enableReview: (reviewId, token) =>
+    api.post(`/admin/enable-review/${reviewId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  disableUser: (userId, token) =>
+    api.post(`/admin/disable-user/${userId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  enableUser: (userId, token) =>
+    api.post(`/admin/enable-user/${userId}`, { headers: { Authorization: `Bearer  ${token}` } }),
+  addCategory: (data, token) =>
+    api.post(`/admin/add-category`, data, { headers: { Authorization: `Bearer ${token}` } }),
+  updateCategory: (categoryId, data, token) =>
+    api.post(`/admin/update-category/${categoryId}`, data, { headers: { Authorization: `Bearer ${token}` } }),
+  disableCategory: (categoryId, token) =>
+    api.post(`/admin/disable-category/${categoryId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  enableCategory: (categoryId, token) =>
+    api.post(`/admin/enable-category/${categoryId}`, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const homeApi = {
