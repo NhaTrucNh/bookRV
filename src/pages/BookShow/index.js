@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import parse from 'html-react-parser';
 import Cookies from 'js-cookie';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { authApi, bookApi, reviewApi, userApi } from '~/api/api';
@@ -30,8 +30,6 @@ function BookShow() {
   const [isBookExist, setIsBookExist] = useState(0);
   const [isLogged, setIsLogged] = useState(false);
 
-  const [seed, forceUpdate] = useReducer((x) => x + 1, 0);
-
   useEffect(() => {
     const token = Cookies.get('token');
     bookApi
@@ -45,7 +43,7 @@ function BookShow() {
         toast.error(err.response.data.message);
         setIsBookExist(2);
       });
-  }, [id, seed]);
+  }, [id]);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -59,10 +57,6 @@ function BookShow() {
       });
     }
   }, []);
-
-  // useEffect(() => {
-  //   console.log(reviews);
-  // }, [reviews]);
 
   const handleUpdateCollection = (collection) => {
     const token = Cookies.get('token');
@@ -111,13 +105,18 @@ function BookShow() {
         if (res.data.code === 200) {
           toast.success(res.data.message);
           const updatedReview = res.data.result;
-          const newReviews = { ...reviews };
-          const reviewIndex = book.reviews.findIndex((review) => review._id.valueOf() === updatedReview._id.valueOf());
-          console.log(newReviews);
-          newReviews[reviewIndex].upvotes = updatedReview.upvotes;
-          newReviews[reviewIndex].downvotes = updatedReview.downvotes;
-          console.log(newReviews);
-          setReviews(newReviews);
+          setReviews(
+            reviews.map((review) => {
+              return review._id.valueOf() === updatedReview._id.valueOf()
+                ? {
+                    ...review,
+                    upvotes: updatedReview.upvotes,
+                    downvotes: updatedReview.downvotes,
+                    voteStatus: updatedReview.voteStatus,
+                  }
+                : review;
+            }),
+          );
         } else {
           toast.error('Đã có lỗi xảy ra');
         }
@@ -463,20 +462,26 @@ function BookShow() {
                               <span>Không đồng tình</span>
                             </div>
                           </div>
-                          <div className={cx('SocialFooter_actionsContainer')}>
-                            <div className={cx('ActionItemDT')} onClick={() => handleVote(review.id, 'upvote')}>
-                              {review.voteStatus && review.voteStatus === 'upvote' ? <CaretUpFilled /> : <UpOutlined />}
-                              <span>Đồng tình</span>
+                          {isLogged && (
+                            <div className={cx('SocialFooter_actionsContainer')}>
+                              <div className={cx('ActionItemDT')} onClick={() => handleVote(review.id, 'upvote')}>
+                                {review.voteStatus && review.voteStatus === 'upvote' ? (
+                                  <CaretUpFilled />
+                                ) : (
+                                  <UpOutlined />
+                                )}
+                                <span>Đồng tình</span>
+                              </div>
+                              <div className={cx('ActionItemKDT')} onClick={() => handleVote(review.id, 'downvote')}>
+                                {review.voteStatus && review.voteStatus === 'downvote' ? (
+                                  <CaretDownFilled />
+                                ) : (
+                                  <DownOutlined />
+                                )}
+                                <span>Không đồng tình</span>
+                              </div>
                             </div>
-                            <div className={cx('ActionItemKDT')} onClick={() => handleVote(review.id, 'downvote')}>
-                              {review.voteStatus && review.voteStatus === 'downvote' ? (
-                                <CaretDownFilled />
-                              ) : (
-                                <DownOutlined />
-                              )}
-                              <span>Không đồng tình</span>
-                            </div>
-                          </div>
+                          )}
                           <hr />
                         </div>
                       </div>
