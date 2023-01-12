@@ -76,11 +76,10 @@ export default function Profile() {
               <div className={cx('shelf')}>
                 {!isObjectEmpty(user) &&
                   Object.keys(user?.collectionCount).map((key, index) => (
-                    // <a href={`${user.id}/collection/${key}`} key={index}>
-                    <a href={`/mybook/${key}`} key={index}>
+                    <p key={index}>
                       {collectionMap[key]}
                       <span>({user.collectionCount[key]})</span>
-                    </a>
+                    </p>
                   ))}
               </div>
             </div>
