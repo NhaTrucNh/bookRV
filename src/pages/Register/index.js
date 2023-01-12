@@ -14,7 +14,7 @@ const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const cx = classNames.bind(styles);
 
 export default function Register() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [name, setName] = useState('');
 
   const [email, setEmail] = useState('');
@@ -28,18 +28,18 @@ export default function Register() {
 
   useEffect(() => {
     if (Cookies.get('token')) {
-      navigate("/");
+      navigate('/');
     }
-  }, [navigate])
+  }, [navigate]);
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
-  }, [email])
+  }, [email]);
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
     setValidMatch(pwd === matchPwd);
-  }, [pwd, matchPwd])
+  }, [pwd, matchPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,32 +47,35 @@ export default function Register() {
     const v1 = PWD_REGEX.test(pwd);
     const v2 = EMAIL_REGEX.test(email);
     if (!v1 || !v2) {
-      toast.error("Invalid Entry");
+      toast.error('Invalid Entry');
       return;
     }
 
-    authApi.register({ name, email, password: pwd }).then((response) => {
-      if (response?.data.code === 200) {
-        //clear state and controlled inputs
-        setPwd('');
-        setEmail('');
-        setMatchPwd('');
-        toast.success('Registration Successful');
+    authApi
+      .register({ name, email, password: pwd })
+      .then((response) => {
+        if (response?.data.code === 200) {
+          //clear state and controlled inputs
+          setPwd('');
+          setEmail('');
+          setMatchPwd('');
+          toast.success('Registration Successful');
 
-        // redirect to login page
-        navigate('/login');
-      }
-    }).catch((error) => {
-      if (!error?.response) {
-        toast.error('No Server Response');
-      } else if (error.response.data?.code === 400) {
-        toast.error(error.response.data?.message);
-      } else {
-        console.log(error.response.data);
-        toast.error('Registration Failed')
-      }
-    })
-  }
+          // redirect to login page
+          navigate('/login');
+        }
+      })
+      .catch((error) => {
+        if (!error?.response) {
+          toast.error('No Server Response');
+        } else if (error.response.data?.code === 400) {
+          toast.error(error.response.data?.message);
+        } else {
+          console.log(error.response.data);
+          toast.error('Registration Failed');
+        }
+      });
+  };
 
   return (
     <div className={cx('wrapper')}>
@@ -81,23 +84,57 @@ export default function Register() {
           <img src={logo} />
         </div>
         <div className={cx('form')}>
-          <input type="text" placeholder="Nhập tên" spellCheck={false} autoComplete="off" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            type="text"
+            placeholder="Nhập tên"
+            spellCheck={false}
+            autoComplete="off"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className={cx('form')}>
-          <input type="email" placeholder="Nhập email" spellCheck={false} autoComplete="off" value={email} onChange={(e) => setEmail(e.target.value)} style={{ borderColor: validEmail ? 'green' : 'red' }} />
+          <input
+            type="email"
+            placeholder="Nhập email"
+            spellCheck={false}
+            autoComplete="off"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ borderColor: validEmail ? 'green' : 'red' }}
+          />
         </div>
         <div className={cx('form')}>
-          <input type="password" placeholder="Nhập mật khẩu" spellCheck={false} value={pwd} onChange={(e) => setPwd(e.target.value)} style={{ borderColor: validPwd ? 'green' : 'red' }} />
+          <input
+            type="password"
+            placeholder="Nhập mật khẩu"
+            spellCheck={false}
+            value={pwd}
+            onChange={(e) => setPwd(e.target.value)}
+            style={{ borderColor: validPwd ? 'green' : 'red' }}
+          />
         </div>
         <div className={cx('form')}>
-          <input type="password" placeholder="Nhập lại mật khẩu" spellCheck={false} value={matchPwd} onChange={(e) => setMatchPwd(e.target.value)} style={{ borderColor: validMatch ? 'green' : 'red' }} />
+          <input
+            type="password"
+            placeholder="Nhập lại mật khẩu"
+            spellCheck={false}
+            value={matchPwd}
+            onChange={(e) => setMatchPwd(e.target.value)}
+            style={{ borderColor: validMatch ? 'green' : 'red' }}
+          />
         </div>
 
         <div className={cx('submit')}>
-          <button type="submit" disabled={!(name && validEmail && validPwd && validMatch)} onClick={handleSubmit}>Đăng ký</button>
+          <button type="submit" disabled={!(name && validEmail && validPwd && validMatch)} onClick={handleSubmit}>
+            Đăng ký
+          </button>
         </div>
         <p>
-          Đã có tài khoản ? <a href="../login">Đăng nhập</a>
+          Đã có tài khoản ?{' '}
+          <a href="../login">
+            <span>Đăng nhập</span>
+          </a>
         </p>
       </div>
     </div>
