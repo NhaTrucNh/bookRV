@@ -216,7 +216,7 @@ function BookShow() {
                   </div>
                   <div className={cx('Statistic')}>
                     <div>{bookRating?.reviewCount}</div>
-                    <div className={cx('space')}>Cảm nhận</div>
+                    <div className={cx('space')}>Bình luận</div>
                   </div>
                 </div>
               </a>
@@ -259,7 +259,7 @@ function BookShow() {
 
               <hr />
 
-              <h2 className={cx('ratingTitle')}>Đánh giá và cảm nhận</h2>
+              <h2 className={cx('ratingTitle')}>Đánh giá và bình luận</h2>
               {isLogged && (
                 <div className={cx('Mine')}>
                   <h3>Của tôi</h3>
@@ -287,7 +287,7 @@ function BookShow() {
                           </div>
                           <a href={`/review/${book.id}/`} className={cx('WriteBtn')}>
                             <button className={cx('write')}>
-                              {userReview?.content ? 'Sửa cảm nhận' : 'Viết cảm nhận'}
+                              {userReview?.content ? 'Sửa bình luận' : 'Viết bình luận'}
                             </button>
                           </a>
                         </>
@@ -297,7 +297,7 @@ function BookShow() {
                             <Rate style={{ fontSize: 30 }} defaultValue={0} onChange={handleRate} />
                             <p>Xếp hạng quyển sách này</p>
                             <a href={`/review/${book.id}/`} className={cx('WriteBtn')}>
-                              <button className={cx('write')}>Viết cảm nhận</button>
+                              <button className={cx('write')}>Viết bình luận</button>
                             </a>
                           </div>
                         </>
@@ -323,7 +323,7 @@ function BookShow() {
                     </div>
                     <div className={cx('Statistic')}>
                       <div>{bookRating?.reviewCount}</div>
-                      <div className={cx('space')}>Cảm nhận</div>
+                      <div className={cx('space')}>Bình luận</div>
                     </div>
                   </div>
                 </div>

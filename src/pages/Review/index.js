@@ -149,7 +149,7 @@ export default function Review() {
             <div className={cx('review')}>
               <div className={cx('name')}>Đánh giá: </div>
               <TextArea
-                placeholder="Nhập cảm nhận của bạn vào đây"
+                placeholder="Nhập bình luận của bạn vào đây"
                 style={{
                   height: 200,
                   marginBottom: 24,

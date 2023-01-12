@@ -54,7 +54,7 @@ export default function Profile() {
                 </div>
                 <div>
                   <a href="##">
-                    2 <span>cảm nhận</span>
+                    2 <span>bình luận</span>
                   </a>
                 </div>
               </div>
