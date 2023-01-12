@@ -63,10 +63,6 @@ function BookShow() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(userReview);
-  }, [userReview]);
-
   const handleUpdateCollection = (collection) => {
     const token = Cookies.get('token');
     userApi.updateCollection(id, collection, token).then((res) => {
