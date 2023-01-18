@@ -2,7 +2,7 @@ import {
   DeleteOutlined, EditOutlined, ExclamationCircleFilled,
   SearchOutlined, UploadOutlined
 } from '@ant-design/icons';
-import { Button, Modal, Tabs, Upload } from 'antd';
+import { Button, Modal, Tabs, Upload, Pagination } from 'antd';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './BooksManagement.module.scss';
@@ -367,7 +367,7 @@ export default function BooksManagement() {
                                             name="pages"
                                           />
 
-                                          <label htmlFor="buylink">Nơi bán</label>
+                                          <label htmlFor="buylink">Liên kết tới nơi bán</label>
                                           <input
                                             type="text"
                                             id="buylink"
@@ -391,6 +391,9 @@ export default function BooksManagement() {
                           </td>
                         </tr>
                       </table>
+                      <div className={cx('pagin')}>
+                        <Pagination defaultCurrent={1} total={50} />
+                      </div>
                     </div>
                   </>
                 ),
