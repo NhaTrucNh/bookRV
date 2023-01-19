@@ -271,12 +271,21 @@ function BookShow() {
                           {user?.name}
                         </a>
                       </div>
-                      <div className={cx('ReviewInfo')}>
-                        <div>{userReview.userObj?.reviewCount}</div>
-                        <div>
-                          <p>đánh giá</p>
+                      {userReview?.userObj ? (
+                        <div className={cx('ReviewInfo')}>
+                          <div>{userReview.userObj?.reviewCount}</div>
+                          <div>
+                            <p>đánh giá</p>
+                          </div>
                         </div>
-                      </div>
+                      ) : (
+                        <div className={cx('ReviewInfo')}>
+                          <div>0</div>
+                          <div>
+                            <p>đánh giá</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <div className={cx('WriteReview')}>
                       {userReview ? (
