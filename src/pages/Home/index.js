@@ -4,6 +4,7 @@ import { homeApi } from '~/api/api';
 import BookList from '../../components/Layout/components/BookList';
 import styles from './Home.module.scss';
 // import bluep4 from '../../asset/images/bluep4.jpg';
+import {RightOutlined} from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -27,8 +28,9 @@ function Home() {
         <hr color="#E8E8E8" />
       </div>
       <BookList books={books.newPublish} />
-      <a href="##">
-        <p className={cx('readmore')}>Xem thêm</p>
+      <a href="/other">
+        <div className={cx('readmore')}>
+        <span>Xem thêm <RightOutlined style={{fontSize: '10px'}} /></span></div>
       </a>
 
       <div className={cx('catalog')}>
@@ -36,8 +38,9 @@ function Home() {
         <hr width="100%" color="#E8E8E8" />
       </div>
       <BookList books={books.mostReview} />
-      <a href="##">
-        <p className={cx('readmore')}>Xem thêm</p>
+      <a href="/other">
+        <div className={cx('readmore')}>
+          <span>Xem thêm <RightOutlined style={{fontSize: '10px'}} /></span></div>
       </a>
 
       <div className={cx('catalog')}>

@@ -1,5 +1,5 @@
-import { ExclamationCircleFilled, SearchOutlined, StopOutlined } from '@ant-design/icons';
-import { Button, Modal } from 'antd';
+import { ExclamationCircleFilled, SearchOutlined, CloseOutlined } from '@ant-design/icons';
+import { Button, Modal, Pagination } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './ModManagement.module.scss';
 
@@ -11,7 +11,7 @@ export default function ModManagement() {
     confirm({
       title: 'Bạn có muốn xoá quyền người dùng này không?',
       icon: <ExclamationCircleFilled />,
-      content: 'Một khi đã "Ok", mọi quyền hạn của người dùng đều bị xoá',
+      content: 'Nhấn "Ok" để xoá bỏ quyền hạn của người dùng',
       onOk() {
         return new Promise((resolve, reject) => {
           setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
@@ -40,12 +40,12 @@ export default function ModManagement() {
           </div>
           <table className={cx('userList')}>
             <tr>
-              <th>Tên</th>
-              <th>Email</th>
-              <th>Số điện thoại</th>
-              <th>Giới tính</th>
-              <th>Năm sinh</th>
-              <th></th>
+              <th width="20%">Tên</th>
+              <th width="20%">Email</th>
+              <th width="20%">Số điện thoại</th>
+              <th width="15%">Giới tính</th>
+              <th width="15%">Năm sinh</th>
+              <th width="10%"></th>
             </tr>
             <tr>
               <td>Nhã Trúc</td>
@@ -55,7 +55,7 @@ export default function ModManagement() {
               <td>27/2/1998</td>
               <td className={cx('centerAlign')}>
                 <div className={cx('edit')}>
-                  <Button danger onClick={showUnModConfirm} type="link" icon={<StopOutlined />} />
+                  <Button danger onClick={showUnModConfirm} type="link" icon={<CloseOutlined />} />
                 </div>
               </td>
             </tr>
@@ -67,7 +67,7 @@ export default function ModManagement() {
               <td>27/2/1998</td>
               <td className={cx('centerAlign')}>
                 <div className={cx('edit')}>
-                  <Button danger onClick={showUnModConfirm} type="link" icon={<StopOutlined />} />
+                  <Button danger onClick={showUnModConfirm} type="link" icon={<CloseOutlined />} />
                 </div>
               </td>
             </tr>
@@ -79,7 +79,7 @@ export default function ModManagement() {
               <td>27/2/1998</td>
               <td className={cx('centerAlign')}>
                 <div className={cx('edit')}>
-                  <Button danger onClick={showUnModConfirm} type="link" icon={<StopOutlined />} />
+                  <Button danger onClick={showUnModConfirm} type="link" icon={<CloseOutlined />} />
                 </div>
               </td>
             </tr>
@@ -91,7 +91,7 @@ export default function ModManagement() {
               <td>27/2/1998</td>
               <td className={cx('centerAlign')}>
                 <div className={cx('edit')}>
-                  <Button danger onClick={showUnModConfirm} type="link" icon={<StopOutlined />} />
+                  <Button danger onClick={showUnModConfirm} type="link" icon={<CloseOutlined />} />
                 </div>
               </td>
             </tr>
@@ -103,11 +103,14 @@ export default function ModManagement() {
               <td>27/2/1998</td>
               <td className={cx('centerAlign')}>
                 <div className={cx('edit')}>
-                  <Button danger onClick={showUnModConfirm} type="link" icon={<StopOutlined />} />
+                  <Button danger onClick={showUnModConfirm} type="link" icon={<CloseOutlined />} />
                 </div>
               </td>
             </tr>
           </table>
+          <div className={cx('pagin')}>
+            <Pagination defaultCurrent={1} total={50} />
+          </div>
         </div>
       </div>
     </>

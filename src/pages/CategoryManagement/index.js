@@ -1,5 +1,5 @@
 import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
-import { Button, Modal, Tabs } from 'antd';
+import { Button, Modal, Tabs, Pagination } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './CategoryManagement.module.scss';
 
@@ -107,6 +107,9 @@ export default function CategoryManagement() {
                             </td>
                           </tr>
                         </table>
+                        <div className={cx('pagin')}>
+                          <Pagination defaultCurrent={1} total={50} />
+                        </div>
                       </div>
                     </div>
                   </>

@@ -28,27 +28,35 @@ function HeaderAccount({ user }) {
     {
       key: '1',
       label: (
-        <a rel="profile" href="/profile">
-          Hồ sơ
+        <a rel="mod" href="/mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
+          Quản lý
         </a>
       ),
     },
     {
       key: '2',
       label: (
-        <a rel="account setting" href="/accountsetting">
-          Cài đặt tài khoản
+        <a rel="profile" href="/profile">
+          Hồ sơ người dùng
         </a>
       ),
     },
     {
       key: '3',
       label: (
-        <a rel="mod" href="/mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
-          Quản lý
+        <a rel="account setting" href="/accountsetting">
+          Chỉnh sửa hồ sơ
         </a>
       ),
     },
+    // {
+    //   key: '3',
+    //   label: (
+    //     <a rel="mod" href="/mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
+    //       Quản lý
+    //     </a>
+    //   ),
+    // },
     {
       key: '4',
       label: (
@@ -118,8 +126,9 @@ function HeaderAccount({ user }) {
                 arrow={{
                   pointAtCenter: true,
                 }}
+                color="primary"
               >
-                <Button>{user?.name}</Button>
+                <Button type="primary" danger>{user?.name}</Button>
               </Dropdown>
             </div>
           </div>

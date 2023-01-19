@@ -28,12 +28,20 @@
                 color: #ee684b;
             }
         }
+
+        .shelfTitle {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
     }
 }
 
 .Right {
     grid-column-start: 3;
-    grid-column-end: 11;
+    grid-column-end: 12;
     // background-color: bisque;
     min-height: 80vh;
     background-color: white;
@@ -45,7 +53,7 @@
         border-collapse: collapse;
         background: white;
         overflow: hidden;
-        max-width: 800px;
+        max-width: 1280px;
         width: 100%;
         margin: 0 auto;
         position: relative;
@@ -85,35 +93,36 @@
         }
 
         td img {
-            max-width: 6rem;
+            max-width: 100%;
+            margin: 1rem 0rem;
         }
 
         .cover {
-            width: 6rem;
+            width: 12%;
         }
 
         .title {
-            width: 15rem;
+            width: 15%;
         }
 
         .author {
-            width: 8rem;
+            width: 8%;
         }
 
         .avg {
-            width: 5rem;
+            width: 10%;
         }
 
         .lineRate {
-            width: 11rem;
+            width: 12%;
         }
 
         .shef {
-            width: 4rem;
+            width: 18%;
         }
 
         .DateAdd {
-            width: 11rem;
+            width: 10rem;
         }
     }
 }
@@ -123,4 +132,5 @@
     justify-content: center;
     align-items: center;
     margin-top: 3rem;
+    margin-bottom: 3rem;
 }

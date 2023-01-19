@@ -14,16 +14,16 @@ function Sidebar() {
         <hr width="100%" color="#E8E8E8" />
       </div>
       <div className={cx('news-content')}>
-        <a href="##">
+        <a href="/shownews">
           <img src={News1} alt="News1" />
           <p>Sách được độc giả mong đợi nhất tháng 12</p>
         </a>
 
-        <a href="##">
+        <a href="/shownews">
           <img src={News2} alt="News2" />
           <p>7 Cuốn Sách Hay Lên kệ Tuần Này</p>
         </a>
-        <a href="##">
+        <a href="/shownews">
           <img src={News3} alt="News3" />
           <p>Ôm ấp với những chuyện tình lãng mạn trong kỳ nghỉ đông năm 2022</p>
         </a>

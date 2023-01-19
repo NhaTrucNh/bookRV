@@ -44,6 +44,24 @@ export default function Statistic() {
                 {statistics.categories}<span> danh mục</span>
               </p>
             </div>
+            <div className={cx('frame')}>
+              <h4>Số lượng điều phối viên</h4>
+              <p>
+                10<span> điều phối viên</span>
+              </p>
+            </div>
+            <div className={cx('frame')}>
+              <h4>Số lượng đánh giá</h4>
+              <p>
+                10<span> đánh giá</span>
+              </p>
+            </div>
+            <div className={cx('frame')}>
+              <h4>Số lượng bình luận</h4>
+              <p>
+                10<span> bình luận</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>

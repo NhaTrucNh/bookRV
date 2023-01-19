@@ -14,19 +14,15 @@ class Footer extends React.Component {
             <li>
               <div className={cx('square')}></div>
             </li>
-            <li>Công ty</li>
+            <li><a href='/'>Trang chủ</a></li>
             <li>
               <div className={cx('square')}></div>
             </li>
-            <li>Hỗ trợ</li>
+            <li><a href='/genres'>Danh mục thể loại</a></li>
             <li>
               <div className={cx('square')}></div>
             </li>
-            <li>Điều khoản dịch vụ</li>
-            <li>
-              <div className={cx('square')}></div>
-            </li>
-            <li>Chính sách bảo mật</li>
+            <li><a href='/news'>Tin tức</a></li>
           </ul>
         </div>
       </footer>

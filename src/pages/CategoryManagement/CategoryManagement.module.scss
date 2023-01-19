@@ -356,3 +356,13 @@
         // align-items: center;
     }
 }
+
+.pagin {
+    display: flex;
+    flex-direction: row;
+    margin-top: 8rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+    align-items: center;
+  }
+  

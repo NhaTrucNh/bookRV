@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { categoryApi } from '~/api/api';
 import styles from './Genres.module.scss';
+import {RightOutlined} from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -23,18 +24,17 @@ export default function Genres() {
       <div className={cx('container')}>
         <div className={cx('GenreBar')}>
           <p className={cx('title')}>Thể loại</p>
-          <hr />
           <ul className={cx('list')}>
             {categories.map((category, index) => (
               <li key={index}>
-                <a href={`/genre/${category.tag?.code}`}>{category.tag?.name}</a>
+                <div><a href={`/genre/${category.tag?.code}`}>{category.tag?.name}</a></div>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className={cx('GenreBook')} >
-          {categories.map((category, index) => (
+        {categories.map((category, index) => (
+          <div className={cx('GenreBook')} >
             <div key={index}>
               <p className={cx('title')}>
                 <a href={`/genre/${category.tag?.code}`}>{category.tag?.name}</a>
@@ -49,13 +49,12 @@ export default function Genres() {
                   </a>
                 ))}
               </div>
-              <div className={cx('more')}>
-                <a href={`/genre/${category.tag?.code}`}>Xem thêm</a>
+              <div className={cx('readmore')}>
+                <a href={`/genre/${category.tag?.code}`}><span>Xem thêm <RightOutlined style={{fontSize: '10px'}} /></span></a>
               </div>
-              <hr />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

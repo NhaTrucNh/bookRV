@@ -37,7 +37,7 @@ export default function Login() {
           //clear state and controlled inputs
           setPwd('');
           setEmail('');
-          toast.success('Login Successful');
+          toast.success('Đăng nhập thành công');
           localStorage.setItem(
             'user',
             JSON.stringify({
@@ -82,17 +82,17 @@ export default function Login() {
             onChange={(e) => setPwd(e.target.value)}
           />
         </div>
+        <button type="submit" disabled={!validEmail || pwd.length < 8}>
         <div className={cx('submit')} type="submit">
-          <button type="submit" disabled={!validEmail || pwd.length < 8}>
             Đăng nhập
-          </button>
         </div>
-        <p>
+        </button>
+        <div className={cx('register')}>
           Chưa có tài khoản ?{' '}
           <a href="./register">
-            <span>Đăng ký</span>
+            Đăng ký
           </a>
-        </p>
+        </div>
       </form>
     </div>
   );

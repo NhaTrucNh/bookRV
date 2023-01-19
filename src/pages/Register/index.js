@@ -125,17 +125,17 @@ export default function Register() {
           />
         </div>
 
-        <div className={cx('submit')}>
           <button type="submit" disabled={!(name && validEmail && validPwd && validMatch)} onClick={handleSubmit}>
+          <div className={cx('submit')}>
             Đăng ký
+          </div>
           </button>
-        </div>
-        <p>
+        <div className={cx('login')}>
           Đã có tài khoản ?{' '}
           <a href="../login">
-            <span>Đăng nhập</span>
+            Đăng nhập
           </a>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import {
-  BookOutlined, CommentOutlined, FolderOutlined, ProjectOutlined, TeamOutlined, UserOutlined
+  BookOutlined, CommentOutlined, UserOutlined
 } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import classNames from 'classnames/bind';
@@ -9,11 +9,11 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '~/api/api';
 import Logo from '../../../asset/images/Logo.png';
-import styles from './DashboardFrame.module.scss';
+import styles from './ModDashboardFrame.module.scss';
 
 const cx = classNames.bind(styles);
 
-function DashboardFrame({ children }) {
+function ModDashboardFrame({ children }) {
   const navigate = useNavigate()
   const [user, setUser] = useState({});
 
@@ -109,15 +109,6 @@ function DashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="mod">
-                <span className={cx('icon')}>
-                  <TeamOutlined />
-                </span>
-                <span>Quản lý điều phối viên</span>
-              </a>
-            </div>
-
-            <div className={cx('item')}>
               <a href="books">
                 <span className={cx('icon')}>
                   <BookOutlined />
@@ -127,29 +118,11 @@ function DashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="category">
-                <span className={cx('icon')}>
-                  <FolderOutlined />
-                </span>
-                <span>Quản lý danh mục</span>
-              </a>
-            </div>
-
-            <div className={cx('item')}>
               <a href="comment">
                 <span className={cx('icon')}>
                   <CommentOutlined />
                 </span>
                 <span>Quản lý bình luận</span>
-              </a>
-            </div>
-
-            <div className={cx('item')}>
-              <a href="statistic">
-                <span className={cx('icon')}>
-                  <ProjectOutlined />
-                </span>
-                <span>Thống kê</span>
               </a>
             </div>
           </div>
@@ -178,4 +151,4 @@ function DashboardFrame({ children }) {
   );
 }
 
-export default DashboardFrame;
+export default ModDashboardFrame;

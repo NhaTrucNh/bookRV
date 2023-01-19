@@ -7,10 +7,10 @@ import {
 } from '@ant-design/icons';
 import { Button, Modal, Tag, Pagination } from 'antd';
 import classNames from 'classnames/bind';
-import styles from './UserManagement.module.scss';
+import styles from './UserManagementMod.module.scss';
 
 const cx = classNames.bind(styles);
-export default function UserManagement() {
+export default function UserManagementMod() {
   const { confirm } = Modal;
 
   const showAddModConfirm = () => {

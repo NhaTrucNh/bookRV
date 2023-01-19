@@ -45,12 +45,11 @@ export default function Genre() {
           </div>
         </div>
         <div className={cx('GenreBar')}>
-          <p className={cx('title')}>Các thể loại khác</p>
-          <hr />
+          <div className={cx('title')}>Thể loại</div>
           <ul className={cx('list')}>
             {allCategories.map((category, index) => (
               <li key={index}>
-                <a href={`/genre/${category.code}`}>{category.name}</a>
+                <div><a href={`/genre/${category.code}`}>{category.name}</a></div>
               </li>
             ))}
           </ul>

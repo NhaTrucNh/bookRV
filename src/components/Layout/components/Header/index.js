@@ -26,7 +26,6 @@ class Header extends React.Component {
                     <li>
                       <a href="/">Trang chủ</a>
                     </li>
-
                     <li>
                       <p>/</p>
                     </li>

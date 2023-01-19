@@ -1,11 +1,11 @@
 import { DeleteOutlined, ExclamationCircleFilled, SearchOutlined } from '@ant-design/icons';
 import { Button, Modal, Rate, Pagination } from 'antd';
 import classNames from 'classnames/bind';
-import styles from './CommentManagement.module.scss';
+import styles from './CommentManagementMod.module.scss';
 
 const cx = classNames.bind(styles);
 
-export default function CommentManagement() {
+export default function CommentManagementMod() {
   const { confirm } = Modal;
   const showDeleteConfirm = () => {
     confirm({

@@ -1,4 +1,4 @@
-import { CaretDownFilled, CaretUpFilled, DeleteOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
+import { DeleteOutlined, LikeOutlined, LikeFilled, DislikeOutlined, DislikeFilled } from '@ant-design/icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, Progress, Rate } from 'antd';
@@ -192,7 +192,8 @@ function BookShow() {
                   book.buyLink.map((link, index) => (
                     <a href={link} target="_blank" rel="noopener noreferrer">
                       <div className={cx('BuyBtn')} key={index}>
-                        <button className={cx('Add')}>{`Link ${link.split('/')[2]}`}</button>
+                        {/* <button className={cx('Add')}>{`Link ${link.split('/')[2]}`}</button> */}
+                        <button className={cx('Add')}>Liên kết tới nơi bán</button>
                       </div>
                     </a>
                   ))}
@@ -291,6 +292,8 @@ function BookShow() {
                             <p>đánh giá</p>
                           </div>
                         </div>
+                      )}
+                    </div>
                       )}
                     </div>
                     <div className={cx('WriteReview')}>
@@ -465,7 +468,7 @@ function BookShow() {
                               <p>{review.content}</p>
                             </div>
                           </div>
-                          <div className={cx('SocialFooter_statsContainer')}>
+                          {/* <div className={cx('SocialFooter_statsContainer')}>
                             <div className={cx('LabelItemDT')}>
                               {review.upvotes?.length}
                               <span>Đồng tình</span>
@@ -474,24 +477,25 @@ function BookShow() {
                               {review.downvotes?.length}
                               <span>Không đồng tình</span>
                             </div>
-                          </div>
+                          </div> */}
                           {isLogged && (
                             <div className={cx('SocialFooter_actionsContainer')}>
                               <div className={cx('ActionItemDT')} onClick={() => handleVote(review.id, 'upvote')}>
                                 {review.voteStatus && review.voteStatus === 'upvote' ? (
-                                  <CaretUpFilled />
+                                 <div className={cx('DT1')}><LikeFilled style={{color:'black'}} /><span>{review.upvotes?.length}</span></div>
                                 ) : (
-                                  <UpOutlined />
-                                )}
-                                <span>Đồng tình</span>
+                                  <div><LikeOutlined /><span>{review.upvotes?.length}</span></div>
+
+                                )}                                
+                                {/* <span>{review.upvotes?.length}</span> */}
                               </div>
                               <div className={cx('ActionItemKDT')} onClick={() => handleVote(review.id, 'downvote')}>
                                 {review.voteStatus && review.voteStatus === 'downvote' ? (
-                                  <CaretDownFilled />
+                                  <div className={cx('KDT1')}><DislikeFilled style={{color:'black'}} /><span>{review.downvotes?.length}</span></div>
                                 ) : (
-                                  <DownOutlined />
+                                  <div><DislikeOutlined /><span>{review.downvotes?.length}</span></div>
                                 )}
-                                <span>Không đồng tình</span>
+                                {/* <span>Không đồng tình</span> */}
                               </div>
                             </div>
                           )}
