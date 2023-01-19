@@ -1,4 +1,4 @@
-import { DeleteOutlined, LikeOutlined, LikeFilled, DislikeOutlined, DislikeFilled } from '@ant-design/icons';
+import { DeleteOutlined, DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined } from '@ant-design/icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, Progress, Rate } from 'antd';
@@ -294,8 +294,6 @@ function BookShow() {
                         </div>
                       )}
                     </div>
-                      )}
-                    </div>
                     <div className={cx('WriteReview')}>
                       {userReview ? (
                         <>
@@ -359,7 +357,11 @@ function BookShow() {
                   </div>
                   <div className={cx('RatingHistogram')}>
                     {bookRating?.fiveStar} (
-                    {`${bookRating?.ratingCount > 0 ? (bookRating?.fiveStar / bookRating?.ratingCount) * 100 : 0}%`})
+                    {`${round(
+                      bookRating?.ratingCount > 0 ? (bookRating?.fiveStar / bookRating?.ratingCount) * 100 : 0,
+                      2,
+                    )}%`}
+                    )
                   </div>
                 </div>
                 <div className={cx('HistogramBar')}>
@@ -376,7 +378,11 @@ function BookShow() {
                   </div>
                   <div className={cx('RatingHistogram')}>
                     {bookRating?.fourStar} (
-                    {`${bookRating?.ratingCount > 0 ? (bookRating?.fourStar / bookRating?.ratingCount) * 100 : 0}%`})
+                    {`${round(
+                      bookRating?.ratingCount > 0 ? (bookRating?.fourStar / bookRating?.ratingCount) * 100 : 0,
+                      2,
+                    )}%`}
+                    )
                   </div>
                 </div>
                 <div className={cx('HistogramBar')}>
@@ -395,7 +401,11 @@ function BookShow() {
                   </div>
                   <div className={cx('RatingHistogram')}>
                     {bookRating?.threeStar} (
-                    {`${bookRating?.ratingCount > 0 ? (bookRating?.threeStar / bookRating?.ratingCount) * 100 : 0}%`})
+                    {`${round(
+                      bookRating?.ratingCount > 0 ? (bookRating?.threeStar / bookRating?.ratingCount) * 100 : 0,
+                      2,
+                    )}%`}
+                    )
                   </div>
                 </div>
                 <div className={cx('HistogramBar')}>
@@ -412,7 +422,11 @@ function BookShow() {
                   </div>
                   <div className={cx('RatingHistogram')}>
                     {bookRating?.twoStar} (
-                    {`${bookRating?.ratingCount > 0 ? (bookRating?.twoStar / bookRating?.ratingCount) * 100 : 0}%`})
+                    {`${round(
+                      bookRating?.ratingCount > 0 ? (bookRating?.twoStar / bookRating?.ratingCount) * 100 : 0,
+                      2,
+                    )}%`}
+                    )
                   </div>
                 </div>
                 <div className={cx('HistogramBar')}>
@@ -429,7 +443,11 @@ function BookShow() {
                   </div>
                   <div className={cx('RatingHistogram')}>
                     {bookRating?.oneStar} (
-                    {`${bookRating?.ratingCount > 0 ? (bookRating?.oneStar / bookRating?.ratingCount) * 100 : 0}%`})
+                    {`${round(
+                      bookRating?.ratingCount > 0 ? (bookRating?.oneStar / bookRating?.ratingCount) * 100 : 0,
+                      2,
+                    )}%`}
+                    )
                   </div>
                 </div>
               </div>
@@ -482,18 +500,29 @@ function BookShow() {
                             <div className={cx('SocialFooter_actionsContainer')}>
                               <div className={cx('ActionItemDT')} onClick={() => handleVote(review.id, 'upvote')}>
                                 {review.voteStatus && review.voteStatus === 'upvote' ? (
-                                 <div className={cx('DT1')}><LikeFilled style={{color:'black'}} /><span>{review.upvotes?.length}</span></div>
+                                  <div className={cx('DT1')}>
+                                    <LikeFilled style={{ color: 'black' }} />
+                                    <span>{review.upvotes?.length}</span>
+                                  </div>
                                 ) : (
-                                  <div><LikeOutlined /><span>{review.upvotes?.length}</span></div>
-
-                                )}                                
+                                  <div>
+                                    <LikeOutlined />
+                                    <span>{review.upvotes?.length}</span>
+                                  </div>
+                                )}
                                 {/* <span>{review.upvotes?.length}</span> */}
                               </div>
                               <div className={cx('ActionItemKDT')} onClick={() => handleVote(review.id, 'downvote')}>
                                 {review.voteStatus && review.voteStatus === 'downvote' ? (
-                                  <div className={cx('KDT1')}><DislikeFilled style={{color:'black'}} /><span>{review.downvotes?.length}</span></div>
+                                  <div className={cx('KDT1')}>
+                                    <DislikeFilled style={{ color: 'black' }} />
+                                    <span>{review.downvotes?.length}</span>
+                                  </div>
                                 ) : (
-                                  <div><DislikeOutlined /><span>{review.downvotes?.length}</span></div>
+                                  <div>
+                                    <DislikeOutlined />
+                                    <span>{review.downvotes?.length}</span>
+                                  </div>
                                 )}
                                 {/* <span>Không đồng tình</span> */}
                               </div>
