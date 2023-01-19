@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { authApi, bookApi, reviewApi, userApi } from '~/api/api';
+import { round } from '~/helper/helper';
 import Popup from '../../components/Popup';
 import styles from './BookShow.module.scss';
 
@@ -205,10 +206,15 @@ function BookShow() {
               <a href="#Rtg" className={cx('textStats')}>
                 <div id="RS" className={cx('RatingStats')}>
                   <div className={cx('Rating')}>
-                    <Rate allowHalf disabled defaultValue={bookRating?.averageRating} style={{ fontSize: 36 }} />
+                    <Rate
+                      allowHalf
+                      disabled
+                      defaultValue={round(bookRating?.averageRating, 2)}
+                      style={{ fontSize: 36 }}
+                    />
                   </div>
                   <div>
-                    <h1>{bookRating?.averageRating}</h1>
+                    <h1>{round(bookRating?.averageRating, 2)}</h1>
                   </div>
                   <div className={cx('Statistic')}>
                     <div>{bookRating?.ratingCount}</div>
@@ -321,10 +327,10 @@ function BookShow() {
                 <div id="Rtg" className={cx('ReviewsSectionStatistic')}>
                   <div className={cx('RatingStats')}>
                     <div className={cx('Rating')}>
-                      <Rate allowHalf disabled value={bookRating?.averageRating} style={{ fontSize: 36 }} />
+                      <Rate allowHalf disabled value={round(bookRating?.averageRating, 2)} style={{ fontSize: 36 }} />
                     </div>
                     <div>
-                      <h1>{bookRating?.averageRating}</h1>
+                      <h1>{round(bookRating?.averageRating, 2)}</h1>
                     </div>
                     <div className={cx('Statistic')}>
                       <div>{bookRating?.ratingCount}</div>

@@ -19,3 +19,5 @@ export const DateConverter = (date) => {
 export function isObjectEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
+
+export const round = (num, precision) => Number(Math.round(num + 'e+' + precision) + 'e-' + precision);
