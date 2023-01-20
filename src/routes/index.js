@@ -25,26 +25,27 @@ import StatisticManagement from '~/pages/Statistic';
 import UserInfo from '~/pages/UserInfo';
 import UserManagement from '~/pages/UserManagement';
 import UserManagementMod from '~/pages/UserManagementMod';
-import OtherCriteria from '~/pages/OtherCriteria';
+import ViewMore from '~/pages/ViewMore';
 
 //Pubic Routes
 const publicRoutes = [
-  { path: '/', component: Home },
-  { path: '/news', component: News, layout: HeaderAndFooter },
-  { path: '/shownews', component: ShowNews, layout: HeaderAndFooter },
+  { path: '/', component: Home }, // done
+  { path: '/news', component: News, layout: HeaderAndFooter }, //done default
+  { path: '/shownews', component: ShowNews, layout: HeaderAndFooter }, //done default
   { path: '/changepassword', component: ChangePassword, layout: HeaderAndFooter },
-  { path: '/profile', component: Profile, layout: HeaderAndFooter },
-  { path: '/user/:id', component: UserInfo, layout: HeaderAndFooter },
-  { path: '/login', component: Login, layout: HeaderOnly },
-  { path: '/register', component: Register, layout: HeaderOnly },
-  { path: '/mybook', component: MyBook, layout: HeaderAndFooter },
-  { path: '/mybook/:list', component: MyBook, layout: HeaderAndFooter },
-  { path: '/accountsetting', component: AccountSetting, layout: HeaderAndFooter },
-  { path: '/genres', component: Genres, layout: HeaderAndFooter },
-  { path: '/genre/:code', component: Genre, layout: HeaderAndFooter },
-  { path: '/other', component: OtherCriteria, layout: HeaderAndFooter },
-  { path: '/book/:id', component: BookShow, layout: HeaderAndFooter },
-  { path: '/review/:id', component: Review, layout: HeaderAndFooter },
+  { path: '/profile', component: Profile, layout: HeaderAndFooter }, // done
+  { path: '/user/:id', component: UserInfo, layout: HeaderAndFooter }, // done
+  { path: '/login', component: Login, layout: HeaderOnly }, // done
+  { path: '/register', component: Register, layout: HeaderOnly }, // done
+  { path: '/mybook', component: MyBook, layout: HeaderAndFooter }, // done
+  { path: '/mybook/:list', component: MyBook, layout: HeaderAndFooter }, //done
+  { path: '/accountsetting', component: AccountSetting, layout: HeaderAndFooter }, // done
+  { path: '/genres', component: Genres, layout: HeaderAndFooter }, // done
+  { path: '/genre/:code', component: Genre, layout: HeaderAndFooter }, // done
+  { path: '/viewmore', component: ViewMore, layout: HeaderAndFooter },
+  { path: '/viewmore/:list', component: ViewMore, layout: HeaderAndFooter },
+  { path: '/book/:id', component: BookShow, layout: HeaderAndFooter }, // done
+  { path: '/review/:id', component: Review, layout: HeaderAndFooter }, // done
   { path: '/dashboardframe', component: DashboardFrame, layout: null },
   { path: '/user', component: UserManagement, layout: DashboardFrame },
   { path: '/mod', component: ModManagement, layout: DashboardFrame },
@@ -54,7 +55,7 @@ const publicRoutes = [
   { path: '/mcomment', component: CommentManagementMod, layout: ModDashboardFrame },
   { path: '/muser', component: UserManagementMod, layout: ModDashboardFrame },
   { path: '/mbooks', component: BooksManagementMod, layout: ModDashboardFrame },
-  { path: '/statistic', component: StatisticManagement, layout: DashboardFrame },
+  { path: '/statistic', component: StatisticManagement, layout: DashboardFrame }, // done
 ];
 
 const privateRoutes = [];

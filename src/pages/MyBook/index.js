@@ -125,31 +125,41 @@ export default function MyBook() {
             <Button
               onClick={() => setSelectedList('all')}
               style={selectedList === 'all' ? { color: '#ee684b' } : { color: 'black' }}
-              type="text" block>
+              type="text"
+              block
+            >
               Tất cả<span>({all ? all.length : 0})</span>
             </Button>
             <Button
               onClick={() => setSelectedList('wishlist')}
               style={selectedList === 'wishlist' ? { color: '#ee684b' } : { color: 'black' }}
-              type="text" block>
+              type="text"
+              block
+            >
               Dự định đọc<span>({collection.wishlist ? collection.wishlist.length : 0})</span>
             </Button>
             <Button
               onClick={() => setSelectedList('readingList')}
               style={selectedList === 'readingList' ? { color: '#ee684b' } : { color: 'black' }}
-              type="text" block>
+              type="text"
+              block
+            >
               Đang đọc<span>({collection.readingList ? collection.readingList.length : 0})</span>
             </Button>
             <Button
               onClick={() => setSelectedList('readList')}
               style={selectedList === 'readList' ? { color: '#ee684b' } : { color: 'black' }}
-              type="text" block>
+              type="text"
+              block
+            >
               Đã đọc<span>({collection.readList ? collection.readList.length : 0})</span>
             </Button>
             <Button
               onClick={() => setSelectedList('droppedList')}
               style={selectedList === 'droppedList' ? { color: '#ee684b' } : { color: 'black' }}
-              type="text" block>
+              type="text"
+              block
+            >
               Ngưng đọc<span>({collection.droppedList ? collection.droppedList.length : 0})</span>
             </Button>
           </div>
