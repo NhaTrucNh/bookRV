@@ -55,6 +55,16 @@ export default function ViewMore() {
               </a>
             ))}
           </div>
+          <div className={cx('Pagina')}>
+          <Pagination
+            total={filteredBooks?.length}
+            defaultCurrent={page}
+            defaultPageSize={pageSize}
+            onChange={(value) => setPage(value)}
+            pageSizeOptions={[10, 20, 50]}
+            onShowSizeChange={(current, size) => setPageSize(size)}
+          />
+        </div>
         </div>
         <div className={cx('GenreBar')}>
           <div className={cx('title')}>Sắp xếp theo</div>
@@ -80,16 +90,6 @@ export default function ViewMore() {
               </Button>
             </li>
           </ul>
-        </div>
-        <div className={cx('Pagina')}>
-          <Pagination
-            total={filteredBooks?.length}
-            defaultCurrent={page}
-            defaultPageSize={pageSize}
-            onChange={(value) => setPage(value)}
-            pageSizeOptions={[10, 20, 50]}
-            onShowSizeChange={(current, size) => setPageSize(size)}
-          />
         </div>
       </div>
     </div>
