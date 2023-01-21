@@ -23,13 +23,16 @@ export default function ViewMore() {
   }, []);
 
   useEffect(() => {
-    if (list) {
-      if (list !== 'newPublish' || list !== 'mostReview') {
-        return;
-      }
-      setFilter(list);
+    if (list !== 'newPublish' && list !== 'mostReview') {
+      setFilter('newPublish');
+      window.history.replaceState(null, 'React App', `/viewmore/newPublish`);
+      return;
     }
   }, [list]);
+
+  useEffect(() => {
+    window.history.replaceState(null, 'React App', `/viewmore/${filter}`);
+  }, [filter]);
 
   useEffect(() => {
     if (filter && allBooks) {
@@ -56,15 +59,15 @@ export default function ViewMore() {
             ))}
           </div>
           <div className={cx('Pagina')}>
-          <Pagination
-            total={filteredBooks?.length}
-            defaultCurrent={page}
-            defaultPageSize={pageSize}
-            onChange={(value) => setPage(value)}
-            pageSizeOptions={[10, 20, 50]}
-            onShowSizeChange={(current, size) => setPageSize(size)}
-          />
-        </div>
+            <Pagination
+              total={filteredBooks?.length}
+              defaultCurrent={page}
+              defaultPageSize={pageSize}
+              onChange={(value) => setPage(value)}
+              pageSizeOptions={[10, 20, 50]}
+              onShowSizeChange={(current, size) => setPageSize(size)}
+            />
+          </div>
         </div>
         <div className={cx('GenreBar')}>
           <div className={cx('title')}>Sắp xếp theo</div>

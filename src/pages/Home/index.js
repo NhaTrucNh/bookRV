@@ -28,7 +28,7 @@ function Home() {
         <hr color="#E8E8E8" />
       </div>
       <BookList books={books.newPublish} />
-      <a href="/viewmore">
+      <a href="/viewmore/newPublish">
         <div className={cx('readmore')}>
           <span>
             Xem thêm <RightOutlined style={{ fontSize: '10px' }} />
@@ -41,7 +41,7 @@ function Home() {
         <hr width="100%" color="#E8E8E8" />
       </div>
       <BookList books={books.mostReview} />
-      <a href="/viewmore">
+      <a href="/viewmore/mostReview">
         <div className={cx('readmore')}>
           <span>
             Xem thêm <RightOutlined style={{ fontSize: '10px' }} />
