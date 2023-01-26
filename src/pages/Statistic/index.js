@@ -29,37 +29,43 @@ export default function Statistic() {
             <div className={cx('frame')}>
               <h4>Số lượng đầu sách</h4>
               <p>
-                {statistics.books}<span> cuốn</span>
+                {statistics.books}
+                <span> cuốn</span>
               </p>
             </div>
             <div className={cx('frame')}>
               <h4>Số lượng thành viên</h4>
               <p>
-                {statistics.users}<span> thành viên</span>
+                {statistics.users}
+                <span> thành viên</span>
               </p>
             </div>
             <div className={cx('frame')}>
               <h4>Số lượng danh mục</h4>
               <p>
-                {statistics.categories}<span> danh mục</span>
+                {statistics.categories}
+                <span> danh mục</span>
               </p>
             </div>
             <div className={cx('frame')}>
               <h4>Số lượng điều phối viên</h4>
               <p>
-                10<span> điều phối viên</span>
+                {statistics.mods}
+                <span> điều phối viên</span>
               </p>
             </div>
             <div className={cx('frame')}>
               <h4>Số lượng đánh giá</h4>
               <p>
-                10<span> đánh giá</span>
+                {statistics.ratings}
+                <span> đánh giá</span>
               </p>
             </div>
             <div className={cx('frame')}>
               <h4>Số lượng bình luận</h4>
               <p>
-                10<span> bình luận</span>
+                {statistics.comments}
+                <span> bình luận</span>
               </p>
             </div>
           </div>
