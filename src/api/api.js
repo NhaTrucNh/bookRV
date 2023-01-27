@@ -37,9 +37,9 @@ export const adminApi = {
   updateCategory: (categoryId, data, token) =>
     api.post(`/admin/update-category/${categoryId}`, data, { headers: { Authorization: `Bearer ${token}` } }),
   disableCategory: (categoryId, token) =>
-    api.post(`/admin/disable-category/${categoryId}`, { headers: { Authorization: `Bearer ${token}` } }),
+    api.post(`/admin/disable-category/${categoryId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   enableCategory: (categoryId, token) =>
-    api.post(`/admin/enable-category/${categoryId}`, { headers: { Authorization: `Bearer ${token}` } }),
+    api.post(`/admin/enable-category/${categoryId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export const homeApi = {

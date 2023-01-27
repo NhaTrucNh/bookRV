@@ -155,7 +155,7 @@ export default function AccountSetting() {
               <input type="text" id="email" name="email" disabled="disabled" value={email} />
 
               <label htmlFor="username">Tên hiển thị</label>
-              <input type="text" id="username" name="username" value={name} />
+              <input type="text" id="username" name="username" value={name} onChange={(e) => setName(e.target.value)} />
 
               <label htmlFor="avatar">Ảnh đại diện</label>
 
