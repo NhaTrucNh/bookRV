@@ -1,6 +1,4 @@
-import {
-  BookOutlined, CommentOutlined, UserOutlined
-} from '@ant-design/icons';
+import { BookOutlined, CommentOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import classNames from 'classnames/bind';
 import Cookies from 'js-cookie';
@@ -14,7 +12,7 @@ import styles from './ModDashboardFrame.module.scss';
 const cx = classNames.bind(styles);
 
 function ModDashboardFrame({ children }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
 
   const handleLogout = async () => {
@@ -28,30 +26,33 @@ function ModDashboardFrame({ children }) {
 
   useEffect(() => {
     if (Cookies.get('token') && localStorage.getItem('user')) {
-      authApi.verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token')).then((response) => {
-        if (response.data.code === 200 && response.data.result.role === 'admin') {
-          setUser(JSON.parse(localStorage.getItem('user')));
-        } else {
-          toast.error('Verify Failed');
+      authApi
+        .verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token'))
+        .then((response) => {
+          if (response.data.code === 200 && response.data.result.role === 'admin') {
+            setUser(JSON.parse(localStorage.getItem('user')));
+          } else {
+            toast.error('Verify Failed');
+            Cookies.remove('token');
+            localStorage.removeItem('user');
+            navigate('/login');
+          }
+        })
+        .catch((error) => {
+          const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+          toast.error(msg);
           Cookies.remove('token');
           localStorage.removeItem('user');
-          navigate("/login");
-        }
-      }).catch((error) => {
-        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-        toast.error(msg);
-        Cookies.remove('token');
-        localStorage.removeItem('user');
-        navigate("/login");
-      })
+          navigate('/login');
+        });
     }
-  }, [navigate])
+  }, [navigate]);
 
   const items = [
     {
       key: '1',
       label: (
-        <a target="_blank" rel="profile" href="profile">
+        <a target="_blank" rel="profile" href="/mod">
           Quản lý
         </a>
       ),
@@ -100,7 +101,7 @@ function ModDashboardFrame({ children }) {
           </div>
           <div className={cx('treev')}>
             <div className={cx('item')}>
-              <a href="user">
+              <a href="/mod/users">
                 <span className={cx('icon')}>
                   <UserOutlined />
                 </span>
@@ -109,7 +110,7 @@ function ModDashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="books">
+              <a href="/mod/books">
                 <span className={cx('icon')}>
                   <BookOutlined />
                 </span>
@@ -118,7 +119,7 @@ function ModDashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="comment">
+              <a href="/mod/comments">
                 <span className={cx('icon')}>
                   <CommentOutlined />
                 </span>

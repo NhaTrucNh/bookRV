@@ -83,15 +83,12 @@ export default function Login() {
           />
         </div>
         <button type="submit" disabled={!validEmail || pwd.length < 8}>
-        <div className={cx('submit')} type="submit">
+          <div className={cx('submit')} type="submit">
             Đăng nhập
-        </div>
+          </div>
         </button>
         <div className={cx('register')}>
-          Chưa có tài khoản ?{' '}
-          <a href="./register">
-            Đăng ký
-          </a>
+          Chưa có tài khoản ? <a href="./register">Đăng ký</a>
         </div>
       </form>
     </div>

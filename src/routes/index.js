@@ -42,20 +42,21 @@ const publicRoutes = [
   { path: '/accountsetting', component: AccountSetting, layout: HeaderAndFooter }, // done
   { path: '/genres', component: Genres, layout: HeaderAndFooter }, // done
   { path: '/genre/:code', component: Genre, layout: HeaderAndFooter }, // done
-  { path: '/viewmore', component: ViewMore, layout: HeaderAndFooter },
+  { path: '/viewmore', component: ViewMore, layout: HeaderAndFooter }, //done
   { path: '/viewmore/:list', component: ViewMore, layout: HeaderAndFooter },
   { path: '/book/:id', component: BookShow, layout: HeaderAndFooter }, // done
   { path: '/review/:id', component: Review, layout: HeaderAndFooter }, // done
   { path: '/dashboardframe', component: DashboardFrame, layout: null },
-  { path: '/user', component: UserManagement, layout: DashboardFrame },
-  { path: '/mod', component: ModManagement, layout: DashboardFrame },
-  { path: '/books', component: BooksManagement, layout: DashboardFrame },
-  { path: '/category', component: CategoryManagement, layout: DashboardFrame },
-  { path: '/comment', component: CommentManagement, layout: DashboardFrame },
-  { path: '/mcomment', component: CommentManagementMod, layout: ModDashboardFrame },
-  { path: '/muser', component: UserManagementMod, layout: ModDashboardFrame },
-  { path: '/mbooks', component: BooksManagementMod, layout: ModDashboardFrame },
-  { path: '/statistic', component: StatisticManagement, layout: DashboardFrame }, // done
+  { path: '/admin', component: UserManagement, layout: DashboardFrame },
+  { path: '/admin/users', component: UserManagement, layout: DashboardFrame },
+  { path: '/admin/mods', component: ModManagement, layout: DashboardFrame },
+  { path: '/admin/books', component: BooksManagement, layout: DashboardFrame },
+  { path: '/admin/categories', component: CategoryManagement, layout: DashboardFrame },
+  { path: '/admin/comments', component: CommentManagement, layout: DashboardFrame },
+  { path: '/admin/statistic', component: StatisticManagement, layout: DashboardFrame }, // done
+  { path: '/mod/users', component: UserManagementMod, layout: ModDashboardFrame },
+  { path: '/mod/comments', component: CommentManagementMod, layout: ModDashboardFrame },
+  { path: '/mod/books', component: BooksManagementMod, layout: ModDashboardFrame },
 ];
 
 const privateRoutes = [];

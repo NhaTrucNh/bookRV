@@ -1,5 +1,10 @@
 import {
-  BookOutlined, CommentOutlined, FolderOutlined, ProjectOutlined, TeamOutlined, UserOutlined
+  BookOutlined,
+  CommentOutlined,
+  FolderOutlined,
+  ProjectOutlined,
+  TeamOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import classNames from 'classnames/bind';
@@ -14,7 +19,7 @@ import styles from './DashboardFrame.module.scss';
 const cx = classNames.bind(styles);
 
 function DashboardFrame({ children }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
 
   const handleLogout = async () => {
@@ -28,30 +33,33 @@ function DashboardFrame({ children }) {
 
   useEffect(() => {
     if (Cookies.get('token') && localStorage.getItem('user')) {
-      authApi.verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token')).then((response) => {
-        if (response.data.code === 200 && response.data.result.role === 'admin') {
-          setUser(JSON.parse(localStorage.getItem('user')));
-        } else {
-          toast.error('Verify Failed');
+      authApi
+        .verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token'))
+        .then((response) => {
+          if (response.data.code === 200 && response.data.result.role === 'admin') {
+            setUser(JSON.parse(localStorage.getItem('user')));
+          } else {
+            toast.error('Verify Failed');
+            Cookies.remove('token');
+            localStorage.removeItem('user');
+            navigate('/login');
+          }
+        })
+        .catch((error) => {
+          const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
+          toast.error(msg);
           Cookies.remove('token');
           localStorage.removeItem('user');
-          navigate("/login");
-        }
-      }).catch((error) => {
-        const msg = error.response.data.message ? error.response.data.message : 'Verify Failed';
-        toast.error(msg);
-        Cookies.remove('token');
-        localStorage.removeItem('user');
-        navigate("/login");
-      })
+          navigate('/login');
+        });
     }
-  }, [navigate])
+  }, [navigate]);
 
   const items = [
     {
       key: '1',
       label: (
-        <a target="_blank" rel="profile" href="profile">
+        <a target="_blank" rel="profile" href="/admin">
           Quản lý
         </a>
       ),
@@ -100,7 +108,7 @@ function DashboardFrame({ children }) {
           </div>
           <div className={cx('treev')}>
             <div className={cx('item')}>
-              <a href="user">
+              <a href="/admin/users">
                 <span className={cx('icon')}>
                   <UserOutlined />
                 </span>
@@ -109,7 +117,7 @@ function DashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="mod">
+              <a href="/admin/mods">
                 <span className={cx('icon')}>
                   <TeamOutlined />
                 </span>
@@ -118,7 +126,7 @@ function DashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="books">
+              <a href="/admin/books">
                 <span className={cx('icon')}>
                   <BookOutlined />
                 </span>
@@ -127,7 +135,7 @@ function DashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="category">
+              <a href="/admin/categories">
                 <span className={cx('icon')}>
                   <FolderOutlined />
                 </span>
@@ -136,7 +144,7 @@ function DashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="comment">
+              <a href="/admin/comments">
                 <span className={cx('icon')}>
                   <CommentOutlined />
                 </span>
@@ -145,7 +153,7 @@ function DashboardFrame({ children }) {
             </div>
 
             <div className={cx('item')}>
-              <a href="statistic">
+              <a href="/admin/statistic">
                 <span className={cx('icon')}>
                   <ProjectOutlined />
                 </span>

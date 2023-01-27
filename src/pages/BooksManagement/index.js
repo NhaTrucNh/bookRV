@@ -1,8 +1,11 @@
 import {
-  DeleteOutlined, EditOutlined, ExclamationCircleFilled,
-  SearchOutlined, UploadOutlined
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleFilled,
+  SearchOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
-import { Button, Modal, Tabs, Upload, Pagination } from 'antd';
+import { Button, Modal, Pagination, Tabs, Upload } from 'antd';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import styles from './BooksManagement.module.scss';
@@ -27,7 +30,7 @@ export default function BooksManagement() {
           return console.log('Oops errors!');
         }
       },
-      onCancel() { },
+      onCancel() {},
     });
   };
 
@@ -115,9 +118,7 @@ export default function BooksManagement() {
                                 listType="picture"
                                 maxCount={1}
                               >
-                                <Button icon={<UploadOutlined />}>
-                                  Tải lên ảnh bìa
-                                </Button>
+                                <Button icon={<UploadOutlined />}>Tải lên ảnh bìa</Button>
                               </Upload>
                             </div>
 
@@ -154,19 +155,11 @@ export default function BooksManagement() {
                       </div>
                       <div className={cx('content')}>
                         <div className={cx('search')}>
-                          <form onsubmit="event.preventDefault();" role="search">
+                          <form onSubmit="event.preventDefault();" role="search">
                             <label htmlFor="search">Tìm kiếm</label>
-                            <input
-                              id="search"
-                              type="search"
-                              placeholder="Nhập vào đây..."
-                              autofocus
-                              required
-                            />
+                            <input id="search" type="search" placeholder="Nhập vào đây..." autoFocus required />
                             <button type="submit">
-                              <SearchOutlined
-                                style={{ fontSize: '16px', color: '#fff' }}
-                              />
+                              <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />
                             </button>
                           </form>
                         </div>
@@ -195,11 +188,7 @@ export default function BooksManagement() {
                           <td>254</td>
                           <td>
                             <span>
-                              <Button
-                                onClick={() => setOpen(true)}
-                                type="link"
-                                icon={<EditOutlined />}
-                              />
+                              <Button onClick={() => setOpen(true)} type="link" icon={<EditOutlined />} />
                               <Modal
                                 title="Chỉnh sửa thông tin sách"
                                 centered
@@ -213,108 +202,46 @@ export default function BooksManagement() {
                                     <div className={cx('content')}>
                                       <div className={cx('info')}>
                                         <form>
-                                          <label htmlFor="bookname">
-                                            Tên sách
-                                          </label>
-                                          <input
-                                            type="text"
-                                            id="bookname"
-                                            name="bookname"
-                                          />
+                                          <label htmlFor="bookname">Tên sách</label>
+                                          <input type="text" id="bookname" name="bookname" />
 
                                           <label htmlFor="author">Tác giả</label>
-                                          <input
-                                            type="text"
-                                            id="author"
-                                            name="author"
-                                          />
+                                          <input type="text" id="author" name="author" />
 
                                           <label htmlFor="genre">Thể loại</label>
                                           <div className={cx('GenreList')}>
-                                            <label
-                                              className={cx(
-                                                'form-control',
-                                              )}
-                                            >
-                                              <input
-                                                type="checkbox"
-                                                name="checkbox"
-                                              />
+                                            <label className={cx('form-control')}>
+                                              <input type="checkbox" name="checkbox" />
                                               Văn
                                             </label>
-                                            <label
-                                              className={cx(
-                                                'form-control',
-                                              )}
-                                            >
-                                              <input
-                                                type="checkbox"
-                                                name="checkbox"
-                                              />
+                                            <label className={cx('form-control')}>
+                                              <input type="checkbox" name="checkbox" />
                                               Thơ
                                             </label>
-                                            <label
-                                              className={cx(
-                                                'form-control',
-                                              )}
-                                            >
-                                              <input
-                                                type="checkbox"
-                                                name="checkbox"
-                                              />
+                                            <label className={cx('form-control')}>
+                                              <input type="checkbox" name="checkbox" />
                                               Thiếu nhi
                                             </label>
-                                            <label
-                                              className={cx(
-                                                'form-control',
-                                              )}
-                                            >
-                                              <input
-                                                type="checkbox"
-                                                name="checkbox"
-                                              />
+                                            <label className={cx('form-control')}>
+                                              <input type="checkbox" name="checkbox" />
                                               Checkbox
                                             </label>
-                                            <label
-                                              className={cx(
-                                                'form-control',
-                                              )}
-                                            >
-                                              <input
-                                                type="checkbox"
-                                                name="checkbox"
-                                              />
+                                            <label className={cx('form-control')}>
+                                              <input type="checkbox" name="checkbox" />
                                               Checkbox
                                             </label>
-                                            <label
-                                              className={cx(
-                                                'form-control',
-                                              )}
-                                            >
-                                              <input
-                                                type="checkbox"
-                                                name="checkbox"
-                                              />
+                                            <label className={cx('form-control')}>
+                                              <input type="checkbox" name="checkbox" />
                                               Checkbox
                                             </label>
-                                            <label
-                                              className={cx(
-                                                'form-control',
-                                              )}
-                                            >
-                                              <input
-                                                type="checkbox"
-                                                name="checkbox"
-                                              />
+                                            <label className={cx('form-control')}>
+                                              <input type="checkbox" name="checkbox" />
                                               Checkbox
                                             </label>
                                           </div>
                                           <label htmlFor="summary">Tóm tắt</label>
 
-                                          <textarea
-                                            id="story"
-                                            name="story"
-                                          ></textarea>
+                                          <textarea id="story" name="story"></textarea>
                                         </form>
                                       </div>
                                     </div>
@@ -323,56 +250,28 @@ export default function BooksManagement() {
                                     <div className={cx('content')}>
                                       <div className={cx('info')}>
                                         <form>
-                                          <label htmlFor="coverbook">
-                                            Ảnh bìa
-                                          </label>
+                                          <label htmlFor="coverbook">Ảnh bìa</label>
                                           <div className={cx('cover')}>
                                             <Upload
                                               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                               listType="picture"
                                               maxCount={1}
                                             >
-                                              <Button
-                                                icon={
-                                                  <UploadOutlined />
-                                                }
-                                              >
-                                                Tải lên ảnh bìa
-                                              </Button>
+                                              <Button icon={<UploadOutlined />}>Tải lên ảnh bìa</Button>
                                             </Upload>
                                           </div>
 
-                                          <label htmlFor="publisher">
-                                            Nhà xuất bản
-                                          </label>
-                                          <input
-                                            type="text"
-                                            id="publisher"
-                                            name="publisher"
-                                          />
+                                          <label htmlFor="publisher">Nhà xuất bản</label>
+                                          <input type="text" id="publisher" name="publisher" />
 
-                                          <label htmlFor="date">
-                                            Ngày xuất bản
-                                          </label>
-                                          <input
-                                            type="text"
-                                            id="date"
-                                            name="date"
-                                          />
+                                          <label htmlFor="date">Ngày xuất bản</label>
+                                          <input type="text" id="date" name="date" />
 
                                           <label htmlFor="pages">Số trang</label>
-                                          <input
-                                            type="text"
-                                            id="pages"
-                                            name="pages"
-                                          />
+                                          <input type="text" id="pages" name="pages" />
 
                                           <label htmlFor="buylink">Liên kết tới nơi bán</label>
-                                          <input
-                                            type="text"
-                                            id="buylink"
-                                            name="buylink"
-                                          />
+                                          <input type="text" id="buylink" name="buylink" />
                                         </form>
                                       </div>
                                     </div>
@@ -381,12 +280,7 @@ export default function BooksManagement() {
                               </Modal>
                             </span>
                             <span>
-                              <Button
-                                onClick={showDeleteConfirm}
-                                danger
-                                type="link"
-                                icon={<DeleteOutlined />}
-                              />
+                              <Button onClick={showDeleteConfirm} danger type="link" icon={<DeleteOutlined />} />
                             </span>
                           </td>
                         </tr>

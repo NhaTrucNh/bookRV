@@ -28,7 +28,11 @@ function HeaderAccount({ user }) {
     {
       key: '1',
       label: (
-        <a rel="mod" href="/mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
+        <a
+          rel={user.role}
+          href={`/${user.role}`}
+          style={{ display: user.role === 'admin' || user.role === 'mod' ? 'block' : 'none' }}
+        >
           Quản lý
         </a>
       ),
@@ -128,7 +132,9 @@ function HeaderAccount({ user }) {
                 }}
                 color="primary"
               >
-                <Button type="primary" danger>{user?.name}</Button>
+                <Button type="primary" danger>
+                  {user?.name}
+                </Button>
               </Dropdown>
             </div>
           </div>

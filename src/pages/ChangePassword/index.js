@@ -29,29 +29,32 @@ export default function ChangePassword() {
       const token = Cookies.get('token');
       const data = {
         oldPassword,
-        newPassword
-      }
-      userApi.changePassword(data, token).then((response) => {
-        if (response.data.code === 200) {
-          toast.success('Đổi mật khẩu thành công');
-          navigate('/profile');
-        }
-      }).catch((error) => {
-        if (error.response.data.message === 'Invalid password') {
-          toast.error('Mật khẩu cũ không đúng');
-        }
-        if (error.response.data.code === 500) {
-          toast.error('Đổi mật khẩu thất bại');
-        }
-        if (error.response.data.code === 401) {
-          toast.error('Phiên đăng nhập đã hết hạn');
-          Cookies.remove('token');
-          localStorage.removeItem('user');
-          navigate("/login");
-        }
-      })
+        newPassword,
+      };
+      userApi
+        .changePassword(data, token)
+        .then((response) => {
+          if (response.data.code === 200) {
+            toast.success('Đổi mật khẩu thành công');
+            navigate('/profile');
+          }
+        })
+        .catch((error) => {
+          if (error.response.data.message === 'Invalid password') {
+            toast.error('Mật khẩu cũ không đúng');
+          }
+          if (error.response.data.code === 500) {
+            toast.error('Đổi mật khẩu thất bại');
+          }
+          if (error.response.data.code === 401) {
+            toast.error('Phiên đăng nhập đã hết hạn');
+            Cookies.remove('token');
+            localStorage.removeItem('user');
+            navigate('/login');
+          }
+        });
     }
-  }
+  };
 
   return (
     <div>
@@ -66,16 +69,34 @@ export default function ChangePassword() {
               <label htmlFor="oldpassword">
                 <span>*</span>Nhập mật khẩu cũ
               </label>
-              <input type="password" id="oldpassword" name="oldpassword" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
+              <input
+                type="password"
+                id="oldpassword"
+                name="oldpassword"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
 
               <label htmlFor="newpassword">
                 <span>*</span>Nhập mật khẩu mới
               </label>
-              <input type="password" id="newpassword" name="newpassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+              <input
+                type="password"
+                id="newpassword"
+                name="newpassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
               <label htmlFor="enternewpassword">
                 <span>*</span>Nhập lại mật khẩu mới
               </label>
-              <input type="password" id="enternewpassword" name="enternewpassword" value={matchPassword} onChange={(e) => setMatchPassword(e.target.value)} />
+              <input
+                type="password"
+                id="enternewpassword"
+                name="enternewpassword"
+                value={matchPassword}
+                onChange={(e) => setMatchPassword(e.target.value)}
+              />
 
               <div className={cx('submit')}>
                 <Button type="primary" disabled={!validPassword || !validMatchPassword} htmlType="submit">

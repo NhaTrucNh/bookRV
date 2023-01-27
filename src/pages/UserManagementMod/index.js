@@ -5,7 +5,7 @@ import {
   SearchOutlined,
   StopOutlined,
 } from '@ant-design/icons';
-import { Button, Modal, Tag, Pagination } from 'antd';
+import { Button, Modal, Pagination, Tag } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './UserManagementMod.module.scss';
 
@@ -64,9 +64,9 @@ export default function UserManagementMod() {
             <p>Quản lý tài khoản người dùng</p>
           </div>
           <div className={cx('search')}>
-            <form onsubmit="event.preventDefault();" role="search">
+            <form onSubmit="event.preventDefault();" role="search">
               <label htmlFor="search">Tìm kiếm</label>
-              <input id="search" type="search" placeholder="Nhập vào đây..." autofocus required />
+              <input id="search" type="search" placeholder="Nhập vào đây..." autoFocus required />
               <button type="submit">
                 <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />
               </button>

@@ -7,9 +7,17 @@ const api = axios.create({
 
 export const adminApi = {
   getAllUsers: (token) => api.get('/admin/get-user/all', { headers: { Authorization: `Bearer ${token}` } }),
+  getAllMods: (token) => api.get('/admin/get-mods', { headers: { Authorization: `Bearer ${token}` } }),
+  getAllBooks: (token) => api.get('/admin/get-books', { headers: { Authorization: `Bearer ${token}` } }),
+  getAllCategories: (token) => api.get('/admin/get-categories', { headers: { Authorization: `Bearer ${token}` } }),
+  getAllReviews: (token) => api.get('/admin/get-reviews', { headers: { Authorization: `Bearer ${token}` } }),
   getUser: (id, token) => api.get(`/admin/get-user/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
   getStatistics: (token) => api.get('/admin/statistics', { headers: { Authorization: `Bearer ${token}` } }),
   addBook: (data, token) => api.post('/admin/add-book', data, { headers: { Authorization: `Bearer ${token}` } }),
+  addMod: (userId, token) =>
+    api.post(`/admin/add-mod/${userId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
+  removeMod: (userId, token) =>
+    api.post(`/admin/remove-mod/${userId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   updateBookInfo: (bookId, data, token) =>
     api.put(`/admin/update-book/${bookId}`, data, { headers: { Authorization: `Bearer ${token}` } }),
   disableBook: (bookId, token) =>
@@ -21,9 +29,9 @@ export const adminApi = {
   enableReview: (reviewId, token) =>
     api.post(`/admin/enable-review/${reviewId}`, { headers: { Authorization: `Bearer ${token}` } }),
   disableUser: (userId, token) =>
-    api.post(`/admin/disable-user/${userId}`, { headers: { Authorization: `Bearer ${token}` } }),
+    api.post(`/admin/disable-user/${userId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   enableUser: (userId, token) =>
-    api.post(`/admin/enable-user/${userId}`, { headers: { Authorization: `Bearer  ${token}` } }),
+    api.post(`/admin/enable-user/${userId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   addCategory: (data, token) =>
     api.post(`/admin/add-category`, data, { headers: { Authorization: `Bearer ${token}` } }),
   updateCategory: (categoryId, data, token) =>

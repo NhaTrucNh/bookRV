@@ -81,16 +81,6 @@ export default function MyBook() {
     const token = Cookies.get('token');
     userApi.updateCollection(bookId, target, token).then((res) => {
       if (res.data.code === 200) {
-        // Object.keys(collection).every((key) =>
-        //   collection[key].forEach((bookInCollection) => {
-        //     console.log(bookInCollection?.book.id === bookId);
-        //     if (bookInCollection?.book.id === bookId) collection[target].push(bookInCollection);
-        //     collection[key].splice(collection[key].indexOf(bookInCollection), 1);
-        //     console.log(collection);
-        //     return false;
-        //   }),
-        // );
-        // setDisplayList(collection[selectedList]);
         toast.success('Cập nhật tủ sách thành công');
         forceUpdate();
       }
