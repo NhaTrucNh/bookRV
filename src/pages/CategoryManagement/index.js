@@ -40,9 +40,9 @@ export default function CategoryManagement() {
 
   const showDisableConfirm = (category) => {
     confirm({
-      title: 'Bạn có muốn cấm người dùng này không?',
+      title: 'Bạn có muốn ẩn danh mục này không?',
       icon: <ExclamationCircleFilled />,
-      content: 'Nhấn "Ok" để khoá quyền hạn người dùng ',
+      content: 'Nhấn "Ok" để ẩn danh mục ',
       onOk() {
         adminApi
           .disableCategory(category.id, token)
@@ -67,9 +67,9 @@ export default function CategoryManagement() {
 
   const showEnableConfirm = (category) => {
     confirm({
-      title: 'Bạn có muốn bỏ cấm người dùng này không?',
+      title: 'Bạn có muốn bỏ ẩn danh mục này không?',
       icon: <ExclamationCircleFilled />,
-      content: 'Nhấn "Ok" để khôi phục quyền hạn người dùng',
+      content: 'Nhấn "Ok" để bỏ ẩn danh mục',
       onOk() {
         adminApi
           .enableCategory(category.id, token)
