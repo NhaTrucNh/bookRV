@@ -1,5 +1,5 @@
 //Layouts
-import { DashboardFrame, HeaderAndFooter, HeaderOnly, ModDashboardFrame } from '~/components/Layout';
+import { DashboardFrame, HeaderAndFooter, ModDashboardFrame } from '~/components/Layout';
 
 //Pages
 import AccountSetting from '~/pages/AccountSetting';
@@ -35,8 +35,8 @@ const publicRoutes = [
   { path: '/changepassword', component: ChangePassword, layout: HeaderAndFooter },
   { path: '/profile', component: Profile, layout: HeaderAndFooter }, // done
   { path: '/user/:id', component: UserInfo, layout: HeaderAndFooter }, // done
-  { path: '/login', component: Login, layout: HeaderOnly }, // done
-  { path: '/register', component: Register, layout: HeaderOnly }, // done
+  { path: '/login', component: Login, layout: null }, // done
+  { path: '/register', component: Register, layout: null }, // done
   { path: '/mybook', component: MyBook, layout: HeaderAndFooter }, // done
   { path: '/mybook/:list', component: MyBook, layout: HeaderAndFooter }, //done
   { path: '/accountsetting', component: AccountSetting, layout: HeaderAndFooter }, // done

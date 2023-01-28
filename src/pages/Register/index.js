@@ -81,7 +81,7 @@ export default function Register() {
     <div className={cx('wrapper')}>
       <div className={cx('inner')}>
         <div className={cx('logo')}>
-          <img src={logo} />
+          <a href='/'><img src={logo} /></a>
         </div>
         <div className={cx('form')}>
           <input

@@ -62,7 +62,7 @@ export default function Login() {
     <div className={cx('wrapper')}>
       <form className={cx('inner')} onSubmit={handleSubmit}>
         <div className={cx('logo')}>
-          <img src={logo} />
+          <a href='/'><img src={logo} /></a>
         </div>
         <div className={cx('form')}>
           <input

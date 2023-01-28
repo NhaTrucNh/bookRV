@@ -53,14 +53,6 @@ function HeaderAccount({ user }) {
         </a>
       ),
     },
-    // {
-    //   key: '3',
-    //   label: (
-    //     <a rel="mod" href="/mod" style={{ display: user.role === 'admin' ? 'block' : 'none' }}>
-    //       Quản lý
-    //     </a>
-    //   ),
-    // },
     {
       key: '4',
       label: (

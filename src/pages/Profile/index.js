@@ -53,9 +53,7 @@ export default function Profile() {
                   <img src={user.avatar} alt="" />
                 </div>
                 <div>
-                  <a href="##">
-                    2 <span>bình luận</span>
-                  </a>
+                    2<span> bình luận</span>
                 </div>
               </div>
               <div className={cx('right')}>
