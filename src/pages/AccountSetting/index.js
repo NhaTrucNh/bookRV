@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '~/api/api';
+import { DateConverter } from '~/helper/helper';
 import styles from './AccountSetting.module.scss';
 
 const cx = classNames.bind(styles);
@@ -35,15 +36,15 @@ const beforeUpload = (file) => {
 
 export default function AccountSetting() {
   const navigate = useNavigate();
-  const [name, setName] = useState();
-  const [dob, setDob] = useState();
+  const [name, setName] = useState('');
+  const [dob, setDob] = useState(null);
   const [aboutMe, setAboutMe] = useState('');
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(true);
 
   const [avatarLoading, setAvatarLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
-  const [avatar, setAvatar] = useState();
+  const [imageUrl, setImageUrl] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   const handleChange = (info) => {
     if (info.file.status === 'uploading') {
@@ -81,7 +82,7 @@ export default function AccountSetting() {
             const user = response.data.result;
             setName(user.name);
             setEmail(user.email);
-            setDob(user.dateOfBirth);
+            setDob(user.dateOfBirth && DateConverter(user.dateOfBirth).rawDate);
             setAboutMe(user.bio ? user.bio : '');
             setImageUrl(response.data.result.avatar);
             setAvatar(response.data.result.avatar);
@@ -187,11 +188,7 @@ export default function AccountSetting() {
               <label htmlFor="dob">Ngày sinh</label>
               {/* {dob ? ( */}
               <div className={cx('space')}>
-                <DatePicker
-                  onChange={onChange}
-                  defaultValue={dob ? dayjs(dob, dateFormat) : null}
-                  format={dateFormat}
-                />
+                <DatePicker onChange={onChange} defaultValue={dob ? dayjs(dob) : null} format={dateFormat} />
               </div>
               <label htmlFor="aboutme">Về tôi</label>
               <textarea id="aboutme" name="aboutme" onChange={(e) => setAboutMe(e.target.value)} value={aboutMe}>
