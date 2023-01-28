@@ -20,10 +20,10 @@ export const adminApi = {
     api.post(`/admin/remove-mod/${userId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   updateBookInfo: (bookId, data, token) =>
     api.put(`/admin/update-book/${bookId}`, data, { headers: { Authorization: `Bearer ${token}` } }),
-  disableBook: (bookId, token) =>
-    api.post(`/admin/delete-book/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
-  enableBook: (bookId, token) =>
-    api.post(`/admin/enable-book/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
+  deleteBook: (bookId, token) =>
+    api.post(`/admin/delete-book/${bookId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
+  restoreBook: (bookId, token) =>
+    api.post(`/admin/restore-book/${bookId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   deleteReview: (reviewId, token) =>
     api.post(`/admin/delete-review/${reviewId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   restoreReview: (reviewId, token) =>
