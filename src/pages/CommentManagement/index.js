@@ -14,21 +14,39 @@ export default function CommentManagement() {
   const { confirm } = Modal;
   const [reviews, setReviews] = useState([]);
   const [displayReviews, setDisplayReviews] = useState([]);
+  const [filteredReviews, setFilteredReviews] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     adminApi
       .getAllReviews(token)
       .then((res) => {
-        if (res.data.result) setReviews(res.data.result);
+        if (res.data.result) {
+          setReviews(res.data.result);
+          setFilteredReviews(res.data.result);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
-    reviews && setDisplayReviews(reviews.slice((page - 1) * pageSize, page * pageSize));
-  }, [reviews, page, pageSize]);
+    filteredReviews && setDisplayReviews(filteredReviews.slice((page - 1) * pageSize, page * pageSize));
+  }, [filteredReviews, page, pageSize]);
+
+  useEffect(() => {
+    if (reviews.length > 0)
+      setFilteredReviews(
+        reviews.filter(
+          (review) =>
+            review.userObj?.name.includes(query) ||
+            review.bookObj?.title.includes(query) ||
+            review.rating?.toString() === query ||
+            review.content?.includes(query),
+        ),
+      );
+  }, [reviews, query]);
 
   const showDeleteConfirm = (review) => {
     confirm({
@@ -93,9 +111,16 @@ export default function CommentManagement() {
             <p>Quản lý bình luận</p>
           </div>
           <div className={cx('search')}>
-            <form onSubmit="event.preventDefault();" role="search">
+            <form onSubmit={(e) => e.preventDefault()} role="search">
               <label htmlFor="search">Tìm kiếm</label>
-              <input id="search" type="search" placeholder="Nhập vào đây..." autoFocus required />
+              <input
+                id="search"
+                type="search"
+                placeholder="Nhập vào đây..."
+                autoFocus
+                required
+                onChange={(e) => setQuery(e.target.value)}
+              />
               <button type="submit">
                 <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />
               </button>
@@ -136,7 +161,7 @@ export default function CommentManagement() {
           </table>
           <div className={cx('pagin')}>
             <Pagination
-              total={reviews?.length}
+              total={filteredReviews?.length}
               defaultCurrent={page}
               defaultPageSize={pageSize}
               onChange={(value) => setPage(value)}

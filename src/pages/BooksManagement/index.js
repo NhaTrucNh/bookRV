@@ -48,6 +48,7 @@ export default function BooksManagement() {
   const [seed, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [displayBooks, setDisplayBooks] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -63,12 +64,16 @@ export default function BooksManagement() {
   const [publishDate, setPublishDate] = useState('');
   const [pageCount, setPageCount] = useState('');
   const [buyLink, setBuyLink] = useState('');
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     adminApi
       .getAllBooks(token)
       .then((res) => {
-        if (res.data.result) setBooks(res.data.result);
+        if (res.data.result) {
+          setBooks(res.data.result);
+          setFilteredBooks(res.data.result);
+        }
       })
       .catch((err) => console.log(err));
   }, [seed]);
@@ -83,8 +88,17 @@ export default function BooksManagement() {
   }, []);
 
   useEffect(() => {
-    books && setDisplayBooks(books.slice((page - 1) * pageSize, page * pageSize));
-  }, [books, page, pageSize]);
+    filteredBooks && setDisplayBooks(filteredBooks.slice((page - 1) * pageSize, page * pageSize));
+  }, [filteredBooks, page, pageSize]);
+
+  useEffect(() => {
+    if (books.length > 0)
+      setFilteredBooks(
+        books.filter(
+          (book) => book.title?.includes(query) || book.author[0]?.includes(query) || book.publisher?.includes(query),
+        ),
+      );
+  }, [books, query]);
 
   const showDeleteConfirm = (book) => {
     confirm({
@@ -377,9 +391,16 @@ export default function BooksManagement() {
                       </div>
                       <div className={cx('content')}>
                         <div className={cx('search')}>
-                          <form onSubmit="event.preventDefault();" role="search">
+                          <form onSubmit={(e) => e.preventDefault()} role="search">
                             <label htmlFor="search">Tìm kiếm</label>
-                            <input id="search" type="search" placeholder="Nhập vào đây..." autoFocus required />
+                            <input
+                              id="search"
+                              type="search"
+                              placeholder="Nhập vào đây..."
+                              autoFocus
+                              required
+                              onChange={(e) => setQuery(e.target.value)}
+                            />
                             <button type="submit">
                               <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />
                             </button>
@@ -404,7 +425,7 @@ export default function BooksManagement() {
                               <td>
                                 <img src={book.cover} alt="" />
                               </td>
-                              <td>{book.name}</td>
+                              <td>{book.title}</td>
                               <td>{book.author && book.author.join('; ')}</td>
                               <td>{book.publisher}</td>
                               <td>{book.publishDate && DateConverter(book.publishDate).dateOnly}</td>
@@ -450,7 +471,7 @@ export default function BooksManagement() {
                                         <div className={cx('content')}>
                                           <div className={cx('info')}>
                                             <form>
-                                            <label htmlFor="summary">Tóm tắt</label>
+                                              <label htmlFor="summary">Tóm tắt</label>
                                               <textarea id="story" name="story"></textarea>
                                               <label htmlFor="coverbook">Ảnh bìa</label>
                                               <div className={cx('cover')}>
@@ -498,7 +519,7 @@ export default function BooksManagement() {
                       </table>
                       <div className={cx('pagin')}>
                         <Pagination
-                          total={books?.length}
+                          total={filteredBooks?.length}
                           defaultCurrent={page}
                           defaultPageSize={pageSize}
                           onChange={(value) => setPage(value)}

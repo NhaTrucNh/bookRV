@@ -19,22 +19,42 @@ const token = Cookies.get('token');
 export default function ModManagement() {
   const { confirm } = Modal;
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
   const [displayUsers, setDisplayUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     adminApi
       .getAllMods(token)
       .then((res) => {
-        if (res.data.result) setUsers(res.data.result);
+        if (res.data.result) {
+          setUsers(res.data.result);
+          setFilteredUsers(res.data.result);
+        }
       })
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
-    users && setDisplayUsers(users.slice((page - 1) * pageSize, page * pageSize));
-  }, [users, page, pageSize]);
+    filteredUsers && setDisplayUsers(filteredUsers.slice((page - 1) * pageSize, page * pageSize));
+  }, [filteredUsers, page, pageSize]);
+
+  useEffect(() => {
+    if (users.length > 0)
+      setFilteredUsers(
+        users.filter(
+          (user) =>
+            user.name?.includes(query) ||
+            user.email?.includes(query) ||
+            user.phoneNumber?.includes(query) ||
+            user.dateOfBirth?.includes(query) ||
+            genderMap[user.gender].includes(query),
+        ),
+      );
+  }, [users, query]);
 
   const showUnModConfirm = (user) => {
     confirm({
@@ -68,12 +88,16 @@ export default function ModManagement() {
             <p>Quản lý điều phối viên</p>
           </div>
           <div className={cx('search')}>
-            <form
-              // onSubmit="event.preventDefault();"
-              role="search"
-            >
+            <form onSubmit={(e) => e.preventDefault()} role="search">
               <label htmlFor="search">Tìm kiếm</label>
-              <input id="search" type="search" placeholder="Nhập vào đây..." autoFocus required />
+              <input
+                id="search"
+                type="search"
+                placeholder="Nhập vào đây..."
+                autoFocus
+                required
+                onChange={(e) => setQuery(e.target.value)}
+              />
               <button type="submit">
                 <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />
               </button>
@@ -109,7 +133,7 @@ export default function ModManagement() {
           </table>
           <div className={cx('pagin')}>
             <Pagination
-              total={users?.length}
+              total={filteredUsers?.length}
               defaultCurrent={page}
               defaultPageSize={pageSize}
               onChange={(value) => setPage(value)}

@@ -25,9 +25,41 @@ const token = Cookies.get('token');
 export default function UserManagement() {
   const { confirm } = Modal;
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [displayUsers, setDisplayUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    adminApi
+      .getAllUsers(token)
+      .then((res) => {
+        if (res.data.result) {
+          setUsers(res.data.result);
+          setFilteredUsers(res.data.result);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    filteredUsers && setDisplayUsers(filteredUsers.slice((page - 1) * pageSize, page * pageSize));
+  }, [filteredUsers, page, pageSize]);
+
+  useEffect(() => {
+    if (users.length > 0)
+      setFilteredUsers(
+        users.filter(
+          (user) =>
+            user.name?.includes(query) ||
+            user.email?.includes(query) ||
+            user.phoneNumber?.includes(query) ||
+            user.dateOfBirth?.includes(query) ||
+            genderMap[user.gender].includes(query),
+        ),
+      );
+  }, [users, query]);
 
   const showAddModConfirm = (user) => {
     confirm({
@@ -103,19 +135,6 @@ export default function UserManagement() {
     });
   };
 
-  useEffect(() => {
-    adminApi
-      .getAllUsers(token)
-      .then((res) => {
-        if (res.data.result) setUsers(res.data.result);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    users && setDisplayUsers(users.slice((page - 1) * pageSize, page * pageSize));
-  }, [users, page, pageSize]);
-
   if (!users.length > 0) return <div>Loading...</div>;
 
   return (
@@ -127,12 +146,16 @@ export default function UserManagement() {
             <p>Quản lý tài khoản người dùng</p>
           </div>
           <div className={cx('search')}>
-            <form
-              // onSubmit="event.preventDefault();"
-              role="search"
-            >
+            <form onSubmit={(e) => e.preventDefault()} role="search">
               <label htmlFor="search">Tìm kiếm</label>
-              <input id="search" type="search" placeholder="Nhập vào đây..." autoFocus required />
+              <input
+                id="search"
+                type="search"
+                placeholder="Nhập vào đây..."
+                autoFocus
+                required
+                onChange={(e) => setQuery(e.target.value)}
+              />
               <button type="submit">
                 <SearchOutlined style={{ fontSize: '16px', color: '#fff' }} />
               </button>
