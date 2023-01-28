@@ -160,7 +160,7 @@
 
 .GenreList {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 2rem;
     row-gap: 1rem;
     text-transform: none;
@@ -170,9 +170,10 @@
 
 .column {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 2fr 1fr;
     column-gap: 3rem;
 }
+
 
 .search {
     display: flex;

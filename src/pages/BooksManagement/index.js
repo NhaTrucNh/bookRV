@@ -440,9 +440,8 @@ export default function BooksManagement() {
                                                   </label>
                                                 ))}
                                               </div>
-                                              <label htmlFor="summary">Tóm tắt</label>
-
-                                              <textarea id="story" name="story"></textarea>
+                                              {/* <label htmlFor="summary">Tóm tắt</label>
+                                              <textarea id="story" name="story"></textarea> */}
                                             </form>
                                           </div>
                                         </div>
@@ -451,6 +450,8 @@ export default function BooksManagement() {
                                         <div className={cx('content')}>
                                           <div className={cx('info')}>
                                             <form>
+                                            <label htmlFor="summary">Tóm tắt</label>
+                                              <textarea id="story" name="story"></textarea>
                                               <label htmlFor="coverbook">Ảnh bìa</label>
                                               <div className={cx('cover')}>
                                                 <Upload
