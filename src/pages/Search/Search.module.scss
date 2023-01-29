@@ -1,0 +1,71 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    // font-family: 'Montserrat', sans-serif;
+    // background-color: antiquewhite;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    margin-bottom: 5rem;
+}
+
+.container {
+    width: 1280px;
+    height: auto;
+}
+
+
+.GenreBook {
+    background-color: rgb(255, 255, 255);
+    padding: 2rem;
+    justify-content: start;
+    align-items: start;
+    border-radius: 1rem;
+
+    .title {
+        text-align:center;
+        text-transform: uppercase;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        
+        a {
+            color: black;
+        }
+    }
+}
+
+.lBook {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+
+    img {
+        width: 100%;
+        height: 24rem;
+        object-fit: cover;
+
+        &:hover {
+            opacity: 0.9;
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+    }
+}
+
+.more {
+    margin-top: 1rem;
+    text-align: right;
+}
+
+.Pagina {
+    display: grid;
+    grid-column-start: 1; 
+    grid-column-end: 9;
+    // margin: 0 auto;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    justify-items: center;
+}

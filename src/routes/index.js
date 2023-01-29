@@ -26,6 +26,7 @@ import UserInfo from '~/pages/UserInfo';
 import UserManagement from '~/pages/UserManagement';
 import UserManagementMod from '~/pages/UserManagementMod';
 import ViewMore from '~/pages/ViewMore';
+import Search from '~/pages/Search';
 
 //Pubic Routes
 const publicRoutes = [
@@ -46,6 +47,7 @@ const publicRoutes = [
   { path: '/viewmore/:list', component: ViewMore, layout: HeaderAndFooter },
   { path: '/book/:id', component: BookShow, layout: HeaderAndFooter }, // done
   { path: '/review/:id', component: Review, layout: HeaderAndFooter }, // done
+  { path: '/search', component: Search, layout: HeaderAndFooter },
   { path: '/dashboardframe', component: DashboardFrame, layout: null },
   { path: '/admin', component: UserManagement, layout: DashboardFrame },
   { path: '/admin/users', component: UserManagement, layout: DashboardFrame },
