@@ -9,11 +9,15 @@ export const adminApi = {
   getAllUsers: (token) => api.get('/admin/get-user/all', { headers: { Authorization: `Bearer ${token}` } }),
   getAllMods: (token) => api.get('/admin/get-mods', { headers: { Authorization: `Bearer ${token}` } }),
   getAllBooks: (token) => api.get('/admin/get-books', { headers: { Authorization: `Bearer ${token}` } }),
+  getBookDetails: (bookId, token) =>
+    api.get(`/admin/get-book/${bookId}`, { headers: { Authorization: `Bearer ${token}` } }),
   getAllCategories: (token) => api.get('/admin/get-categories', { headers: { Authorization: `Bearer ${token}` } }),
   getAllReviews: (token) => api.get('/admin/get-reviews', { headers: { Authorization: `Bearer ${token}` } }),
   getUser: (id, token) => api.get(`/admin/get-user/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
   getStatistics: (token) => api.get('/admin/statistics', { headers: { Authorization: `Bearer ${token}` } }),
   addBook: (data, token) => api.post('/admin/add-book', data, { headers: { Authorization: `Bearer ${token}` } }),
+  updateBook: (bookId, data, token) =>
+    api.post(`/admin/update-book/${bookId}`, data, { headers: { Authorization: `Bearer ${token}` } }),
   addMod: (userId, token) =>
     api.post(`/admin/add-mod/${userId}`, {}, { headers: { Authorization: `Bearer ${token}` } }),
   removeMod: (userId, token) =>

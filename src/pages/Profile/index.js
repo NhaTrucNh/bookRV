@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '~/api/api';
-import { isObjectEmpty } from '~/helper/helper';
+import { DateConverter, isObjectEmpty } from '~/helper/helper';
 import styles from './Profile.module.scss';
 
 const cx = classNames.bind(styles);
@@ -53,14 +53,15 @@ export default function Profile() {
                   <img src={user.avatar} alt="" />
                 </div>
                 <div>
-                    2<span> bình luận</span>
+                  2<span> bình luận</span>
                 </div>
               </div>
               <div className={cx('right')}>
                 <div className={cx('userName')}>{user?.name}</div>
                 {/* <hr /> */}
                 <div className={cx('dob')}>
-                  Ngày sinh: <span>{user.dateOfBirth ? user.dateOfBirth : 'Chưa cập nhật'}</span>
+                  Ngày sinh:{' '}
+                  <span>{user.dateOfBirth ? DateConverter(user.dateOfBirth).dateOnly : 'Chưa cập nhật'}</span>
                 </div>
                 <div className={cx('aboutMe')}>
                   Về tôi: {'  '}
