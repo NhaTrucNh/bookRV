@@ -29,7 +29,7 @@ function ModDashboardFrame({ children }) {
       authApi
         .verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token'))
         .then((response) => {
-          if (response.data.code === 200 && response.data.result.role === 'admin') {
+          if (response.data.code === 200 && response.data.result.role === 'mod') {
             setUser(JSON.parse(localStorage.getItem('user')));
           } else {
             toast.error('Verify Failed');

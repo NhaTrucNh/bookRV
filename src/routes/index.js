@@ -56,6 +56,7 @@ const publicRoutes = [
   { path: '/admin/categories', component: CategoryManagement, layout: DashboardFrame },
   { path: '/admin/comments', component: CommentManagement, layout: DashboardFrame },
   { path: '/admin/statistic', component: StatisticManagement, layout: DashboardFrame }, // done
+  { path: '/mod', component: UserManagementMod, layout: ModDashboardFrame },
   { path: '/mod/users', component: UserManagementMod, layout: ModDashboardFrame },
   { path: '/mod/comments', component: CommentManagementMod, layout: ModDashboardFrame },
   { path: '/mod/books', component: BooksManagementMod, layout: ModDashboardFrame },
