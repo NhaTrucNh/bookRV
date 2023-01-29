@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Dropdown } from 'antd';
 import classNames from 'classnames/bind';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '~/api/api';
@@ -14,6 +15,7 @@ const cx = classNames.bind(styles);
 
 function HeaderAccount({ user }) {
   const navigate = useNavigate();
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   const handleLogout = async () => {
     const email = JSON.parse(localStorage.getItem('user')).email;
@@ -23,6 +25,12 @@ function HeaderAccount({ user }) {
     toast.success('Đăng xuất thành công');
     navigate('/login');
   };
+
+  function handleSearch(e) {
+    e.preventDefault();
+    const encodedKeyword = encodeURI(searchKeyword);
+    navigate(`/search?keyword=${encodedKeyword}`);
+  }
 
   const items = [
     {
@@ -103,15 +111,19 @@ function HeaderAccount({ user }) {
                   </li>
                 </ul>
               </div>
-              <div className={cx('search')}>
-                <input placeholder="BẠN MUỐN TÌM GÌ" spellCheck={false} />
+              <form className={cx('search')} onSubmit={handleSearch}>
+                <input
+                  placeholder="BẠN MUỐN TÌM GÌ"
+                  spellCheck={false}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
+                />
                 <button className={cx('clear')}>
                   <FontAwesomeIcon icon={faXmark} />
                 </button>
-                <button className={cx('search-btn')}>
+                <button type="submit" onClick={handleSearch} className={cx('search-btn')}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </button>
-              </div>
+              </form>
             </div>
             <div className={cx('actions')}>
               <Dropdown

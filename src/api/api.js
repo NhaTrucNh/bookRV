@@ -50,6 +50,7 @@ export const homeApi = {
   getBooks: () => api.get('/book/home?limit=12'),
   getViewMore: () => api.get('/book/home?limit=100'),
   getCategories: () => api.get('/category/home/'),
+  search: (keyword) => api.get(`/book/search?keyword=${encodeURI(keyword)}`),
 };
 
 export const authApi = {

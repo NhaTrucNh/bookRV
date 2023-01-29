@@ -1,56 +1,47 @@
 import { Pagination } from 'antd';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { useSearchParams } from 'react-router-dom';
 import { homeApi } from '~/api/api';
 import styles from './Search.module.scss';
 
 const cx = classNames.bind(styles);
 
 export default function Search() {
-  const { list } = useParams();
-  const [allBooks, setAllBooks] = useState({});
-  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [searchParams] = useSearchParams();
+  const [books, setBooks] = useState([]);
   const [displayBooks, setDisplayBooks] = useState([]);
-  const [filter, setFilter] = useState('newPublish');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    homeApi.getViewMore().then((res) => {
-      setAllBooks(res.data.result);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (list !== 'newPublish' && list !== 'mostReview') {
-      setFilter('newPublish');
-      window.history.replaceState(null, 'React App', `/viewmore/newPublish`);
-      return;
+    setLoading(true);
+    const keyword = searchParams.get('keyword');
+    if (!keyword) toast.error('Keyword is required');
+    else {
+      console.log(keyword);
+      homeApi.search(keyword).then((res) => {
+        setBooks(res.data.result);
+        setLoading(false);
+      });
     }
-  }, [list]);
+  }, [searchParams]);
 
   useEffect(() => {
-    window.history.replaceState(null, 'React App', `/viewmore/${filter}`);
-  }, [filter]);
+    books && setDisplayBooks(books.slice((page - 1) * pageSize, page * pageSize));
+  }, [books, page, pageSize]);
 
-  useEffect(() => {
-    if (filter && allBooks) {
-      setFilteredBooks(allBooks[filter]);
-    }
-  }, [filter, allBooks]);
-
-  useEffect(() => {
-    filteredBooks && setDisplayBooks(filteredBooks.slice((page - 1) * pageSize, page * pageSize));
-  }, [page, filteredBooks, pageSize]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
         <div className={cx('GenreBook')}>
-          <p className={cx('title')}>
-            Tìm kiếm
-          </p>
+          <p className={cx('title')}>Tìm kiếm</p>
           <div className={cx('lBook')}>
             {displayBooks?.map((book, index) => (
               <a href={`/${book.id}`} key={index}>
@@ -60,7 +51,7 @@ export default function Search() {
           </div>
           <div className={cx('Pagina')}>
             <Pagination
-              total={filteredBooks?.length}
+              total={books?.length}
               defaultCurrent={page}
               defaultPageSize={pageSize}
               onChange={(value) => setPage(value)}
