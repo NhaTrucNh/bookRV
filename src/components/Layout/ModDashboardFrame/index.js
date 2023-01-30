@@ -96,8 +96,8 @@ function ModDashboardFrame({ children }) {
       <div className={cx('container')}>
         <div className={cx('sideBar')}>
           <div className={cx('info')}>
-            <img src="https://i.imgur.com/gpCBqBP.jpg" alt="" />
-            <div className={cx('Name')}>Nhã Trúc</div>
+            <img src={user.avatar} alt="" />
+            <div className={cx('Name')}>{user.name}</div>
           </div>
           <div className={cx('treev')}>
             <div className={cx('item')}>
