@@ -185,11 +185,30 @@ export default function AccountSetting() {
                 </Upload>
               </div>
 
+              <label htmlFor="sex">Giới tính</label>
+              <div class="select">
+                <select id="sex">
+                  <option value=''>Chọn giới tính</option>
+                  <option value="Male">Nam</option>
+                  <option value="Female">Nữ</option>
+                  <option value="Other">Khác</option>
+                </select>
+                <span class="focus"></span>
+              </div>
+
               <label htmlFor="dob">Ngày sinh</label>
               {/* {dob ? ( */}
               <div className={cx('space')}>
                 <DatePicker onChange={onChange} defaultValue={dob ? dayjs(dob) : null} format={dateFormat} />
               </div>
+
+              <label htmlFor="numberphone">Số điện thoại</label>
+              <input type="text" id="username" name="username" value="036474857" onChange={(e) => setName(e.target.value)} />
+
+              <label htmlFor="From">Đến từ</label>
+              <input type="text" id="username" name="username" value="Đà Nẵng" onChange={(e) => setName(e.target.value)} />
+
+
               <label htmlFor="aboutme">Về tôi</label>
               <textarea id="aboutme" name="aboutme" onChange={(e) => setAboutMe(e.target.value)} value={aboutMe}>
                 {aboutMe}

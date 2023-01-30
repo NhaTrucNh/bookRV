@@ -8,7 +8,7 @@ import {
   SearchOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Button, Modal, Pagination, Tabs, Upload } from 'antd';
+import { Button, Modal, Pagination, Tabs, Upload, DatePicker } from 'antd';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
@@ -342,13 +342,15 @@ export default function BooksManagementMod() {
                             />
 
                             <label htmlFor="date">Ngày xuất bản</label>
-                            <input
+                            <div><DatePicker onChange={onChange} /></div>
+                            <br />
+                            {/* <input
                               type="text"
                               id="date"
                               name="date"
                               value={publishDate}
                               onChange={(e) => setPublishDate(e.target.value)}
-                            />
+                            /> */}
 
                             <label htmlFor="pages">Số trang</label>
                             <input
@@ -488,7 +490,8 @@ export default function BooksManagementMod() {
                                               <input type="text" id="publisher" name="publisher" />
 
                                               <label htmlFor="date">Ngày xuất bản</label>
-                                              <input type="text" id="date" name="date" />
+                                              <div><DatePicker onChange={onChange} /></div>
+                                              <br />
 
                                               <label htmlFor="pages">Số trang</label>
                                               <input type="text" id="pages" name="pages" />

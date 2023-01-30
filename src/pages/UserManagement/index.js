@@ -169,8 +169,9 @@ export default function UserManagement() {
                 <th width="14%">Số điện thoại</th>
                 <th width="11%">Giới tính</th>
                 <th width="12%">Ngày sinh</th>
-                <th width="15%">Trạng thái</th>
-                <th width="13%">Hành động</th>
+                <th width="13%">Đến từ</th>
+                <th width="10%">Trạng thái</th>
+                <th width="5%">Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -181,6 +182,7 @@ export default function UserManagement() {
                   <td>{user.phoneNumber}</td>
                   <td>{genderMap[user.gender]}</td>
                   <td>{user.dateOfBirth && DateConverter(user.dateOfBirth).dateOnly}</td>
+                  <td>Đà Nẵng</td>
                   <td>
                     <Tag color={user.accountStatus.status === 'active' ? 'green' : 'red'}>
                       {user.accountStatus.status === 'active' ? 'Đang hoạt động' : 'Dừng hoạt động'}

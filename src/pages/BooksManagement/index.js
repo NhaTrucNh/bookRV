@@ -8,7 +8,7 @@ import {
   SearchOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Button, Modal, Pagination, Tabs, Upload } from 'antd';
+import { Button, Modal, Pagination, Tabs, Upload , DatePicker} from 'antd';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
@@ -306,7 +306,7 @@ export default function BooksManagement() {
                       // <Button icon={<UploadOutlined />}>Tải lên ảnh bìa</Button>
                       uploadButton
                     )}
-                    <Button icon={<UploadOutlined />}>Tải lên ảnh bìa</Button>
+                    <Button icon={<UploadOutlined />}></Button>
                   </Upload>
                 </div>
 
@@ -320,13 +320,15 @@ export default function BooksManagement() {
                 />
 
                 <label htmlFor="date">Ngày xuất bản</label>
-                <input
+                <div><DatePicker onChange={onChange} /></div>
+                <br />
+                {/* <input
                   type="text"
                   id="date"
                   name="date"
                   value={publishDateUpdate}
                   onChange={(e) => setPublishDateUpdate(e.target.value)}
-                />
+                /> */}
 
                 <label htmlFor="pages">Số trang</label>
                 <input
@@ -548,13 +550,15 @@ export default function BooksManagement() {
                             />
 
                             <label htmlFor="date">Ngày xuất bản</label>
-                            <input
+                            <div><DatePicker onChange={onChange} /></div>
+                            <br />
+                            {/* <input
                               type="text"
                               id="date"
                               name="date"
                               value={publishDate}
                               onChange={(e) => setPublishDate(e.target.value)}
-                            />
+                            /> */}
 
                             <label htmlFor="pages">Số trang</label>
                             <input
