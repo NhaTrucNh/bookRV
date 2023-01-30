@@ -14,6 +14,11 @@ const collectionMap = {
   readList: 'Đã đọc',
   droppedList: 'Ngừng đọc',
 };
+const genderMap ={
+  male: 'Nam',
+  female:'Nữ',
+  unknown:'Chúa biết',
+}
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -53,16 +58,27 @@ export default function Profile() {
                   <img src={user.avatar} alt="" />
                 </div>
                 <div>
-                  2<span> bình luận</span>
+                  {user.commentCount}<span> bình luận</span>
                 </div>
               </div>
               <div className={cx('right')}>
                 <div className={cx('userName')}>{user?.name}</div>
-                {/* <hr /> */}
+
+                <div className={cx('sex')}>
+                  Giới tính:{' '}
+                  <span>{genderMap[user.gender]}</span>
+                </div>
+
                 <div className={cx('dob')}>
                   Ngày sinh:{' '}
                   <span>{user.dateOfBirth ? DateConverter(user.dateOfBirth).dateOnly : 'Chưa cập nhật'}</span>
                 </div>
+
+                <div className={cx('phonenumber')}>
+                  Số điện thoại:{' '}
+                  <span>{user.phoneNumber ? user.phoneNumber : 'Chưa cập nhật'}</span>
+                </div>
+
                 <div className={cx('aboutMe')}>
                   Về tôi: {'  '}
                   <span>{user.bio ? user.bio : 'Chưa cập nhật'}</span>

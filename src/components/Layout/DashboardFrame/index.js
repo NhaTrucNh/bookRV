@@ -37,7 +37,7 @@ function DashboardFrame({ children }) {
         .verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token'))
         .then((response) => {
           if (response.data.code === 200 && response.data.result.role === 'admin') {
-            setUser(JSON.parse(localStorage.getItem('user')));
+            setUser(response.data.result);
           } else {
             toast.error('Verify Failed');
             Cookies.remove('token');
@@ -103,8 +103,8 @@ function DashboardFrame({ children }) {
       <div className={cx('container')}>
         <div className={cx('sideBar')}>
           <div className={cx('info')}>
-            <img src="https://i.imgur.com/gpCBqBP.jpg" alt="" />
-            <div className={cx('Name')}>Nhã Trúc</div>
+            <img src={user.avatar} alt="" />
+            <div className={cx('Name')}>{user.name}</div>
           </div>
           <div className={cx('treev')}>
             <div className={cx('item')}>

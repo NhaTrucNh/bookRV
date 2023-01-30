@@ -44,7 +44,7 @@ export default function Search() {
           <p className={cx('title')}>Tìm kiếm</p>
           <div className={cx('lBook')}>
             {displayBooks?.map((book, index) => (
-              <a href={`/${book.id}`} key={index}>
+              <a href={`/book/${book.id}`} key={index}>
                 <img src={book.cover} alt="cover" />
               </a>
             ))}
