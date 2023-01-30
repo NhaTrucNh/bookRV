@@ -8,7 +8,7 @@ import {
   SearchOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Button, Modal, Pagination, Tabs, Upload, DatePicker } from 'antd';
+import { Button, DatePicker, Modal, Pagination, Tabs, Upload } from 'antd';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
@@ -20,6 +20,7 @@ import styles from './BooksManagementMod.module.scss';
 
 const cx = classNames.bind(styles);
 const token = Cookies.get('token');
+const dateFormat = 'DD/MM/YYYY';
 
 const uploadApi =
   process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD;
@@ -61,7 +62,7 @@ export default function BooksManagementMod() {
   const [translator, setTranslator] = useState('');
   const [description, setDescription] = useState('');
   const [publisher, setPublisher] = useState('');
-  const [publishDate, setPublishDate] = useState('');
+  const [publishDate, setPublishDate] = useState(Date.now());
   const [pageCount, setPageCount] = useState('');
   const [buyLink, setBuyLink] = useState('');
   const [query, setQuery] = useState('');
@@ -154,6 +155,10 @@ export default function BooksManagementMod() {
     console.log(key);
   };
 
+  const onChangeDate = (date, dateString) => {
+    setPublishDate(date.toDate());
+  };
+
   useEffect(() => {
     console.log(selectedCategories);
   }, [selectedCategories]);
@@ -208,7 +213,7 @@ export default function BooksManagementMod() {
       translator,
       description,
       publisher,
-      publishDate: publishDate ? dayjs(publishDate, 'DD/MM/YYYY').toDate() : null,
+      publishDate,
       pageCount,
       buyLink,
     };
@@ -342,15 +347,14 @@ export default function BooksManagementMod() {
                             />
 
                             <label htmlFor="date">Ngày xuất bản</label>
-                            <div><DatePicker onChange={onChange} /></div>
+                            <div>
+                              <DatePicker
+                                onChange={onChangeDate}
+                                defaultValue={publishDate ? dayjs(publishDate) : null}
+                                format={dateFormat}
+                              />
+                            </div>
                             <br />
-                            {/* <input
-                              type="text"
-                              id="date"
-                              name="date"
-                              value={publishDate}
-                              onChange={(e) => setPublishDate(e.target.value)}
-                            /> */}
 
                             <label htmlFor="pages">Số trang</label>
                             <input
@@ -490,7 +494,9 @@ export default function BooksManagementMod() {
                                               <input type="text" id="publisher" name="publisher" />
 
                                               <label htmlFor="date">Ngày xuất bản</label>
-                                              <div><DatePicker onChange={onChange} /></div>
+                                              <div>
+                                                <DatePicker onChange={onChange} />
+                                              </div>
                                               <br />
 
                                               <label htmlFor="pages">Số trang</label>

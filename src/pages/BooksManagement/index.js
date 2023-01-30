@@ -8,7 +8,7 @@ import {
   SearchOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Button, Modal, Pagination, Tabs, Upload , DatePicker} from 'antd';
+import { Button, DatePicker, Modal, Pagination, Tabs, Upload } from 'antd';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
@@ -20,6 +20,7 @@ import styles from './BooksManagement.module.scss';
 
 const cx = classNames.bind(styles);
 const token = Cookies.get('token');
+const dateFormat = 'DD/MM/YYYY';
 
 const uploadApi =
   process.env.NODE_ENV === 'development' ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD;
@@ -61,7 +62,7 @@ export default function BooksManagement() {
   const [translator, setTranslator] = useState('');
   const [description, setDescription] = useState('');
   const [publisher, setPublisher] = useState('');
-  const [publishDate, setPublishDate] = useState('');
+  const [publishDate, setPublishDate] = useState(Date.now());
   const [pageCount, setPageCount] = useState('');
   const [buyLink, setBuyLink] = useState('');
   const [query, setQuery] = useState('');
@@ -73,7 +74,7 @@ export default function BooksManagement() {
   const [translatorUpdate, setTranslatorUpdate] = useState('');
   const [descriptionUpdate, setDescriptionUpdate] = useState('');
   const [publisherUpdate, setPublisherUpdate] = useState('');
-  const [publishDateUpdate, setPublishDateUpdate] = useState('');
+  const [publishDateUpdate, setPublishDateUpdate] = useState(null);
   const [pageCountUpdate, setPageCountUpdate] = useState('');
   const [buyLinkUpdate, setBuyLinkUpdate] = useState('');
   const [selectedCategoriesUpdate, setSelectedCategoriesUpdate] = useState([]);
@@ -219,7 +220,7 @@ export default function BooksManagement() {
     }
   };
 
-  const UpdateModal = (book) => (
+  const UpdateModal = () => (
     <Modal
       title="Chỉnh sửa thông tin sách"
       centered
@@ -259,15 +260,13 @@ export default function BooksManagement() {
                         type="checkbox"
                         name="checkbox"
                         value={category.code}
-                        checked={book.tags?.find((e) => e.code === category.code)}
+                        checked={bookUpdate.tags?.find((e) => e.code === category.code)}
                         onChange={handleTagUpdateCheck}
                       />
                       {category.name}
                     </label>
                   ))}
                 </div>
-                {/* <label htmlFor="summary">Tóm tắt</label>
-                                                <textarea id="story" name="story"></textarea> */}
               </form>
             </div>
           </div>
@@ -277,9 +276,12 @@ export default function BooksManagement() {
             <div className={cx('info')}>
               <form>
                 <label htmlFor="summary">Tóm tắt</label>
-                <textarea id="story" name="story" onChange={(e) => setDescriptionUpdate(e.target.value)}>
-                  {descriptionUpdate}
-                </textarea>
+                <textarea
+                  id="story"
+                  name="story"
+                  onChange={(e) => setDescriptionUpdate(e.target.value)}
+                  defaultValue={descriptionUpdate}
+                ></textarea>
                 <label htmlFor="coverbook">Ảnh bìa</label>
                 <div className={cx('cover')}>
                   <Upload
@@ -320,15 +322,15 @@ export default function BooksManagement() {
                 />
 
                 <label htmlFor="date">Ngày xuất bản</label>
-                <div><DatePicker onChange={onChange} /></div>
+                <div>
+                  <DatePicker
+                    onChange={onChangeDateUpdate}
+                    defaultValue={publishDateUpdate ? dayjs(publishDateUpdate) : null}
+                    value={publishDateUpdate ? dayjs(publishDateUpdate) : null}
+                    format={dateFormat}
+                  />
+                </div>
                 <br />
-                {/* <input
-                  type="text"
-                  id="date"
-                  name="date"
-                  value={publishDateUpdate}
-                  onChange={(e) => setPublishDateUpdate(e.target.value)}
-                /> */}
 
                 <label htmlFor="pages">Số trang</label>
                 <input
@@ -367,7 +369,7 @@ export default function BooksManagement() {
       setAuthorUpdate(bookUpdate.author);
       setDescriptionUpdate(bookUpdate.description);
       setPublisherUpdate(bookUpdate.publisher);
-      setPublishDateUpdate(bookUpdate.publishDate && DateConverter(bookUpdate.publishDate).dateOnly);
+      setPublishDateUpdate(bookUpdate.publishDate);
       setPageCountUpdate(bookUpdate.pageCount);
       setBuyLinkUpdate(bookUpdate.buyLink);
       setOpen(true);
@@ -384,7 +386,7 @@ export default function BooksManagement() {
       translator,
       description,
       publisher,
-      publishDate: publishDate ? dayjs(publishDate, 'DD/MM/YYYY').toDate() : null,
+      publishDate,
       pageCount,
       buyLink,
     };
@@ -413,7 +415,7 @@ export default function BooksManagement() {
       translator: translatorUpdate,
       description: descriptionUpdate,
       publisher: publisherUpdate,
-      publishDate: publishDateUpdate ? dayjs(publishDateUpdate, 'DD/MM/YYYY').toDate() : null,
+      publishDate: publishDateUpdate,
       pageCount: pageCountUpdate,
       buyLink: buyLinkUpdate,
     };
@@ -434,10 +436,18 @@ export default function BooksManagement() {
       });
   };
 
+  const onChangeDate = (date, dateString) => {
+    setPublishDate(date.toDate());
+  };
+
+  const onChangeDateUpdate = (date, dateString) => {
+    setPublishDateUpdate(date.toDate());
+  };
+
   return (
     <>
       <div className={cx('bookmanagement')}>
-        {UpdateModal(bookUpdate)}
+        {UpdateModal()}
         <div className={cx('title')}>Sách</div>
         <div className={cx('tab')}>
           <Tabs
@@ -550,7 +560,13 @@ export default function BooksManagement() {
                             />
 
                             <label htmlFor="date">Ngày xuất bản</label>
-                            <div><DatePicker onChange={onChange} /></div>
+                            <div>
+                              <DatePicker
+                                onChange={onChangeDate}
+                                defaultValue={publishDate ? dayjs(publishDate) : null}
+                                format={dateFormat}
+                              />
+                            </div>
                             <br />
                             {/* <input
                               type="text"
