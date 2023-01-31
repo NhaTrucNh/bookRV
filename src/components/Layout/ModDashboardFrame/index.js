@@ -30,7 +30,7 @@ function ModDashboardFrame({ children }) {
         .verify(JSON.parse(localStorage.getItem('user')).email, Cookies.get('token'))
         .then((response) => {
           if (response.data.code === 200 && response.data.result.role === 'mod') {
-            setUser(JSON.parse(localStorage.getItem('user')));
+            setUser(response.data.result);
           } else {
             toast.error('Verify Failed');
             Cookies.remove('token');
