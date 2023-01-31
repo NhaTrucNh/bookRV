@@ -6,7 +6,7 @@ import { useEffect, useReducer, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { userApi } from '~/api/api';
-import { DateConverter } from '~/helper/helper';
+import { DateConverter, round } from '~/helper/helper';
 import styles from './MyBook.module.scss';
 
 const cx = classNames.bind(styles);
@@ -181,11 +181,11 @@ export default function MyBook() {
                       </a>
                     </td>
                     <td className={cx('author')}>{item.book.author}</td>
-                    <td className={cx('avg')}>{item.book.reviewStat.averageRating}</td>
+                    <td className={cx('avg')}>{round(item.book.reviewStat.averageRating, 2)}</td>
                     <td className={cx('lineRate')}>
                       <Rate
                         max={5}
-                        defaultValue={item.book.reviewStat.averageRating}
+                        defaultValue={round(item.book.reviewStat.averageRating, 2)}
                         style={{ fontSize: 13 }}
                         disabled
                       />
