@@ -39,7 +39,9 @@ export default function AccountSetting() {
   const [name, setName] = useState('');
   const [dob, setDob] = useState(null);
   const [aboutMe, setAboutMe] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('unknown');
   const [loading, setLoading] = useState(true);
 
   const [avatarLoading, setAvatarLoading] = useState(false);
@@ -84,6 +86,8 @@ export default function AccountSetting() {
             setEmail(user.email);
             setDob(user.dateOfBirth && DateConverter(user.dateOfBirth).rawDate);
             setAboutMe(user.bio ? user.bio : '');
+            setGender(user.gender);
+            setPhoneNumber(user.phoneNumber);
             setImageUrl(response.data.result.avatar);
             setAvatar(response.data.result.avatar);
           }
@@ -123,6 +127,8 @@ export default function AccountSetting() {
       dateOfBirth: dob,
       bio: aboutMe,
       avatar,
+      phoneNumber,
+      gender,
     };
 
     userApi
@@ -187,11 +193,10 @@ export default function AccountSetting() {
 
               <label htmlFor="sex">Giới tính</label>
               <div class="select">
-                <select id="sex">
-                  <option value=''>Chọn giới tính</option>
-                  <option value="Male">Nam</option>
-                  <option value="Female">Nữ</option>
-                  <option value="Other">Khác</option>
+                <select id="sex" value={gender} onChange={(e) => setGender(e.target.value)}>
+                  <option value="male">Nam</option>
+                  <option value="female">Nữ</option>
+                  <option value="unknown">Chưa rõ</option>
                 </select>
                 <span class="focus"></span>
               </div>
@@ -203,7 +208,13 @@ export default function AccountSetting() {
               </div>
 
               <label htmlFor="numberphone">Số điện thoại</label>
-              <input type="text" id="username" name="username" value="036474857" onChange={(e) => setName(e.target.value)} />
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
 
               <label htmlFor="aboutme">Về tôi</label>
               <textarea id="aboutme" name="aboutme" onChange={(e) => setAboutMe(e.target.value)} value={aboutMe}>
