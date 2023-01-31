@@ -282,14 +282,14 @@ function BookShow() {
                         <div className={cx('ReviewInfo')}>
                           <div>{userReview.userObj?.reviewCount}</div>
                           <div>
-                            <p>đánh giá</p>
+                            <p>bình luận</p>
                           </div>
                         </div>
                       ) : (
                         <div className={cx('ReviewInfo')}>
                           <div>0</div>
                           <div>
-                            <p>đánh giá</p>
+                            <p>bình luận</p>
                           </div>
                         </div>
                       )}
@@ -469,7 +469,7 @@ function BookShow() {
                             <div className={cx('ReviewInfo')}>
                               <div>{review.userObj?.reviewCount}</div>
                               <div>
-                                <p>đánh giá</p>
+                                <p>bình luận</p>
                               </div>
                             </div>
                           </div>
