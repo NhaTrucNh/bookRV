@@ -490,7 +490,7 @@
 
 .ReviewList {
     display: grid;
-    height: 30rem;
+    height: auto;
     // background-color: yellowgreen;
     grid-template-columns: repeat(8, 1fr);
     column-gap: 2.5rem;

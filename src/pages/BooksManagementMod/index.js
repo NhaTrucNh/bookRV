@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 import { useEffect, useReducer, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { adminApi } from '~/api/api';
-import { DateConverter } from '~/helper/helper';
+import { DateConverter, isObjectEmpty } from '~/helper/helper';
 import styles from './BooksManagementMod.module.scss';
 
 const cx = classNames.bind(styles);
@@ -66,6 +66,18 @@ export default function BooksManagementMod() {
   const [pageCount, setPageCount] = useState('');
   const [buyLink, setBuyLink] = useState('');
   const [query, setQuery] = useState('');
+
+  const [bookUpdate, setBookUpdate] = useState([]);
+  const [titleUpdate, setTitleUpdate] = useState('');
+  const [coverUpdate, setCoverUpdate] = useState('');
+  const [authorUpdate, setAuthorUpdate] = useState('');
+  const [translatorUpdate, setTranslatorUpdate] = useState('');
+  const [descriptionUpdate, setDescriptionUpdate] = useState('');
+  const [publisherUpdate, setPublisherUpdate] = useState('');
+  const [publishDateUpdate, setPublishDateUpdate] = useState(null);
+  const [pageCountUpdate, setPageCountUpdate] = useState('');
+  const [buyLinkUpdate, setBuyLinkUpdate] = useState('');
+  const [selectedCategoriesUpdate, setSelectedCategoriesUpdate] = useState([]);
 
   useEffect(() => {
     adminApi
@@ -155,10 +167,6 @@ export default function BooksManagementMod() {
     console.log(key);
   };
 
-  const onChangeDate = (date, dateString) => {
-    setPublishDate(date.toDate());
-  };
-
   useEffect(() => {
     console.log(selectedCategories);
   }, [selectedCategories]);
@@ -166,9 +174,18 @@ export default function BooksManagementMod() {
   const handleTagCheck = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      setSelectedCategories([...selectedCategories, value]);
+      setSelectedCategories([...selectedCategories, { code: value }]);
     } else {
       setSelectedCategories(selectedCategories.filter((category) => category !== value));
+    }
+  };
+
+  const handleTagUpdateCheck = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedCategoriesUpdate([...selectedCategoriesUpdate, { code: value }]);
+    } else {
+      setSelectedCategoriesUpdate(selectedCategoriesUpdate.filter((category) => category !== value));
     }
   };
 
@@ -195,12 +212,168 @@ export default function BooksManagementMod() {
       return;
     }
     if (info.file.status === 'done') {
-      setCover(info.file.response.url);
+      !isObjectEmpty(bookUpdate) ? setCoverUpdate(info.file.response.url) : setCover(info.file.response.url);
       getBase64(info.file.originFileObj, (url) => {
         setCoverLoading(false);
         setImageUrl(url);
       });
     }
+  };
+
+  const UpdateModal = () => (
+    <Modal
+      title="Chỉnh sửa thông tin sách"
+      centered
+      open={open}
+      onOk={() => handleUpdate()}
+      onCancel={() => setOpen(false)}
+      width={1280}
+    >
+      <div className={cx('column')}>
+        <div className={cx('Left')}>
+          <div className={cx('content')}>
+            <div className={cx('info')}>
+              <form>
+                <label htmlFor="bookname">Tên sách</label>
+                <input
+                  type="text"
+                  id="bookname"
+                  name="bookname"
+                  value={titleUpdate}
+                  onChange={(e) => setTitleUpdate(e.target.value)}
+                />
+
+                <label htmlFor="author">Tác giả</label>
+                <input
+                  type="text"
+                  id="author"
+                  name="author"
+                  value={authorUpdate && authorUpdate?.join('; ')}
+                  onChange={(e) => setAuthorUpdate(e.target.value?.split('; '))}
+                />
+
+                <label htmlFor="genre">Thể loại</label>
+                <div className={cx('GenreList')}>
+                  {categories?.map((category, index) => (
+                    <label className={cx('form-control')} key={index}>
+                      <input
+                        type="checkbox"
+                        name="checkbox"
+                        value={category.code}
+                        checked={bookUpdate.tags?.find((e) => e.code === category.code)}
+                        onChange={handleTagUpdateCheck}
+                      />
+                      {category.name}
+                    </label>
+                  ))}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div className={cx('Right')}>
+          <div className={cx('content')}>
+            <div className={cx('info')}>
+              <form>
+                <label htmlFor="summary">Tóm tắt</label>
+                <textarea
+                  id="story"
+                  name="story"
+                  onChange={(e) => setDescriptionUpdate(e.target.value)}
+                  defaultValue={descriptionUpdate}
+                ></textarea>
+                <label htmlFor="coverbook">Ảnh bìa</label>
+                <div className={cx('cover')}>
+                  <Upload
+                    maxCount={1}
+                    name="avatar"
+                    listType="picture-card"
+                    className="avatar-uploader"
+                    showUploadList={false}
+                    action={`${uploadApi}/admin/upload-cover`}
+                    headers={{ Authorization: `Bearer ${Cookies.get('token')}` }}
+                    beforeUpload={beforeUpload}
+                    onChange={handleUpload}
+                  >
+                    {coverUpdate ? (
+                      <img
+                        src={coverUpdate}
+                        alt="cover"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                        }}
+                      />
+                    ) : (
+                      // <Button icon={<UploadOutlined />}>Tải lên ảnh bìa</Button>
+                      uploadButton
+                    )}
+                    <Button icon={<UploadOutlined />}></Button>
+                  </Upload>
+                </div>
+
+                <label htmlFor="publisher">Nhà xuất bản</label>
+                <input
+                  type="text"
+                  id="publisher"
+                  name="publisher"
+                  value={publisherUpdate}
+                  onChange={(e) => setPublisherUpdate(e.target.value)}
+                />
+
+                <label htmlFor="date">Ngày xuất bản</label>
+                <div>
+                  <DatePicker
+                    onChange={onChangeDateUpdate}
+                    defaultValue={publishDateUpdate ? dayjs(publishDateUpdate) : null}
+                    value={publishDateUpdate ? dayjs(publishDateUpdate) : null}
+                    format={dateFormat}
+                  />
+                </div>
+                <br />
+
+                <label htmlFor="pages">Số trang</label>
+                <input
+                  type="text"
+                  id="pages"
+                  name="pages"
+                  value={pageCountUpdate}
+                  onChange={(e) => setPageCountUpdate(e.target.value)}
+                />
+
+                <label htmlFor="buylink">Liên kết tới nơi bán</label>
+                <input
+                  type="text"
+                  id="buylink"
+                  name="buylink"
+                  value={buyLinkUpdate}
+                  onChange={(e) => setBuyLinkUpdate(e.target.value)}
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  );
+
+  const handleSelectBook = (book) => {
+    adminApi.getBookDetails(book.id, token).then((res) => {
+      if (res.data.code !== 200) {
+        return toast.error('Error occurred');
+      }
+      const bookUpdate = res.data.result;
+      setBookUpdate(bookUpdate);
+      setCoverUpdate(bookUpdate.cover);
+      setTitleUpdate(bookUpdate.title);
+      setAuthorUpdate(bookUpdate.author);
+      setDescriptionUpdate(bookUpdate.description);
+      setPublisherUpdate(bookUpdate.publisher);
+      setPublishDateUpdate(bookUpdate.publishDate);
+      setPageCountUpdate(bookUpdate.pageCount);
+      setBuyLinkUpdate(bookUpdate.buyLink);
+      setOpen(true);
+    });
   };
 
   const handleSubmit = (e) => {
@@ -232,9 +405,49 @@ export default function BooksManagementMod() {
       });
   };
 
+  const handleUpdate = () => {
+    console.log(authorUpdate);
+    const data = {
+      title: titleUpdate,
+      cover: coverUpdate,
+      tags: selectedCategoriesUpdate,
+      author: authorUpdate,
+      translator: translatorUpdate,
+      description: descriptionUpdate,
+      publisher: publisherUpdate,
+      publishDate: publishDateUpdate,
+      pageCount: pageCountUpdate,
+      buyLink: buyLinkUpdate,
+    };
+
+    adminApi
+      .updateBook(bookUpdate.id, data, token)
+      .then((response) => {
+        if (response?.data.code === 201) {
+          toast.success('Cập nhật thành công');
+          forceUpdate();
+          setBookUpdate({});
+          setOpen(false);
+        }
+      })
+      .catch((error) => {
+        const msg = error.response.data.message ? error.response.data.message : 'Error occured';
+        toast.error(msg);
+      });
+  };
+
+  const onChangeDate = (date, dateString) => {
+    setPublishDate(date.toDate());
+  };
+
+  const onChangeDateUpdate = (date, dateString) => {
+    setPublishDateUpdate(date.toDate());
+  };
+
   return (
     <>
       <div className={cx('bookmanagement')}>
+        {UpdateModal()}
         <div className={cx('title')}>Sách</div>
         <div className={cx('tab')}>
           <Tabs
@@ -355,6 +568,13 @@ export default function BooksManagementMod() {
                               />
                             </div>
                             <br />
+                            {/* <input
+                              type="text"
+                              id="date"
+                              name="date"
+                              value={publishDate}
+                              onChange={(e) => setPublishDate(e.target.value)}
+                            /> */}
 
                             <label htmlFor="pages">Số trang</label>
                             <input
@@ -438,78 +658,7 @@ export default function BooksManagementMod() {
                               <td>{book.pageCount}</td>
                               <td>
                                 <span>
-                                  <Button onClick={() => setOpen(true)} type="link" icon={<EditOutlined />} />
-                                  <Modal
-                                    title="Chỉnh sửa thông tin sách"
-                                    centered
-                                    open={open}
-                                    onOk={() => setOpen(false)}
-                                    onCancel={() => setOpen(false)}
-                                    width={1280}
-                                  >
-                                    <div className={cx('column')}>
-                                      <div className={cx('Left')}>
-                                        <div className={cx('content')}>
-                                          <div className={cx('info')}>
-                                            <form>
-                                              <label htmlFor="bookname">Tên sách</label>
-                                              <input type="text" id="bookname" name="bookname" />
-
-                                              <label htmlFor="author">Tác giả</label>
-                                              <input type="text" id="author" name="author" />
-
-                                              <label htmlFor="genre">Thể loại</label>
-                                              <div className={cx('GenreList')}>
-                                                {categories?.map((category, index) => (
-                                                  <label className={cx('form-control')} key={index}>
-                                                    <input type="checkbox" name="checkbox" value={category.code} />
-                                                    {category.name}
-                                                  </label>
-                                                ))}
-                                              </div>
-                                              {/* <label htmlFor="summary">Tóm tắt</label>
-                                              <textarea id="story" name="story"></textarea> */}
-                                            </form>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div className={cx('Right')}>
-                                        <div className={cx('content')}>
-                                          <div className={cx('info')}>
-                                            <form>
-                                              <label htmlFor="summary">Tóm tắt</label>
-                                              <textarea id="story" name="story"></textarea>
-                                              <label htmlFor="coverbook">Ảnh bìa</label>
-                                              <div className={cx('cover')}>
-                                                <Upload
-                                                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                                  listType="picture"
-                                                  maxCount={1}
-                                                >
-                                                  <Button icon={<UploadOutlined />}>Tải lên ảnh bìa</Button>
-                                                </Upload>
-                                              </div>
-
-                                              <label htmlFor="publisher">Nhà xuất bản</label>
-                                              <input type="text" id="publisher" name="publisher" />
-
-                                              <label htmlFor="date">Ngày xuất bản</label>
-                                              <div>
-                                                <DatePicker onChange={onChange} />
-                                              </div>
-                                              <br />
-
-                                              <label htmlFor="pages">Số trang</label>
-                                              <input type="text" id="pages" name="pages" />
-
-                                              <label htmlFor="buylink">Liên kết tới nơi bán</label>
-                                              <input type="text" id="buylink" name="buylink" />
-                                            </form>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </Modal>
+                                  <Button onClick={() => handleSelectBook(book)} type="link" icon={<EditOutlined />} />
                                 </span>
                                 <span>
                                   <Button

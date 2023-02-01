@@ -53,7 +53,7 @@ export default function ViewMore() {
           </p>
           <div className={cx('lBook')}>
             {displayBooks?.map((book, index) => (
-              <a href={`/${book.id}`} key={index}>
+              <a href={`/book/${book.id}`} key={index}>
                 <img src={book.cover} alt="cover" />
               </a>
             ))}
