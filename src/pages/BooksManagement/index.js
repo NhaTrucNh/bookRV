@@ -167,25 +167,29 @@ export default function BooksManagement() {
     console.log(key);
   };
 
-  useEffect(() => {
-    console.log(selectedCategories);
-  }, [selectedCategories]);
+  // useEffect(() => {
+  //   console.log(selectedCategories);
+  // }, [selectedCategories]);
+
+  // useEffect(() => {
+  //   console.log(selectedCategoriesUpdate);
+  // }, [selectedCategoriesUpdate]);
 
   const handleTagCheck = (e) => {
-    const { value, checked } = e.target;
+    const { id, name, checked } = e.target;
     if (checked) {
-      setSelectedCategories([...selectedCategories, { code: value }]);
+      setSelectedCategories([...selectedCategories, { name, code: id }]);
     } else {
-      setSelectedCategories(selectedCategories.filter((category) => category !== value));
+      setSelectedCategories(selectedCategories.filter((category) => category.code !== id));
     }
   };
 
   const handleTagUpdateCheck = (e) => {
-    const { value, checked } = e.target;
+    const { id, name, checked } = e.target;
     if (checked) {
-      setSelectedCategoriesUpdate([...selectedCategoriesUpdate, { code: value }]);
+      setSelectedCategoriesUpdate([...selectedCategoriesUpdate, { name, code: id }]);
     } else {
-      setSelectedCategoriesUpdate(selectedCategoriesUpdate.filter((category) => category !== value));
+      setSelectedCategoriesUpdate(selectedCategoriesUpdate.filter((category) => category.code !== id));
     }
   };
 
@@ -226,7 +230,10 @@ export default function BooksManagement() {
       centered
       open={open}
       onOk={() => handleUpdate()}
-      onCancel={() => setOpen(false)}
+      onCancel={() => {
+        unselectBook();
+        setOpen(false);
+      }}
       width={1280}
     >
       <div className={cx('column')}>
@@ -258,9 +265,9 @@ export default function BooksManagement() {
                     <label className={cx('form-control')} key={index}>
                       <input
                         type="checkbox"
-                        name="checkbox"
-                        value={category.code}
-                        checked={bookUpdate.tags?.find((e) => e.code === category.code)}
+                        id={category.code}
+                        name={category.name}
+                        checked={selectedCategoriesUpdate.find((e) => e.code === category.code)}
                         onChange={handleTagUpdateCheck}
                       />
                       {category.name}
@@ -368,12 +375,27 @@ export default function BooksManagement() {
       setTitleUpdate(bookUpdate.title);
       setAuthorUpdate(bookUpdate.author);
       setDescriptionUpdate(bookUpdate.description);
+      setSelectedCategoriesUpdate(bookUpdate.tags);
       setPublisherUpdate(bookUpdate.publisher);
       setPublishDateUpdate(bookUpdate.publishDate);
       setPageCountUpdate(bookUpdate.pageCount);
       setBuyLinkUpdate(bookUpdate.buyLink);
       setOpen(true);
     });
+  };
+
+  const unselectBook = () => {
+    setBookUpdate({});
+    setCoverUpdate('');
+    setTitleUpdate('');
+    setAuthorUpdate([]);
+    setDescriptionUpdate('');
+    setSelectedCategoriesUpdate([]);
+    setPublisherUpdate('');
+    setPublishDateUpdate(null);
+    setPageCountUpdate('');
+    setBuyLinkUpdate('');
+    setOpen(true);
   };
 
   const handleSubmit = (e) => {
@@ -406,7 +428,6 @@ export default function BooksManagement() {
   };
 
   const handleUpdate = () => {
-    console.log(authorUpdate);
     const data = {
       title: titleUpdate,
       cover: coverUpdate,
@@ -496,7 +517,8 @@ export default function BooksManagement() {
                                 <label className={cx('form-control')} key={index}>
                                   <input
                                     type="checkbox"
-                                    value={category.code}
+                                    id={category.code}
+                                    name={category.name}
                                     checked={selectedCategories.find((e) => e === category.code)}
                                     onChange={handleTagCheck}
                                   />
