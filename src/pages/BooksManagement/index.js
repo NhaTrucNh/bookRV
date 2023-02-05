@@ -167,13 +167,13 @@ export default function BooksManagement() {
     console.log(key);
   };
 
-  // useEffect(() => {
-  //   console.log(selectedCategories);
-  // }, [selectedCategories]);
+  useEffect(() => {
+    console.log(selectedCategories);
+  }, [selectedCategories]);
 
-  // useEffect(() => {
-  //   console.log(selectedCategoriesUpdate);
-  // }, [selectedCategoriesUpdate]);
+  useEffect(() => {
+    console.log(selectedCategoriesUpdate);
+  }, [selectedCategoriesUpdate]);
 
   const handleTagCheck = (e) => {
     const { id, name, checked } = e.target;
@@ -189,7 +189,7 @@ export default function BooksManagement() {
     if (checked) {
       setSelectedCategoriesUpdate([...selectedCategoriesUpdate, { name, code: id }]);
     } else {
-      setSelectedCategoriesUpdate(selectedCategoriesUpdate.filter((category) => category.code !== id));
+      setSelectedCategoriesUpdate(selectedCategoriesUpdate?.filter((category) => category.code !== id));
     }
   };
 
@@ -262,12 +262,12 @@ export default function BooksManagement() {
                 <label htmlFor="genre">Thể loại</label>
                 <div className={cx('GenreList')}>
                   {categories?.map((category, index) => (
-                    <label className={cx('form-control')} key={index}>
+                    <label className={cx('form-control')} key={bookUpdate.id + index}>
                       <input
                         type="checkbox"
                         id={category.code}
                         name={category.name}
-                        checked={selectedCategoriesUpdate.find((e) => e.code === category.code)}
+                        checked={selectedCategoriesUpdate?.find((e) => e.code === category.code)}
                         onChange={handleTagUpdateCheck}
                       />
                       {category.name}
@@ -370,6 +370,7 @@ export default function BooksManagement() {
         return toast.error('Error occurred');
       }
       const bookUpdate = res.data.result;
+      console.log(bookUpdate);
       setBookUpdate(bookUpdate);
       setCoverUpdate(bookUpdate.cover);
       setTitleUpdate(bookUpdate.title);
@@ -395,7 +396,7 @@ export default function BooksManagement() {
     setPublishDateUpdate(null);
     setPageCountUpdate('');
     setBuyLinkUpdate('');
-    setOpen(true);
+    setOpen(false);
   };
 
   const handleSubmit = (e) => {

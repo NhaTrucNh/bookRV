@@ -75,7 +75,7 @@ export default function Review() {
       reviewApi
         .createReview(data, token)
         .then((response) => {
-          if (response?.data.code === 200) {
+          if (response?.data.code === 201) {
             toast.success('Đánh giá thành công');
             navigate(`/book/${id}`);
           }

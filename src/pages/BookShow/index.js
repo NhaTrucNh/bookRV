@@ -64,6 +64,10 @@ function BookShow() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(book);
+  }, [book]);
+
   const handleUpdateCollection = (collection) => {
     const token = Cookies.get('token');
     userApi.updateCollection(id, collection, token).then((res) => {
@@ -298,7 +302,12 @@ function BookShow() {
                       {userReview ? (
                         <>
                           <div className={cx('Rate')}>
-                            <Rate style={{ fontSize: 30 }} defaultValue={userReview?.rating} onChange={handleRate} />
+                            <Rate
+                              allowHalf
+                              style={{ fontSize: 30 }}
+                              defaultValue={userReview?.rating}
+                              onChange={handleRate}
+                            />
                             <p>Xếp hạng quyển sách này</p>
                           </div>
                           <a href={`/review/${book.id}/`} className={cx('WriteBtn')}>
@@ -310,7 +319,7 @@ function BookShow() {
                       ) : (
                         <>
                           <div className={cx('Rate')}>
-                            <Rate style={{ fontSize: 30 }} defaultValue={0} onChange={handleRate} />
+                            <Rate allowHalf style={{ fontSize: 30 }} defaultValue={0} onChange={handleRate} />
                             <p>Xếp hạng quyển sách này</p>
                             <a href={`/review/${book.id}/`} className={cx('WriteBtn')}>
                               <button className={cx('write')}>Viết bình luận</button>
@@ -477,7 +486,7 @@ function BookShow() {
                         <div className={cx('ReviewCardContent')}>
                           <div className={cx('ReviewCard_Row')}>
                             <div className={cx('ShelfStatus')}>
-                              <Rate disabled defaultValue={review.rating} />
+                              <Rate allowHalf disabled defaultValue={review.rating} />
                             </div>
                             <div className={cx('TextDate')}>{dayjs(review.createdAt).format('DD/MM/YYYY')}</div>
                           </div>
