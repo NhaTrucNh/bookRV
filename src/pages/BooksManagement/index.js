@@ -34,11 +34,11 @@ const getBase64 = (img, callback) => {
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isJpgOrPng) {
-    toast.error('You can only upload JPG/PNG file!');
+    toast.error('Bạn chỉ được tải ảnh có định dạng JPG/PNG!');
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    toast.error('Image must smaller than 2MB!');
+    toast.error('Dung lượng ảnh phải nhỏ hơn 2MB!');
   }
   return isJpgOrPng && isLt2M;
 };
