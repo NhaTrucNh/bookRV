@@ -462,7 +462,7 @@ function BookShow() {
               </div>
               {reviews?.length > 0 &&
                 reviews.map((review, index) => {
-                  if (review.content)
+                  if (review.content && review.userObj)
                     return (
                       <div className={cx('ReviewList')} key={index}>
                         <div className={cx('ReviewerProfile')}>
